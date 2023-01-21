@@ -1,0 +1,5 @@
+cluster.yaml
+.env
+.envrc
+.cert
+.key

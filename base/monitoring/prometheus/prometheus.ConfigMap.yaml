@@ -1,0 +1,220 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+    app.kubernetes.io/component: prometheus
+  name: prometheus
+data:
+  prometheus.yml: |
+    # Prometheus global config
+    global:
+      scrape_interval:     30s
+      evaluation_interval: 30s
+      # scrape_timeout is set to the global default (10s).
+
+    # Alertmanager configuration
+    alerting:
+      alertmanagers:
+        # bundled alertmanager, started by prom-wrapper
+        - static_configs:
+            - targets: ['127.0.0.1:9093']
+          path_prefix: /alertmanager
+        # add more alertmanagers here
+
+    # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+    rule_files:
+      - '/sg_config_prometheus/*_rules.yml'
+      - '/sg_prometheus_add_ons/*_rules.yml'
+
+    # Configure targets to scrape
+    scrape_configs:
+      # Scrape prometheus itself for metrics.
+      - job_name: 'builtin-prometheus'
+        static_configs:
+          - targets: ['127.0.0.1:9092']
+      - job_name: 'builtin-alertmanager'
+        metrics_path: /alertmanager/metrics
+        static_configs:
+          - targets: ['127.0.0.1:9093']
+
+      - job_name: 'sg'
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: instance
+            regex: (.*)\.(.*)
+            replacement: ${1}_${2}
+        file_sd_configs:
+          - files:
+              - '/sg_prometheus_add_ons/*_targets.yml'
+
+  prometheus_targets.yml: |
+    - labels:
+        nodename: "sourcegraph-services"
+        job: node
+      targets:
+        - cadvisor:8080
+        - sourcegraph-frontend-internal:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: github-proxy
+      targets:
+        - github-proxy:80
+    - labels:
+        nodename: "sourcegraph-services"
+        job: repo-updater
+      targets:
+        - repo-updater:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: worker
+      targets:
+        - worker:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: worker-executors
+      targets:
+        - worker:6996
+    - labels:
+        nodename: "sourcegraph-services"
+        job: node
+      targets:
+        - syntect-server:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: precise-code-intel-worker
+      targets:
+        - precise-code-intel-worker:6060
+        # Add new entries here for every searcher/symbol/gitserver replica.
+    - labels:
+        nodename: "sourcegraph-services"
+        job: zoekt-indexserver
+      targets:
+        - indexed-search-0.indexed-search:6072
+        - indexed-search-1.indexed-search:6072
+        - indexed-search-2.indexed-search:6072
+        - indexed-search-3.indexed-search:6072
+        - indexed-search-4.indexed-search:6072
+        - indexed-search-5.indexed-search:6072
+        - indexed-search-6.indexed-search:6072
+        - indexed-search-7.indexed-search:6072
+        - indexed-search-8.indexed-search:6072
+        - indexed-search-9.indexed-search:6072
+        - indexed-search-10.indexed-search:6072
+    - labels:
+        nodename: "sourcegraph-services"
+        job: zoekt-webserver
+      targets:
+        - indexed-search-0.indexed-search:6070
+        - indexed-search-1.indexed-search:6070
+        - indexed-search-2.indexed-search:6070
+        - indexed-search-3.indexed-search:6070
+        - indexed-search-4.indexed-search:6070
+        - indexed-search-5.indexed-search:6070
+        - indexed-search-6.indexed-search:6070
+        - indexed-search-7.indexed-search:6070
+        - indexed-search-8.indexed-search:6070
+        - indexed-search-9.indexed-search:6070
+        - indexed-search-10.indexed-search:6070
+    - labels:
+        nodename: "sourcegraph-services"
+        job: sourcegraph-frontend
+      targets:
+        - sourcegraph-frontend-0.sourcegraph-frontend:6060
+        - sourcegraph-frontend-1.sourcegraph-frontend:6060
+        - sourcegraph-frontend-2.sourcegraph-frontend:6060
+        - sourcegraph-frontend-3.sourcegraph-frontend:6060
+        - sourcegraph-frontend-4.sourcegraph-frontend:6060
+        - sourcegraph-frontend-5.sourcegraph-frontend:6060
+        - sourcegraph-frontend-6.sourcegraph-frontend:6060
+        - sourcegraph-frontend-7.sourcegraph-frontend:6060
+        - sourcegraph-frontend-8.sourcegraph-frontend:6060
+        - sourcegraph-frontend-9.sourcegraph-frontend:6060
+        - sourcegraph-frontend-10.sourcegraph-frontend:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: gitserver
+      targets:
+        - gitserver-0.gitserver:6060
+        - gitserver-1.gitserver:6060
+        - gitserver-2.gitserver:6060
+        - gitserver-3.gitserver:6060
+        - gitserver-4.gitserver:6060
+        - gitserver-5.gitserver:6060
+        - gitserver-6.gitserver:6060
+        - gitserver-7.gitserver:6060
+        - gitserver-8.gitserver:6060
+        - gitserver-9.gitserver:6060
+        - gitserver-10.gitserver:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: searcher
+      targets:
+        - searcher-0.searcher:6060
+        - searcher-1.searcher:6060
+        - searcher-2.searcher:6060
+        - searcher-3.searcher:6060
+        - searcher-4.searcher:6060
+        - searcher-5.searcher:6060
+        - searcher-6.searcher:6060
+        - searcher-7.searcher:6060
+        - searcher-8.searcher:6060
+        - searcher-9.searcher:6060
+        - searcher-10.searcher:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: symbols
+      targets:
+        - symbols-0.symbols:6060
+        - symbols-1.symbols:6060
+        - symbols-2.symbols:6060
+        - symbols-3.symbols:6060
+        - symbols-4.symbols:6060
+    - labels:
+        nodename: "sourcegraph-services"
+        job: pgsql
+      targets:
+        - pgsql:9187
+    - labels:
+        nodename: "sourcegraph-services"
+        job: codeintel-db
+      targets:
+        - codeintel-db:9187
+    - labels:
+        nodename: "sourcegraph-services"
+        job: codeinsights-db
+      targets:
+        - codeinsights-db:9187
+    - labels:
+        nodename: "sourcegraph-services"
+        job: redis-cache
+      targets:
+        - redis-cache:9121
+    - labels:
+        nodename: "sourcegraph-services"
+        job: redis-store
+      targets:
+        - redis-store:9121
+    - labels:
+        nodename: "sourcegraph-services"
+        job: node-exporter
+      targets:
+        - node-exporter:9100
+    - labels:
+        nodename: "sourcegraph-services"
+        job: otel-collector
+      targets:
+        - otel-collector:8888
+  extra_rules.yml: |
+    groups:
+    - name: docker.rules
+      rules:
+        - record: container:process_cpu_seconds_total:ratio_rate5m
+          expr: sum by (instance) (rate(process_cpu_seconds_total[5m])) / engine_daemon_engine_cpus_cpus
+        - record: container:process_cpu_seconds_total:sum
+          expr: sum by (instance) (irate(process_cpu_seconds_total[1m]))
+        - record: container:process_resident_memory_bytes:max
+          expr: max by (instance) (process_resident_memory_bytes)
+        - record: container:process_virtual_memory_bytes:max
+          expr: max by (instance) (process_virtual_memory_bytes)

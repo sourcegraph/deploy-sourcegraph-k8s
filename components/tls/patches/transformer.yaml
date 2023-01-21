@@ -1,0 +1,10 @@
+varReference:
+  - kind: Ingress
+    name: sourcegraph-frontend
+    path: spec/rules/host
+  - kind: Ingress
+    name: sourcegraph-frontend
+    path: metadata/annotations
+  - kind: Ingress
+    name: sourcegraph-frontend
+    path: spec/ingressClassName

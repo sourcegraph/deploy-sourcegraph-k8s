@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    description: Backend for text search operations.
+    kubectl.kubernetes.io/default-container: searcher
+  labels:
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+    app.kubernetes.io/component: searcher
+  name: searcher
+spec:
+  serviceName: searcher
+  minReadySeconds: 10
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: searcher
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        deploy: sourcegraph
+        app: searcher
+    spec:
+      securityContext:
+        runAsUser: 100
+        fsGroup: 101
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: searcher
+          env:
+            # - name: SEARCHER_CACHE_SIZE_MB
+            #   value: "500000"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: CACHE_DIR
+              value: /mnt/cache/$(POD_NAME)
+            # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable
+            - name: OTEL_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://$(OTEL_AGENT_HOST):4317
+          image: index.docker.io/sourcegraph/searcher:187572_2022-12-06_cbecc5321c7d@sha256:c0d7b580c31e956dc586e3947edd2afb850cf5954e83010236294c57478256da
+          terminationMessagePolicy: FallbackToLogsOnError
+          ports:
+            - containerPort: 3181
+              name: http
+            - containerPort: 6060
+              name: debug
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2G
+            requests:
+              cpu: 500m
+              memory: 500M
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 101
+            runAsUser: 100
+          volumeMounts:
+            - mountPath: /mnt/cache
+              name: cache-ssd
+      volumes:
+        - emptyDir: {}
+          name: cache-ssd
+  volumeClaimTemplates:
+    - metadata:
+        name: cache-ssd
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50G
+        storageClassName: sourcegraph

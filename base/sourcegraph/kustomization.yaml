@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - blobstore
+  - codeinsights-db
+  - codeintel-db
+  - frontend
+  - github-proxy
+  - gitserver
+  - indexed-search
+  - pgsql
+  - precise-code-intel
+  - redis
+  - repo-updater
+  - searcher
+  - symbols
+  - syntect-server
+  - worker
+  # - kustomize.ConfigMap.yaml
+
+generatorOptions:
+  labels:
+    name: sourcegraph-kustomize-configs
+configMapGenerator:
+  - name: sourcegraph-kustomize-env
+    literals:
+      - deploy=sourcegraph
