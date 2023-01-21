@@ -10,10 +10,10 @@ If you have this repository cloned locally, check out a version branch that supp
 
 ```sh
 # Replace xs with your instance size
-kubectl kustomize new/quick-start/k3s/xs -o new/generated-cluster.yaml
+kubectl kustomize /quick-start/k3s/xs -o /cluster.yaml
 ```
 
-The manifests will be grouped and exported to the new/generated-cluster.yaml directory.
+The manifests will be grouped and exported to the /cluster.yaml directory.
 
 ### Remote build
 
@@ -22,7 +22,7 @@ You can generate the manifests without cloning the repository using the kustomiz
 ```sh
 # Replace xs with your instance size
 # Replace bee/newBase to a version branch that support this overlay
-kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph/new/quick-start/k3s/xs?ref=bee/newBase -o preview-cluster.yaml
+kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph/quick-start/k3s/xs?ref=bee/newBase -o preview-cluster.yaml
 ```
 
 The manifests will be grouped and exported to the preview-cluster.yaml file in the directory where you run the command from.

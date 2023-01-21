@@ -4,8 +4,8 @@ kind: Kustomization
 #
 # HOW TO USE:
 #
-# Follow our docs to uncomment the components/section below
-# to configure your Sourcegraph deployment
+# To configure your Sourcegraph deployment, uncomment the components/section
+# below following the instruction in our configuration docs.
 #
 # Docs:
 # https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure
@@ -29,6 +29,19 @@ components:
   # RBACs required
   - ../../components/monitoring
 
+  # Deploy cadvisor
+  # privileged and RBAC required
+  - ../../components/monitoring/cadvisor
+
+  # Create a namespace base on the namespace value in NAMESPACE section above
+  - ../../components/namespace
+
+  # Remove all services with daemonsets resources: node-exporter and otel
+  - ../../components/remove/daemonset
+
+  # Run Sourcegraph with privileged and root access
+  - ../../components/privileged
+
   # Update the following env vars in the **FRONTEND ENV VARS**
   # section located at the bottom of this file:
   # - PRIVATE_REGISTRY
@@ -40,12 +53,6 @@ components:
 
   # Use nodeport 30080
   - ../../components/nodeport/30080
-
-  # Remove all daemonsets resources
-  - ../../components/remove/daemonset
-
-  # Remove cadvisor
-  - ../../components/remove/cadvisor
 
   # Remove the default ingress from frontend
   - ../../components/remove/default-ingress
@@ -71,9 +78,14 @@ components:
   - ../../components/ssh/root # Root user
 
   # Create storage class resources for cloud providers
+  #
+  # Do not include more than one storage class from this list
   - ../../components/storage-class/aws # For aws
   - ../../components/storage-class/azure # For azure
   - ../../components/storage-class/gcp # For gcp
+  - ../../components/storage-class/trident/ext3 # For Trident fsType ext3
+  - ../../components/storage-class/trident/ext4 # For Trident fsType ext4
+  - ../../components/storage-class/trident/xfs # For Trident fsType xfs
 
   # For other cloud providers
   #
@@ -98,23 +110,30 @@ components:
   # - TLS_HOST
   # - TLS_INGRESS_CLASS_NAME
   # - TLS_CLUSTER_ISSUER
-
+  #
   # Add tls.crt & tls.key to the config directory
   # Then uncomment all TLS fields in "secretGenerator" section below
   - ../../components/tls
 
-  # Add tls.crt & tls.key to the config directory
-  # Then uncomment all TLS fields in "secretGenerator" section below
-  - ../../components/uid
+  # Set hostname for your Sourcegraph ingress
+  #
+  # Update env vars below in the **FRONTEND ENV VARS**
+  # section located at the bottom of this file:
+  # - HOST_DOMAIN=your.company.com
+  - ../../components/hostname
 
   # Run as arbitrary users in all Postgres database
+  - ../../components/uid
+
+  # Enable service-discovery for frontend service
+  # It is strongly recommended for cluster with RBAC enabled.
   - ../../components/enable/service-discovery
 
 ############################################################################
 # UPDATE REPLICA COUNTS
+#
+# Services that are not in the list below do not require more than 1 replica
 ############################################################################
-# Services that are not in the list below do not require
-# more than one replica
 replicas:
   - name: gitserver
     count: 1
@@ -131,15 +150,25 @@ replicas:
 
 ############################################################################
 # UPDATE CONFIGMAP
+#
+# Create a directory `patches` and then copy the required files when
+# instructed by the configuration docs
 ############################################################################
 patchesStrategicMerge:
   - patches/prometheus.ConfigMap.yaml
   - patches/pgsql.ConfigMap.yaml
   - patches/otel-collector.ConfigMap.yaml
   - patches/custom.NodePort.yaml
-#
+
 ############################################################################
 # UPDATE ANNOTATIONS
+#
+# When instructed by the configuration docs to set up the necessary files
+# for configuring your Sourcegraph instance:
+# 1. Create a directory called 'patches': mkdir patches
+# 2. Create the required files within the 'patches' directory
+# This will ensure the files are in the correct location for the
+# configuration process to access them.
 ############################################################################
 patchesJson6902:
   - target:
@@ -179,6 +208,7 @@ secretGenerator:
 
 ############################################################################
 # DO NOT REMOVE: Handle updating endpoints configs for frontend
+# NO CHANGES REQUIRED FOR THIS SECTION
 ############################################################################
 replacements:
   - source:
@@ -217,12 +247,12 @@ replacements:
           - data.SYMBOLS_REPLICA_COUNT
 
 ############################################################################
-# CONFIGURATIONS FOR OVERLAY COMPONENTS
+# OVERLAY CONFIGURATIONS
+#
+# Enter the configuration values as instructed by components used
+# Always refer to the component’s documentation or comments before updating
 ############################################################################
 configMapGenerator:
-  - name: sourcegraph-frontend-env
-    behavior: merge
-    env: env/frontend.env
   # Handle updating configs using env vars for kustomize
   - name: sourcegraph-kustomize-env
     behavior: merge
@@ -235,9 +265,16 @@ configMapGenerator:
       # - STORAGECLASS_PROVISIONER=
       # - STORAGECLASS_PARAM_TYPE=
       # - PRIVATE_REGISTRY=
+      # - AWS_MANAGED_CERT_ARN=
+      # - GKE_MANAGED_CERT_NAME=
+      #  - HOST_DOMAIN=sourcegraph.company.com
 
   ############################################################################
   # FRONTEND ENV VARS
+  #
+  # Update environment variables for the sourcegraph-frontend service here
+  # These environment variables are used to configure your Sourcegraph instance,
+  # such as authentication and authorization settings, feature flags, and more.
   ############################################################################
   # Handle updating env vars for frontend
   - name: sourcegraph-frontend-env
