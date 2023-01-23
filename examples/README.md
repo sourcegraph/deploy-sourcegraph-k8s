@@ -9,7 +9,7 @@ This directory provides overlays that are ready to use for installing a pre-conf
 To build manifests using an overlay without applying them to your cluster:
 
 ```bash
-kubectl kustomize /quick-start/$OVERLAY_NAME -o cluster.yaml
+kubectl kustomize /examples/$OVERLAY_NAME -o cluster.yaml
 ```
 
 ### Deploy

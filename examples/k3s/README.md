@@ -1,8 +1,6 @@
-# Privileged Overlay
+# K3s Overlay
 
-An overlay to enable service discover for frontend. It also starts all non-monitoring services with root user and allows privilege.
-
-IMPORTANT: RBACs must be enabled for your cluster to use this overlay.
+An overlay to start a pre-configured Sourcegraph instance for deploying to a k3s cluster.
 
 ## How to use
 
@@ -12,7 +10,7 @@ If you have this repository cloned locally, check out a version branch that supp
 
 ```sh
 # Replace xs with your instance size
-kubectl kustomize /quick-start/privileged/xs -o cluster.yaml
+kubectl kustomize /examples/k3s/xs -o cluster.yaml
 ```
 
 The manifests will be grouped and exported to the cluster.yaml directory.
@@ -24,7 +22,7 @@ You can generate the manifests without cloning the repository using the kustomiz
 ```sh
 # Replace xs with your instance size
 # Replace bee/newBase to a version branch that support this overlay
-kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph/quick-start/privileged/xs?ref=bee/newBase -o cluster.yaml
+kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph/examples/k3s/xs?ref=bee/newBase -o cluster.yaml
 ```
 
 The manifests will be grouped and exported to the cluster.yaml file in the directory where you run the command from.

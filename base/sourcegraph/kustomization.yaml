@@ -16,8 +16,7 @@ resources:
   - symbols
   - syntect-server
   - worker
-  # - kustomize.ConfigMap.yaml
-
+# Create config map for kustomize configuration
 generatorOptions:
   labels:
     name: sourcegraph-kustomize-configs
