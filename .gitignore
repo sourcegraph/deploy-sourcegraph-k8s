@@ -1,4 +1,6 @@
+cluster
 cluster.yaml
+generated-cluster
 .env
 .envrc
 .cert

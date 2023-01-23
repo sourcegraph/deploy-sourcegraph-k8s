@@ -25,12 +25,18 @@ namespace: default
 # COMPONENTS
 ############################################################################
 components:
-  # Add resources for Sourcegraph monitoring stacks
-  # RBACs required
+  # Add resources for Sourcegraph monitoring stack
+  # cadvisor is not included in mointoring stack by default
+  # NOTE: cadvisor only works with privilege
   - ../../components/monitoring
 
+  # Run Sourcegraph Monitoring Stack with privileged and root access
+  # Privilege and RBAC-enabled cluster required
+  # NOTE: Does not include cadvisor
+  - ../../components/monitoring/privileged
+
   # Deploy cadvisor
-  # privileged and RBAC required
+  # Privilege and RBAC-enabled cluster required
   - ../../components/monitoring/cadvisor
 
   # Create a namespace base on the namespace value in NAMESPACE section above
@@ -39,7 +45,11 @@ components:
   # Remove all services with daemonsets resources: node-exporter and otel
   - ../../components/remove/daemonset
 
+    # Remove all security-context fields
+  - ../../components/remove/security-context
+
   # Run Sourcegraph with privileged and root access
+  # Privilege and RBAC-enabled cluster required
   - ../../components/privileged
 
   # Update the following env vars in the **FRONTEND ENV VARS**
@@ -51,8 +61,11 @@ components:
   - ../../components/disable/rockskip # Disable
   - ../../components/enable/rockskip # Enable
 
-  # Use nodeport 30080
+  # Use nodeport 30080 for frontend
   - ../../components/nodeport/30080
+
+  # Use load balancer type for frontend
+  - ../../components/ingress/frontend-loadbalancer
 
   # Remove the default ingress from frontend
   - ../../components/remove/default-ingress
@@ -126,8 +139,19 @@ components:
   - ../../components/uid
 
   # Enable service-discovery for frontend service
-  # It is strongly recommended for cluster with RBAC enabled.
+  # It is strongly recommended for clusters with RBAC enabled.
+  # IMPORTANT: Comment the ENDPOINT UPDATE section when using this component
   - ../../components/enable/service-discovery
+
+  # Update and generate resources from the old cluster
+  # This includes:
+  # - the monitoring stack and cadvisor
+  # - searcher and symbols as Deployment
+  # - run as root, privilieged
+  # - include RBAC resources
+  # This should only be used to generate old cluster for comparision purpose
+  # IMPORTANT: Comment the ENDPOINT UPDATE section when using this component
+  - ../../components/old-cluster
 
 ############################################################################
 # UPDATE REPLICA COUNTS
@@ -207,8 +231,14 @@ secretGenerator:
       - additional.file
 
 ############################################################################
-# DO NOT REMOVE: Handle updating endpoints configs for frontend
+# ENDPOINT UPDATE
+#
+# Handle updating endpoints configs for frontend
 # NO CHANGES REQUIRED FOR THIS SECTION
+# Comment this section when:
+# - using the old-cluster
+# - service discovery enabled for frontend
+# - running in a RBAC enabled cluster
 ############################################################################
 replacements:
   - source:
@@ -267,7 +297,7 @@ configMapGenerator:
       # - PRIVATE_REGISTRY=
       # - AWS_MANAGED_CERT_ARN=
       # - GKE_MANAGED_CERT_NAME=
-      #  - HOST_DOMAIN=sourcegraph.company.com
+      #  - HOST_DOMAIN=
 
   ############################################################################
   # FRONTEND ENV VARS
@@ -280,5 +310,15 @@ configMapGenerator:
   - name: sourcegraph-frontend-env
     behavior: merge
     literals:
-      - DEPLOY_TYPE=kubernetes
       # Add env var as instructed below this line
+      # - PGDATABASE=
+      # - PGHOST=
+      # - PGPORT=
+      # - PGSSLMODE=
+      # - PGUSER=
+      # - CODEINSIGHTS_PGDATASOURCE=
+      # - CODEINTEL_PGDATABASE=
+      # - CODEINTEL_PGHOST=
+      # - CODEINTEL_PGPORT=
+      # - CODEINTEL_PGSSLMODE=
+      # - CODEINTEL_PGUSER=

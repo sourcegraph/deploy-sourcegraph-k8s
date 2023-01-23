@@ -1,30 +1,35 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
-- resources/frontend/sourcegraph-frontend.Role.yaml
-- resources/frontend/sourcegraph-frontend.RoleBinding.yaml
-- resources/frontend/sourcegraph-frontend.ServiceAccount.yaml
+  # - ../../base/monitoring
+  - resources/frontend/sourcegraph-frontend.Role.yaml
+  - resources/frontend/sourcegraph-frontend.RoleBinding.yaml
+  - resources/frontend/sourcegraph-frontend.ServiceAccount.yaml
 components:
-- ../searcher/deployment
-- ../symbols/deployment
+  - ../monitoring
+  - ../monitoring/cadvisor
+  - ../monitoring/rbacs
+  # Switch from StatefulSet to Deployment
+  - ../searcher/deployment
+  # Switch from StatefulSet to Deployment
+  - ../symbols/deployment
 patchesStrategicMerge:
-- patches/blobstore/blobstore.Deployment.yaml
-- patches/cadvisor/cadvisor.DaemonSet.yaml
-- patches/codeinsights-db/codeinsights-db.Deployment.yaml
-- patches/codeintel-db/codeintel-db.Deployment.yaml
-- patches/frontend/sourcegraph-frontend.ConfigMap.yaml
-- patches/frontend/sourcegraph-frontend.Deployment.yaml
-- patches/github-proxy/github-proxy.Deployment.yaml
-- patches/gitserver/gitserver.StatefulSet.yaml
-- patches/indexed-search/indexed-search.StatefulSet.yaml
-- patches/otel-collector/otel-collector.Deployment.yaml
-- patches/pgsql/pgsql.Deployment.yaml
-- patches/precise-code-intel/worker.Deployment.yaml
-- patches/redis/redis-cache.Deployment.yaml
-- patches/redis/redis-store.Deployment.yaml
-- patches/repo-updater/repo-updater.Deployment.yaml
-- patches/syntect-server/syntect-server.Deployment.yaml
-- patches/worker/worker.Deployment.yaml
+  - patches/blobstore/blobstore.Deployment.yaml
+  - patches/cadvisor/cadvisor.DaemonSet.yaml
+  - patches/codeinsights-db/codeinsights-db.Deployment.yaml
+  - patches/codeintel-db/codeintel-db.Deployment.yaml
+  - patches/frontend/sourcegraph-frontend.Deployment.yaml
+  - patches/github-proxy/github-proxy.Deployment.yaml
+  - patches/gitserver/gitserver.StatefulSet.yaml
+  - patches/indexed-search/indexed-search.StatefulSet.yaml
+  - patches/otel-collector/otel-collector.Deployment.yaml
+  - patches/pgsql/pgsql.Deployment.yaml
+  - patches/precise-code-intel/worker.Deployment.yaml
+  - patches/redis/redis-cache.Deployment.yaml
+  - patches/redis/redis-store.Deployment.yaml
+  - patches/repo-updater/repo-updater.Deployment.yaml
+  - patches/syntect-server/syntect-server.Deployment.yaml
+  - patches/worker/worker.Deployment.yaml
 # To support searcher and symbols as both statefulset and deployment
 patchesJson6902:
   - target:
@@ -69,4 +74,3 @@ patchesJson6902:
       group: apps
       version: v1
     path: patches/remove/securityContext-container-1.yaml
-  

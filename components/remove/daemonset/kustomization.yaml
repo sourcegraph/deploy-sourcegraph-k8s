@@ -9,12 +9,6 @@ patchesJson6902:
       - op: remove
         path: /spec
 patchesStrategicMerge:
-  # - |-
-  #   $patch: delete
-  #   apiVersion: apps/v1
-  #   kind: DaemonSet
-  #   metadata:
-  #     name: cadvisor
   - |-
     $patch: delete
     apiVersion: apps/v1
@@ -27,12 +21,6 @@ patchesStrategicMerge:
     kind: DaemonSet
     metadata:
       name: otel-agent
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: cadvisor
   - |-
     $patch: delete
     apiVersion: v1
@@ -63,3 +51,15 @@ patchesStrategicMerge:
     kind: Service
     metadata:
       name: otel-collector
+  # - |-
+  #   $patch: delete
+  #   apiVersion: apps/v1
+  #   kind: DaemonSet
+  #   metadata:
+  #     name: cadvisor
+  # - |-
+  #   $patch: delete
+  #   apiVersion: v1
+  #   kind: ServiceAccount
+  #   metadata:
+  #     name: cadvisor
