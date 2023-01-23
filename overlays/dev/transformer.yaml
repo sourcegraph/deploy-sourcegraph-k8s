@@ -1,6 +1,0 @@
-apiVersion: builtin
-kind: ReplacementTransformer
-metadata:
-  name: SourcegraphEndpointsTransformer
-replacements:
-  - path: endpoints-replacements.yaml

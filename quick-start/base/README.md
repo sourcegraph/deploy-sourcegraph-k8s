@@ -4,5 +4,5 @@ The base overlays are for deploying all Sourcegraph services from the base direc
 
 ```bash
 # NOTE: replace `xs` with your instance size.
-kubectl kustomize /quick-start/base/xs -o /cluster.yaml
+kubectl kustomize /quick-start/base/xs -o cluster.yaml
 ```

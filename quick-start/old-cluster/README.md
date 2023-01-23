@@ -10,8 +10,8 @@ Run the following command (pick a command for your instance size) from the root 
 
 ```sh
 # To generate manifests using the defaults values from the old base cluster:
-kubectl kustomize /quick-start/old-cluster -o /cluster.yaml
+kubectl kustomize /quick-start/old-cluster -o cluster.yaml
 
 # To generate manifests for the old base cluster:
-kubectl kustomize /quick-start/old-cluster -o /cluster.yaml
+kubectl kustomize /quick-start/old-cluster -o cluster.yaml
 ```
