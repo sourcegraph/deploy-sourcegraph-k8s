@@ -1,7 +1,27 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-resources:
-  - ../../../base/monitoring
-  # - ../../../base/monitoring/cadvisor
 components:
   - ../rbacs
+patchesJson6902:
+  - target:
+      kind: StatefulSet|Deployment
+      name: grafana|prometheus
+      group: apps
+      version: v1
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/securityContext
+        value:
+          runAsUser: 0
+      - op: remove
+        path: /spec/template/spec/containers/0/securityContext
+  - target:
+      kind: DaemonSet|Deployment
+      name: otel-agent|otel-collector
+      group: apps
+      version: v1
+    patch: |-
+      - op: remove
+        path: /spec/template/spec/securityContext
+      - op: remove
+        path: /spec/template/spec/containers/0/securityContext

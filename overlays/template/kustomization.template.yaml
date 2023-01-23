@@ -31,26 +31,36 @@ components:
   - ../../components/monitoring
 
   # Run Sourcegraph Monitoring Stack with privileged and root access
+  # This also adds RBAC resources to the Sourcegraph Monitoring Stack
   # Privilege and RBAC-enabled cluster required
   # NOTE: Does not include cadvisor
   - ../../components/monitoring/privileged
 
   # Deploy cadvisor
+  # Run with privilege
+  # Create service account with cluster admin role
   # Privilege and RBAC-enabled cluster required
   - ../../components/monitoring/cadvisor
 
   # Create a namespace base on the namespace value in NAMESPACE section above
   - ../../components/namespace
 
-  # Remove all services with daemonsets resources: node-exporter and otel
-  - ../../components/remove/daemonset
-
-    # Remove all security-context fields
-  - ../../components/remove/security-context
-
   # Run Sourcegraph with privileged and root access
   # Privilege and RBAC-enabled cluster required
   - ../../components/privileged
+
+  # Allocate resources based on instance size:
+  - ../../components/sizes/xs
+  - ../../components/sizes/s
+  - ../../components/sizes/m
+  - ../../components/sizes/l
+  - ../../components/sizes/xl
+
+  # Remove all services with daemonsets resources: node-exporter and otel
+  - ../../components/remove/daemonset
+
+  # Remove all security-context fields
+  - ../../components/remove/security-context
 
   # Update the following env vars in the **FRONTEND ENV VARS**
   # section located at the bottom of this file:
