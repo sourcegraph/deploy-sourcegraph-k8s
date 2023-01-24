@@ -2,10 +2,7 @@
 
 [![sourcegraph: search](https://img.shields.io/badge/sourcegraph-search-brightgreen.svg)](https://sourcegraph.com/github.com/sourcegraph/deploy-sourcegraph) [![master build status](https://badge.buildkite.com/018ed23ed79d7297e7dd109b745597c58d875323fb06e81786.svg?branch=master)](https://buildkite.com/sourcegraph/deploy-sourcegraph)
 
-> 🚨 IMPORTANT: When upgrading Sourcegraph, please check [upgrading docs](https://docs.sourcegraph.com/admin/updates/kubernetes) to check if any manual migrations are necessary.
->
-> The `master` branch tracks development. Use the branch of this repository corresponding to the
-> version of Sourcegraph you wish to deploy, e.g. `git checkout 3.19`.
+## **WARNING: All work in this repository is WIP and should not be used until further notice.**
 
 Deploying Sourcegraph into a Kubernetes cluster is for organizations that need highly scalable and
 available code search and code intelligence. This repository contains documentation for creating,
@@ -24,13 +21,15 @@ us](https://about.sourcegraph.com/contact/sales) for more information.
 - [Enterprise Getting Started Guide](https://docs.sourcegraph.com/adopt/enterprise_getting_started_guide#kubernetes-admin) and [Admin guide](https://docs.sourcegraph.com/admin) - useful guides for Sourcegraph admins
   - [Metrics](https://docs.sourcegraph.com/admin/observability/metrics) - guidance of metrics that can be used for monitoring Sourcegraph
 
-## Is Kubernetes the right deployment type for me?
+## Deploying
 
-Please see [our docs](https://docs.sourcegraph.com/admin/deploy) for comparisons of deployment types and our resource estimator.
+🚨 **The `master` branch tracks development. Use the branch of this repository corresponding to the version of Sourcegraph you wish to deploy, e.g. `git checkout v4.5.0`.**
 
-## How to deploy
+Always refer to the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latest instructions.
 
-See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latested instructions.
+## Upgrading
+
+When upgrading Sourcegraph, please check [upgrading docs](https://docs.sourcegraph.com/admin/updates/kubernetes) to confirm if manual migrations is necessary.
 
 ## Contributing
 

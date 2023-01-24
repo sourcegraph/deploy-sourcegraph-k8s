@@ -8,7 +8,7 @@ See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/k
 
 ## Create an overlay
 
-The overlays/template folder. This folder contains a kustomization.template.yaml file that is preconfigured to construct an overlay for deploying Sourcegraph.
+The overlays/template folder contains a file named `kustomization.template.yaml` that is preconfigured to construct an overlay for deploying Sourcegraph.
 
 To create a Sourcegraph overlay
 
