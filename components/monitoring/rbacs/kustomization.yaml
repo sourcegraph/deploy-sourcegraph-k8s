@@ -7,3 +7,6 @@ resources:
   - prometheus/prometheus.ServiceAccount.yaml
 patchesStrategicMerge:
   - prometheus/prometheus.ConfigMap.yaml
+  - grafana/grafana.StatefulSet.yaml
+  - prometheus/prometheus.Deployment.yaml
+  - grafana/grafana.Dashboards.ConfigMap.yaml

@@ -295,3 +295,4 @@ data:
           labels:
             app: alertmanager
   extra_rules.yml: ""
+  prometheus_targets.yml: ""

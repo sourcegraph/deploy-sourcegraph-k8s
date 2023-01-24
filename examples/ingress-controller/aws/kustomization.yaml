@@ -5,5 +5,5 @@ namespace: ingress-nginx
 resources:
   - https://github.com/kubernetes/ingress-nginx/deploy/static/provider/aws?ref=controller-v1.5.1
 components:
-  - ../../../components/ingress-nginx/controller
+  - ../../../components/ingress/nginx-controller
   - ../../../components/namespace

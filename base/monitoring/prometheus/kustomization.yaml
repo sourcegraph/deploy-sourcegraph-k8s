@@ -4,3 +4,4 @@ resources:
   - prometheus.ConfigMap.yaml
   - prometheus.Deployment.yaml
   - prometheus.PersistentVolumeClaim.yaml
+  - prometheus.Service.yaml

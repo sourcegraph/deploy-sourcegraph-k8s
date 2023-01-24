@@ -1,16 +1,20 @@
 # Sourcegraph Kubernetes Base Cluster
 
-The `sourcegraph` directory contains manifests for all services for the Sourcegraph main stacks.
+The `sourcegraph` directory contains manifests for all services for the Sourcegraph main stack.
 
 The `monitoring` directory contains manifests for all Sourcegraph monitoring services.
 
 ## RBAC
 
-Sourcegraph communicates with the Kubernetes API for service discovery. It also has some janitor DaemonSets that clean up temporary cache data. To do that we need to create RBAC resources.
+In our base cluster, all services run with non-root and non-privileged. Role-Based Access Control (RBAC) resources are also not enabled by default, which results in manual mapping of service addresses through environment variables being the only way to discover services. However, these service addresses have been preconfigured in the base cluster.
 
-A Kubernetes cluster with role-based access control (RBAC) enabled is **required** for the `monitoring services` to work properly in your deployment.
+To enable automatic service discovery and clean up of temporary cache data, RBAC resources must be created using the `privileged` component or the `enable/service-discovery` component.
 
-If using cluster roles and cluster rolebinding RBAC is not an option, you can deploy Sourcegraph without the monitoring stacks (exclude the monitoring component) as they will not work in your cluster.
+### cAdvisor
+
+For the cadvisor to function properly in your deployment, a Kubernetes cluster with role-based access control (RBAC) enabled is required.
+
+If using cluster roles and cluster rolebinding RBAC is not feasible, you may choose to deploy Sourcegraph without cadvisor as it will not work in your cluster without RBAC enabled.
 
 ## Deploy Sourcegraph
 
