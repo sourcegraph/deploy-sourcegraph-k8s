@@ -7,6 +7,8 @@ kind: Kustomization
 # To configure your Sourcegraph deployment, uncomment the components/section
 # below following the instruction in our configuration docs.
 #
+# We strongly recommend using 'sizes' components to allocate resources
+#
 # Docs:
 # https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure
 #
@@ -62,6 +64,10 @@ components:
   - ../../components/sizes/m
   - ../../components/sizes/l
   - ../../components/sizes/xl
+  # ------------------------------------------------------------------------
+  # Allocate resources based on custom values input
+  # REQUIRED: Update values in 'components/custom/resources/resources.yaml'
+  - ../../components/custom/resources
   # ------------------------------------------------------------------------
   # Remove all services with daemonsets resources: node-exporter and otel
   - ../../components/remove/daemonset
@@ -170,81 +176,20 @@ components:
 
 ############################################################################
 #
-# UPDATE REPLICA COUNTS
-#
-# Services that are not in the list below do not require more than 1 replica
-#
-############################################################################
-replicas:
-  - name: gitserver
-    count: 1
-  - name: searcher
-    count: 1
-  - name: symbols
-    count: 1
-  - name: indexed-search
-    count: 1
-  - name: sourcegraph-frontend
-    count: 2
-  - name: precise-code-intel-worker
-    count: 1
-
-############################################################################
-#
-# ENDPOINT UPDATE
-# Handle updating endpoints configs for frontend
-#
-# Leaving this section uncommented UNLESS the following applies:
-# - using the old-cluster component
-# - service discovery enabled for frontend
-#
-############################################################################
-replacements:
-  - source: &endpoints-source
-      kind: StatefulSet
-      fieldPath: spec.replicas
-      name: gitserver
-    targets:
-      - select: &endpoints-map
-          kind: ConfigMap
-          name: sourcegraph-frontend-env
-        fieldPaths:
-          - data.SRC_GIT_SERVERS
-  - source:
-      <: *endpoints-source
-      name: indexed-search
-    targets:
-      - select: *endpoints-map
-        fieldPaths:
-          - data.INDEXED_SEARCH_SERVERS
-  - source:
-      <: *endpoints-source
-      name: searcher
-    targets:
-      - select: *endpoints-map
-        fieldPaths:
-          - data.SEARCHER_URL
-  - source:
-      <: *endpoints-source
-      name: symbols
-    targets:
-      - select: *endpoints-map
-        fieldPaths:
-          - data.SYMBOLS_URL
-
-############################################################################
-#
 # UPDATE CONFIGMAP
 #
 # Create a directory `patches` and then copy the required files when
-# instructed by the configuration docs
+# instructed by the configuration docs to update ConfigMaps
+#
+# This will ensure the files are in the correct location for the
+# configuration process to access them.
 #
 ############################################################################
 patchesStrategicMerge:
-  - patches/prometheus.ConfigMap.yaml
-  - patches/pgsql.ConfigMap.yaml
-  - patches/otel-collector.ConfigMap.yaml
-  - patches/custom.NodePort.yaml
+  # - patches/prometheus.ConfigMap.yaml
+  # - patches/pgsql.ConfigMap.yaml
+  # - patches/otel-collector.ConfigMap.yaml
+  # - patches/custom.NodePort.yaml
   # -
   # -
   # -
@@ -260,20 +205,28 @@ patchesStrategicMerge:
 #
 # UPDATE ANNOTATIONS
 #
-# When instructed by the configuration docs to set up the necessary files
-# for configuring your Sourcegraph instance:
-# 1. Create a directory called 'patches': mkdir patches
-# 2. Create the required files within the 'patches' directory
-# This will ensure the files are in the correct location for the
-# configuration process to access them.
+# Add new annotations at the end of this section for frontend ingress
 #
 ############################################################################
-patchesJson6902:
-  - target:
-      version: v1
-      kind: Ingress
-      name: sourcegraph-frontend
-    path: patches/frontend-ingress.annotations.yaml
+transformers:
+  - |-
+    fieldSpecs:
+      - kind: Ingress
+        name: sourcegraph-frontend
+        path: metadata/annotations
+        create: true
+    apiVersion: builtin
+    kind: AnnotationsTransformer
+    metadata:
+      name: annotations-transformer
+    annotations:
+      # Add new annotations below
+      # Ex. kubernetes.io/ingress.class: alb
+      # 
+      # 
+      #
+      # 
+      #
 
 ############################################################################
 #

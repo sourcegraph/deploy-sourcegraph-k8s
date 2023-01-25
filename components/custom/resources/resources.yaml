@@ -1,24 +1,51 @@
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: cadvisor
+########################## HOW TO USE ########################################
+# Uncomment the services and update the values under resources
+################################################################################
+
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: gitserver
+# spec:
+#   replicas: 1
+#   template:
+#     spec:
+#       containers:
+#         - name: gitserver
+#           resources:
+#             limits:
+#               cpu: "4"
+#               memory: 8G
+#             requests:
+#               cpu: "4"
+#               memory: 8G
+#   volumeClaimTemplates:
+#     - spec:
+#         resources:
+#           requests:
+#             storage: 200Gi # If you change this, also change indexed-search's disk size.
+---
+# apiVersion: apps/v1
+# kind: DaemonSet
+# metadata:
+#   name: cadvisor
 # spec:
 #   template:
 #     spec:
 #       containers:
-#       - name: cadvisor
-#         resources:
-#           limits:
-#             cpu: 300m
-#             memory: 200Mi
-#           requests:
-#             cpu: 100m
-#             memory: 200Mi
+#         - name: cadvisor
+#           resources:
+#             limits:
+#               cpu: 300m
+#               memory: 200Mi
+#             requests:
+#               cpu: 100m
+#               memory: 200Mi
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: codeinsights-db
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: codeinsights-db
 # spec:
 #   template:
 #     spec:
@@ -32,20 +59,10 @@ metadata:
 #               cpu: "4"
 #               memory: "2Gi"
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-  name: codeinsights-db
-# spec:
-#   resources:
-#     requests:
-#       storage: 200Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: codeintel-db
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: codeintel-db
 # spec:
 #   template:
 #     spec:
@@ -59,19 +76,10 @@ metadata:
 #             cpu: "8"
 #             memory: 8G
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: codeintel-db
-# spec:
-#   resources:
-#     requests:
-#       storage: 500Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sourcegraph-frontend
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: sourcegraph-frontend
 # spec:
 #   replicas: 2
 #   template:
@@ -88,90 +96,63 @@ metadata:
 #             ephemeral-storage: "4Gi"
 #             memory: 2G
 ---
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: gitserver
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: grafana
 # spec:
-#   replicas: 1
 #   template:
 #     spec:
 #       containers:
-#       - name: gitserver
-#         resources:
-#           limits:
-#             cpu: "4"
-#             memory: 8G
-#           requests:
-#             cpu: "4"
-#             memory: 8G
-#       - metadata:
-#           name: repos
-#         spec:
+#         - name: grafana
 #           resources:
+#             limits:
+#               cpu: "1"
+#               memory: 512Mi
 #             requests:
-#               storage: 200Gi # If you change this, also change indexed-search's disk size.
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: grafana
-# spec:
-#   template:
-#     spec:
-#       containers:
-#       - name: grafana
-#         resources:
-#           limits:
-#             cpu: "1"
-#             memory: 512Mi
-#           requests:
-#             cpu: 100m
-#             memory: 512Mi
+#               cpu: 100m
+#               memory: 512Mi
 #   volumeClaimTemplates:
-#   - metadata:
-#       name: grafana-data
-#     spec:
-#       resources:
-#         requests:
-#           storage: 2Gi
+#     - spec:
+#         resources:
+#           requests:
+#             storage: 2Gi
 ---
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: indexed-search
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: indexed-search
 # spec:
 #   replicas: 1
 #   template:
 #     spec:
 #       containers:
-#       - name: zoekt-webserver
-#         resources:
-#           limits:
-#             cpu: "16"
-#             memory: 16G
-#           requests:
-#             cpu: "8"
-#             memory: 8G
-#       - name: zoekt-indexserver
-#         resources:
-#           limits:
-#             cpu: "16"
-#             memory: 16G
-#           requests:
-#             cpu: "8"
-#             memory: 8G
+#         - name: zoekt-webserver
+#           resources:
+#             limits:
+#               cpu: "16"
+#               memory: 16G
+#             requests:
+#               cpu: "8"
+#               memory: 8G
+#         - name: zoekt-indexserver
+#           resources:
+#             limits:
+#               cpu: "16"
+#               memory: 16G
+#             requests:
+#               cpu: "8"
+#               memory: 8G
 #   volumeClaimTemplates:
-#   - metadata:
-#       spec:
+#     - spec:
 #         resources:
 #           requests:
 #             storage: 200Gi
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: blobstore
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: blobstore
 # spec:
 #   template:
 #     spec:
@@ -185,19 +166,10 @@ metadata:
 #             cpu: "1"
 #             memory: 500M
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: blobstore
-# spec:
-#   resources:
-#     requests:
-#       storage: 100Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: pgsql
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: pgsql
 # spec:
 #   template:
 #     spec:
@@ -211,19 +183,10 @@ metadata:
 #             cpu: "4"
 #             memory: 4Gi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pgsql
-# spec:
-#   resources:
-#     requests:
-#       storage: 200Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: precise-code-intel-worker
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: precise-code-intel-worker
 # spec:
 #   replicas: 2
 #   template:
@@ -238,10 +201,10 @@ metadata:
 #             cpu: 500m
 #             memory: 2G
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prometheus
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: prometheus
 # spec:
 #   template:
 #     spec:
@@ -255,10 +218,10 @@ metadata:
 #             cpu: 500m
 #             memory: 6G
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-cache
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: redis-cache
 # spec:
 #   template:
 #     spec:
@@ -280,10 +243,10 @@ metadata:
 #             cpu: 10m
 #             memory: 100Mi
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-store
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: redis-store
 # spec:
 #   template:
 #     spec:
@@ -305,10 +268,10 @@ metadata:
 #             cpu: 10m
 #             memory: 100Mi
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: repo-updater
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: repo-updater
 # spec:
 #   replicas: 1 # IMPORTANT: Singleton service. Do NOT add more replica.
 #   template:
@@ -323,10 +286,10 @@ metadata:
 #             cpu: "1"
 #             memory: 500Mi
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: searcher
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: searcher
 # spec:
 #   replicas: 2
 #   template:
@@ -343,10 +306,10 @@ metadata:
 #             ephemeral-storage: "25G"
 #             memory: 500M
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: symbols
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: symbols
 # spec:
 #   replicas: 1
 #   template:
@@ -363,10 +326,10 @@ metadata:
 #             ephemeral-storage: "10G"
 #             memory: 500M
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: syntect-server
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: syntect-server
 # spec:
 #   replicas: 1
 #   template:
@@ -381,10 +344,10 @@ metadata:
 #             cpu: 250m
 #             memory: 2G
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: worker
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: worker
 # spec:
 #   replicas: 1
 #   template:
@@ -399,10 +362,10 @@ metadata:
 #             cpu: 500m
 #             memory: 2G
 ---
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: otel-agent
+# apiVersion: apps/v1
+# kind: DaemonSet
+# metadata:
+#   name: otel-agent
 # spec:
 #   template:
 #     spec:
@@ -416,10 +379,10 @@ metadata:
 #             cpu: "100m"
 #             memory: 100Mi
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: otel-collector
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: otel-collector
 # spec:
 #   replicas: 1
 #   template:
@@ -433,3 +396,72 @@ metadata:
 #           requests:
 #             cpu: "0.5"
 #             memory: 512Mi
+
+---
+############################# STORAGE ##########################################
+# To update storage size for each PVC:
+# Uncomment the services and update the storage values
+################################################################################
+
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: blobstore
+# spec:
+#   resources:
+#     requests:
+#       storage: 100Gi
+---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: codeinsights-db
+# spec:
+#   resources:
+#     requests:
+#       storage: 200Gi
+---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: codeintel-db
+# spec:
+#   resources:
+#     requests:
+#       storage: 200Gi
+---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: pgsql
+# spec:
+#   resources:
+#     requests:
+#       storage: 200Gi
+---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: prometheus
+# spec:
+#   resources:
+#     requests:
+#       storage: 200Gi
+---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: redis-cache
+# spec:
+#   resources:
+#     requests:
+#       storage: 100Gi
+---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: redis-store
+# spec:
+#   resources:
+#     requests:
+#       storage: 100Gi

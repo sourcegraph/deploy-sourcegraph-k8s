@@ -1,16 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 # DO NOT REMOVE: Handle updating endpoints configs for frontend
-replacements: # DO NOT REMOVE
-  - path: patches/endpoints-update.yaml # DO NOT REMOVE
+replacements:
+  - path: patches/endpoints-update.yaml
 ########################## HOW TO USE ########################################
-# Step 1: Uncomment the "name" and "count" for service you'd like to scale
-# Step 2: Update the replica count value
-# Step 3: Add this component to your overlay file
+# IMPORTANT: No changes should be made above this line
+# Step 1 Uncomment the "name" and "count" for service you'd like to scale
+# Step 2 Update the replica count value
+# Step 3 Include this component in your overlay: ../../components/custom/replica
 ################################################################################
 replicas:
-  # - name: gitserver
-  #   count: 7
+  - name: gitserver
+    count: 2
   # - name: indexed-search
   #   count: 1
   # - name: searcher
