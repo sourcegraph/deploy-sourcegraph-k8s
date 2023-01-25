@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgsql
+spec:
+  template:
+    spec:
+      containers:
+        - name: pgsql
+          volumeMounts:
+            - name: passwd
+              mountPath: /etc/passwd
+              readOnly: true
+      initContainers:
+        - name: correct-data-dir-permissions
+          volumeMounts:
+            - name: passwd
+              mountPath: /etc/passwd
+              readOnly: true
+      volumes:
+        - name: passwd
+          hostPath:
+            path: /etc/passwd
+            # type: FileOrCreate

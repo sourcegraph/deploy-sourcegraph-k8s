@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+resources:
+  - resources/frontend/sourcegraph-frontend.Role.yaml
+  - resources/frontend/sourcegraph-frontend.RoleBinding.yaml
+  - resources/frontend/sourcegraph-frontend.ServiceAccount.yaml
+patchesStrategicMerge:
+  - patches/blobstore/blobstore.Deployment.yaml
+  - patches/codeinsights-db/codeinsights-db.Deployment.yaml
+  - patches/codeintel-db/codeintel-db.Deployment.yaml
+  - patches/frontend/sourcegraph-frontend.Deployment.yaml
+  - patches/github-proxy/github-proxy.Deployment.yaml
+  - patches/gitserver/gitserver.StatefulSet.yaml
+  - patches/indexed-search/indexed-search.StatefulSet.yaml
+  - patches/pgsql/pgsql.Deployment.yaml
+  - patches/precise-code-intel/worker.Deployment.yaml
+  - patches/redis/redis-cache.Deployment.yaml
+  - patches/redis/redis-store.Deployment.yaml
+  - patches/repo-updater/repo-updater.Deployment.yaml
+  - patches/syntect-server/syntect-server.Deployment.yaml
+  - patches/worker/worker.Deployment.yaml
+# To support searcher and symbols as both statefulset and deployment
+patchesJson6902:
+  - target:
+      kind: StatefulSet|Deployment
+      name: searcher
+      group: apps
+      version: v1
+    path: patches/searcher/searcher.yaml
+  - target:
+      kind: StatefulSet|Deployment
+      name: symbols
+      group: apps
+      version: v1
+    path: patches/symbols/symbols.yaml

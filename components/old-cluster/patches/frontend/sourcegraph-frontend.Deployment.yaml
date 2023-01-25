@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sourcegraph-frontend
+spec:
+  replicas: 2
+  template:
+    spec:
+      initContainers:
+        - name: migrator
+          securityContext:
+            allowPrivilegeEscalation: true
+            runAsGroup: 0
+            runAsUser: 0
+      containers:
+        - name: frontend
+          securityContext:
+            allowPrivilegeEscalation: true
+            runAsGroup: 0
+            runAsUser: 0
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
+      serviceAccountName: sourcegraph-frontend

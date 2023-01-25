@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    # We can upload large files (extensions)
+    nginx.ingress.kubernetes.io/proxy-body-size: "150m"
+    # See
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+    # for more nginx annotations.
+  labels:
+    app: sourcegraph-frontend
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+    app.kubernetes.io/component: frontend
+  name: sourcegraph-frontend
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sourcegraph-frontend
+                port:
+                  number: 30080

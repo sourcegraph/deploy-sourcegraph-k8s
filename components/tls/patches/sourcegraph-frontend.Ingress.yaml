@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sourcegraph-frontend
+  annotations:
+      kubernetes.io/ingress.class: $(TLS_INGRESS_CLASS_NAME) # replace with actual ingress class name
+      cert-manager.io/cluster-issuer: $(TLS_CLUSTER_ISSUER) # replace with actual cluster-issuer name
+spec:
+  ingressClassName: $(TLS_INGRESS_CLASS_NAME)
+  tls:
+  - hosts:
+    - $(TLS_HOST)
+    secretName: sourcegraph-frontend-tls
+  rules:
+    - host: $(TLS_HOST)
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: sourcegraph-frontend
+              port:
+                number: 30080

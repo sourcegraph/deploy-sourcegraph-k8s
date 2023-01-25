@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+# DO NOT REMOVE: Handle updating endpoints configs for frontend
+replacements: # DO NOT REMOVE
+  - path: patches/endpoints-update.yaml # DO NOT REMOVE
+patchesStrategicMerge:
+  - resources.yaml
+########################## HOW TO USE ########################################
+# Step 1 Do not make any changes in this file
+# Step 2 Update the resources values in the 'resources.yaml' file
+# Step 4 Include this component in your overlay: ../../components/custom/replica
+################################################################################
