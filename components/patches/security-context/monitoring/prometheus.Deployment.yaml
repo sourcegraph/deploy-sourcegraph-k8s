@@ -1,0 +1,17 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: prometheus
+# spec:
+#   template:
+#     spec:
+#       containers:
+#         - name: prometheus
+#           securityContext:
+#             allowPrivilegeEscalation: false
+#             runAsGroup: 100
+#             runAsUser: 100
+#       terminationGracePeriodSeconds: 120
+#       securityContext:
+#         runAsUser: 100
+#         fsGroup: 100

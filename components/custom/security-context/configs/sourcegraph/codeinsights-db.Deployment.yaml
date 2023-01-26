@@ -1,0 +1,24 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: codeinsights-db
+# spec:
+#   template:
+#     spec:
+#       initContainers:
+#         - name: correct-data-dir-permissions
+#           securityContext:
+#             # Required to prevent escalations to root.
+#             allowPrivilegeEscalation: false
+#             runAsGroup: 70
+#             runAsUser: 70
+#       containers:
+#         - name: codeinsights
+#           securityContext:
+#             allowPrivilegeEscalation: false
+#             runAsGroup: 70
+#             runAsUser: 70
+#       # Pod security context
+#       securityContext:
+#         runAsUser: 70
+#         fsGroup: 70

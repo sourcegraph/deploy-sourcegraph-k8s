@@ -4,7 +4,7 @@ kind: Component
 replacements: # DO NOT REMOVE
   - path: patches/endpoints-update.yaml # DO NOT REMOVE
 patchesStrategicMerge:
-  - resources.yaml
+  - configs/resources.yaml
 ########################## HOW TO USE ########################################
 # Step 1 Do not make any changes in this file
 # Step 2 Update the resources values in the 'resources.yaml' file

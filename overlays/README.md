@@ -14,7 +14,7 @@ To create a Sourcegraph overlay
 
 **Step 1**: Create a new directory within the `overlays` subdirectory.
 
-The name of this directory, $OVERLAY_NAME, serves as the name of your overlay, for example, dev, prod, staging, etc.
+- The name of this directory, $OVERLAY_NAME, serves as the name of your overlay, for example, dev, prod, staging, etc.
 
 ```bash
 # from the root of this repository

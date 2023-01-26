@@ -1,0 +1,12 @@
+# apiVersion: apps/v1
+# kind: DaemonSet
+# metadata:
+#   name: cadvisor
+# spec:
+#   template:
+#     spec:
+#       serviceAccountName: cadvisor
+#       containers:
+#         - name: cadvisor
+#           securityContext:
+#             privileged: true

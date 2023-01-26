@@ -14,9 +14,9 @@ metadata:
   name: node-exporter
 spec:
   ports:
-  - name: metrics
-    port: 9100
-    targetPort: metrics
+    - name: metrics
+      port: 9100
+      targetPort: metrics
   selector:
     app: node-exporter
   type: ClusterIP

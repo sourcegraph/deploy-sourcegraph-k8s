@@ -2,11 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 resources:
-# Sourcegraph Main Stacks
-- ../../../base/sourcegraph
+  # Sourcegraph Main Stack
+  - ../../../base/sourcegraph
 components:
-# Monitoring Stacks - RBACs required
-- ../../../components/monitoring
-# Use resources for a size-L instance
-- ../../../components/sizes/l
-- ../../../components/gke/configure
+  # Monitoring Stack
+  - ../../../components/monitoring
+  # Use resources for a size-L instance
+  - ../../../components/sizes/l
+  - ../../../components/clusters/gke/configure
