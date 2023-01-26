@@ -5,4 +5,3 @@ resources:
   - pgsql.Deployment.yaml
   - pgsql.PersistentVolumeClaim.yaml
   - pgsql.Service.yaml
-  

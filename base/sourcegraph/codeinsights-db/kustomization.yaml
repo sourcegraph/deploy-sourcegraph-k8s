@@ -5,4 +5,3 @@ resources:
   - codeinsights-db.Deployment.yaml
   - codeinsights-db.PersistentVolumeClaim.yaml
   - codeinsights-db.Service.yaml
-  

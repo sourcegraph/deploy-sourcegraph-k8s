@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - github-proxy.Deployment.yaml
   - github-proxy.Service.yaml
-  

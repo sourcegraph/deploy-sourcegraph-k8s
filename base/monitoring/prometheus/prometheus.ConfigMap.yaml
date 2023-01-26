@@ -48,7 +48,6 @@ data:
         file_sd_configs:
           - files:
               - '/sg_prometheus_add_ons/*_targets.yml'
-
   prometheus_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"

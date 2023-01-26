@@ -35,8 +35,8 @@ components:
   - ../../components/sizes/xl # -- Allocate resources for size XL instance
   - ../../components/disable/rockskip # -- Disable rockskip
   - ../../components/enable/rockskip # -- Enable rockskip
-  - ../../components/network/nodeport/30080 # -- Use nodeport 30080 for frontend
-  - ../../components/ingress/frontend-loadbalancer # -- Use load balancer type for frontend
+  - ../../components/network/nodeport/30080 # -- Use nodeport 30080 for frontend service
+  - ../../components/network/loadbalancer # -- Use load balancer type for frontend service
   - ../../components/remove/daemonset # -- Remove all services with daemonsets
   - ../../components/remove/default-ingress # -- Remove the default ingress from frontend
   - ../../components/remove/pvcs # -- Remove all pvcs resources
@@ -131,7 +131,7 @@ configMapGenerator:
       # - STORAGECLASS_PROVISIONER=
       # - STORAGECLASS_PARAM_TYPE=
       # - PRIVATE_REGISTRY=
-      # - AWS_MANAGED_CERT_ARN=
-      # - GKE_MANAGED_CERT_NAME=
       # - HOST_DOMAIN=
       # - SSD_NODE_PATH=/mnt/disks/ssd0
+      # - AWS_MANAGED_CERT_ARN=
+      # - GKE_MANAGED_CERT_NAME=

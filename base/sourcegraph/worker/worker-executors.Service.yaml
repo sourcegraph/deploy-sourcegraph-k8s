@@ -10,7 +10,6 @@ metadata:
     deploy: sourcegraph
     sourcegraph-resource-requires: no-cluster-admin
   name: worker-executors
-
 spec:
   ports:
     - name: prom

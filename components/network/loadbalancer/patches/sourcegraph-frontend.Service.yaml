@@ -4,4 +4,4 @@ metadata:
   name: sourcegraph-frontend
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
+  # externalTrafficPolicy: Local

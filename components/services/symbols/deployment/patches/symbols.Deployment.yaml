@@ -1,31 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    description: Backend for symbols operations.
-    kubectl.kubernetes.io/default-container: symbols
-  labels:
-    deploy: sourcegraph
-    sourcegraph-resource-requires: no-cluster-admin
-    app.kubernetes.io/component: symbols
   name: symbols
 spec:
-  minReadySeconds: 10
-  replicas: 1
-  revisionHistoryLimit: 10
-  selector:
-    matchLabels:
-      app: symbols
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
   template:
-    metadata:
-      labels:
-        deploy: sourcegraph
-        app: symbols
     spec:
       containers:
         - name: symbols
@@ -49,27 +27,6 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
-          image: index.docker.io/sourcegraph/symbols:187572_2022-12-06_cbecc5321c7d@sha256:75615a60f318dc898eae2e5037efcd53e63cf28c2b8fca388b6923d215ff9db9
-          terminationMessagePolicy: FallbackToLogsOnError
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 60
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: http
-              scheme: HTTP
-            periodSeconds: 5
-            timeoutSeconds: 5
-          ports:
-            - containerPort: 3184
-              name: http
-            - containerPort: 6060
-              name: debug
           resources:
             limits:
               cpu: "2"
@@ -89,3 +46,5 @@ spec:
       volumes:
         - emptyDir: {}
           name: cache-ssd
+  updateStrategy:
+    $patch: delete

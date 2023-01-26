@@ -1,6 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-resources:
-  - patches/symbols.Deployment.yaml
-components:
-  - ../../../remove/symbols-statefulset
+patches:
+  - path: patches/symbols.Deployment.yaml
+    target:
+      kind: StatefulSet
+      name: symbols
+    options:
+      allowKindChange: true
