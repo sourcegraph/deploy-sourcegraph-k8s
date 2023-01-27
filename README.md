@@ -1,8 +1,9 @@
-# Sourcegraph on Kubernetes with Kustomize
+# [BETA] Sourcegraph on Kubernetes with Kustomize
 
-[![sourcegraph: search](https://img.shields.io/badge/sourcegraph-search-brightgreen.svg)](https://sourcegraph.com/github.com/sourcegraph/deploy-sourcegraph) [![master build status](https://badge.buildkite.com/018ed23ed79d7297e7dd109b745597c58d875323fb06e81786.svg?branch=master)](https://buildkite.com/sourcegraph/deploy-sourcegraph)
+[![sourcegraph: beta](https://img.shields.io/badge/sourcegraph-beta-blue.svg)](https://sourcegraph.com/github.com/sourcegraph/deploy-sourcegrap-k8s)
 
-## **WARNING: All work in this repository is WIP and should not be used until further notice.**
+> **Warning**
+> The contents of this repository are currently in beta and have not been officially released. While we encourage testing and feedback, please do not use this in production environments. We cannot guarantee support for these beta features and recommend that you use them at your own risk. We will keep you updated as development progresses and official releases become available.
 
 Deploying Sourcegraph into a Kubernetes cluster is for organizations that need highly scalable and
 available code search and code intelligence. This repository contains documentation for creating,
@@ -23,7 +24,7 @@ us](https://about.sourcegraph.com/contact/sales) for more information.
 
 ## Deploying
 
-🚨 **The `master` branch tracks development. Use the branch of this repository corresponding to the version of Sourcegraph you wish to deploy, e.g. `git checkout v4.5.0`.**
+🚨 **The `master` branch tracks development. Use the branch of this repository corresponding to the version of Sourcegraph you wish to deploy, e.g. `git checkout v4.4.1`.**
 
 Always refer to the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latest instructions.
 

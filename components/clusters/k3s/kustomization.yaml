@@ -3,5 +3,6 @@ kind: Component
 components:
   - monitoring
   - ../../storage-class/k3s
+  # - ../../privileged
 patchesStrategicMerge:
   - patches/sourcegraph-frontend.Ingress.yaml

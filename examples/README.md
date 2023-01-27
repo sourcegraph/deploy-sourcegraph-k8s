@@ -2,6 +2,9 @@
 
 This directory provides overlays that are ready to use for installing a pre-configured Sourcegraph instance in different environments for demonstration purposes. By using these overlays, you can easily deploy a Sourcegraph instance to your cluster, without the need for manually configuring all the necessary resources.
 
+> **Warning**
+> Please do not modify any files in this directory for deployment purposes. Create your overlays in the overlays directory instead.
+
 ## How to use
 
 > IMPORTANT: Always refer to the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latest instructions.

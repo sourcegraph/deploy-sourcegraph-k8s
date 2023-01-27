@@ -1,10 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-resources:
-  # - ../../base/monitoring
-  - resources/frontend/sourcegraph-frontend.Role.yaml
-  - resources/frontend/sourcegraph-frontend.RoleBinding.yaml
-  - resources/frontend/sourcegraph-frontend.ServiceAccount.yaml
 components:
   - ../../monitoring
   - ../../monitoring/cadvisor
@@ -13,6 +8,7 @@ components:
   - ../../services/searcher/deployment
   # Switch from StatefulSet to Deployment
   - ../../services/symbols/deployment
+  - ../../enable/service-discovery
 patchesStrategicMerge:
   - patches/blobstore/blobstore.Deployment.yaml
   - patches/cadvisor/cadvisor.DaemonSet.yaml

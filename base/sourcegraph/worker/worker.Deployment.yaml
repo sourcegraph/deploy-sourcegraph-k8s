@@ -26,16 +26,17 @@ spec:
         deploy: sourcegraph
         app: worker
     spec:
+      securityContext:
+        runAsUser: 100
+        fsGroup: 101
+        fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: worker
-          envFrom:
-            - configMapRef:
-                name: sourcegraph-frontend-env
           env:
-            # - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
-            #   value: blobstore
-            # - name: PRECISE_CODE_INTEL_UPLOAD_AWS_ENDPOINT
-            #   value: http://blobstore:9000
+            - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
+              value: blobstore
+            - name: PRECISE_CODE_INTEL_UPLOAD_AWS_ENDPOINT
+              value: http://blobstore:9000
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -47,7 +48,7 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
-          image: index.docker.io/sourcegraph/worker:insiders@sha256:7641c829155bd8a1a52ffd370e0d0ae793b4333d3e11126a725059b6de2ee3a3
+          image: index.docker.io/sourcegraph/worker:insiders@sha256:bb669d3f034d6a38cf6c43f8af117cf00121fa258f3e71907e5e6acc9fe514c6
           terminationMessagePolicy: FallbackToLogsOnError
           livenessProbe:
             httpGet:
@@ -82,7 +83,3 @@ spec:
             allowPrivilegeEscalation: false
             runAsUser: 100
             runAsGroup: 101
-      securityContext:
-        runAsUser: 100
-        fsGroup: 101
-        fsGroupChangePolicy: OnRootMismatch

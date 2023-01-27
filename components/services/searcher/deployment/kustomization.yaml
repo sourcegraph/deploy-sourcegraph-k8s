@@ -4,6 +4,6 @@ patches:
   - path: patches/searcher.Deployment.yaml
     target:
       kind: StatefulSet
-      name: symbols
+      name: searcher
     options:
       allowKindChange: true

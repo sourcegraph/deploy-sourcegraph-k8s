@@ -29,7 +29,7 @@ spec:
     spec:
       initContainers:
         - name: migrator
-          image: index.docker.io/sourcegraph/migrator:insiders@sha256:bca401f8c22a3f83d494259a4b49ca8c7b6d66a5558fb8f4a3286a8db2f27c08
+          image: index.docker.io/sourcegraph/migrator:insiders@sha256:f540c204a001a3d723c5de229c7ddb36446f7f20aaca24d29d963e9925519ae6
           args: ["up"]
           resources:
             limits:
@@ -48,14 +48,12 @@ spec:
                 name: sourcegraph-frontend-env
       containers:
         - name: frontend
-          image: index.docker.io/sourcegraph/frontend:insiders@sha256:7cce06c40b6965183c0ef7f58c35bbabe0d8af6f2e3cddae33d27575785c8d86
+          image: index.docker.io/sourcegraph/frontend:insiders@sha256:b063b3d0dabdb9000929b49face859f7fa5b74cb850a7ce512eb5b104197cf6a
           args:
             - serve
           envFrom:
             - configMapRef:
                 name: sourcegraph-frontend-env
-          # - configMapRef:
-          #     name: sourcegraph-endpoints-map
           # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable
           env:
             - name: OTEL_AGENT_HOST

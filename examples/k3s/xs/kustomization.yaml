@@ -10,3 +10,5 @@ components:
   - ../../../components/sizes/xs
   # This configures the Sourcegraph instance and networking to work in a k3s cluster
   - ../../../components/clusters/k3s
+  - ../../../components/privileged
+  - ../../../components/enable/service-discovery

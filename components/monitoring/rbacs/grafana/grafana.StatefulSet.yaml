@@ -5,4 +5,14 @@ metadata:
 spec:
   template:
     spec:
+      containers:
+        - name: grafana
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-data
+            - mountPath: /sg_config_grafana/provisioning/datasources
+              name: config
+            - mountPath: /sg_grafana_additional_dashboards
+              name: dashboards
+              $patch: delete
       serviceAccountName: grafana

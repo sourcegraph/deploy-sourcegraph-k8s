@@ -7,5 +7,6 @@ resources:
 components:
   # Monitoring Stack
   - ../../../components/monitoring
-  - ../../../components/privileged
   - ../../../components/sizes/l
+  - ../../../components/privileged
+  - ../../../components/enable/service-discovery
