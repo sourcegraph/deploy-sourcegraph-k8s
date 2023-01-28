@@ -4,3 +4,6 @@ varReference:
   - kind: StatefulSet
     group: apps
     path: spec/volumeClaimTemplates/spec/storageClassName
+  - kind: Deployment
+    group: apps
+    path: spec/volumeClaimTemplates/spec/storageClassName

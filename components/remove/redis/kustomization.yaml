@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patchesStrategicMerge:
+  - |-
+    $patch: delete
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: redis-cache
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: redis-cache
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: redis-cache
+  - |-
+    $patch: delete
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: redis-store
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: redis-store
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: redis-store

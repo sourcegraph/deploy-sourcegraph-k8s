@@ -3,4 +3,4 @@ kind: Component
 components:
   - ../../../storage-class/sourcegraph
   - ../../../storage-class/aws/eks-ebs
-  - ../alb
+  - ../../../ingress/alb

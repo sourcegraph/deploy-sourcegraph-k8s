@@ -93,4 +93,3 @@ spec:
         resources:
           requests:
             storage: 50G
-        storageClassName: sourcegraph

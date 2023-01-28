@@ -8,8 +8,7 @@ metadata:
   name: blobstore
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 100Gi
-  storageClassName: sourcegraph

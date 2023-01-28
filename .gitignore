@@ -1,8 +1,7 @@
-ingress-controller.yaml
-cluster
-cluster.yaml
 generated-cluster
 .env
 .envrc
-.cert
+.crt
 .key
+id_rsa
+known_hosts
