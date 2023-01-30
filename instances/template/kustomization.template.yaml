@@ -95,6 +95,7 @@ components:
   # - ../../components/network/envoy # -- Add EnvoyFilter to resolve known issues caused by service mesh
   # - ../../components/ingress/gke # -- Ingress controller settings for GKE with HTTP load balancing enabled
   # - ../../components/ingress/alb # -- Ingress controller settings for AWS ALB
+  # - ../../components/ingress/k3s # -- Ingress controller settings for K3s
 
   # - ../../components/ingress/hostname # -- Set hostname for your Sourcegraph ingress
   # CONFIG KEYS: HOST_DOMAIN
