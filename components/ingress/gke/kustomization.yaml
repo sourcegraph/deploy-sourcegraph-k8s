@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
-  - frontend.BackendConfig.yaml
+  - patches/frontend.BackendConfig.yaml
 patchesStrategicMerge:
-  - frontend.Service.yaml
-  - frontend-internal.Service.yaml
-  - frontend.Ingress.yaml
+  - patches/frontend.Service.yaml
+  - patches/frontend-internal.Service.yaml
+  - patches/frontend.Ingress.yaml

@@ -56,6 +56,7 @@ components:
   # - ../../components/storage-class/trident/ext3 # -- Create storage class resources for Trident, fsType ext3
   # - ../../components/storage-class/trident/ext4 # -- Create storage class resources for Trident, fsType ext4
   # - ../../components/storage-class/trident/xfs # -- Create storage class resources for Trident, fsType xfs
+  # - ../../components/storage-class/k3s # -- Configure to use the default storage class in a k3s cluster
   # - ../../components/storage-class/sourcegraph # -- Update storageClassName for all resources to 'sourcegraph'
 
   # - ../../components/storage-class/update-class-name # -- Update storageClassName to $STORAGECLASS_NAME
