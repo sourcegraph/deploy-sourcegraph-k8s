@@ -135,8 +135,9 @@ components:
   # ../../components/remove/prometheus # -- Remove prometheus
   # - ../../components/remove/resources # -- Remove resources (Limits, requests) from all containers
   # - ../../components/remove/security-context # -- Remove security context from all resources
-  # - ../../components/utils/multi-version-upgrade # -- Scale down non-database pods to 0 for multi-version upgrade
   # - ../../components/utils/uid # -- Run all Postgres database with valid users on host
+  # - ../../components/utils/multi-version-upgrade # -- Scale down non-database pods to 0 for multi-version upgrade
+  # - ../../components/utils/migrate-to-nonprivileged # -- Component for migrating from privileged to non-privileged
 
   # ------------------------------------------------------------------------
   # Keep these as the LAST components

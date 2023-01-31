@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: indexed-search
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: transfer-file-ownership
+          image: index.docker.io/sourcegraph/alpine-3.14
+          command: ["sh", "-c", "chown -R 100:101 /data"]
+          volumeMounts:
+            - mountPath: /data
+              name: data
+          securityContext:
+            runAsUser: 0

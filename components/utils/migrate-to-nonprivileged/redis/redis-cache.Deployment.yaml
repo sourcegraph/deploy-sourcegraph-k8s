@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cache
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: transfer-file-ownership
+          image: index.docker.io/sourcegraph/alpine-3.14:insiders
+          command: ["sh", "-c", "chown -R 999:1000 /redis-data"]
+          volumeMounts:
+            - mountPath: /redis-data
+              name: redis-data
+          securityContext:
+            runAsUser: 0

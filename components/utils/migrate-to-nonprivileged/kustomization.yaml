@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patchesStrategicMerge:
+  - gitserver/gitserver.StatefulSet.yaml
+  - grafana/grafana.StatefulSet.yaml
+  - blobstore/blobstore.Deployment.yaml
+  - indexed-search/indexed-search.StatefulSet.yaml
+  - prometheus/prometheus.Deployment.yaml
+  - redis/redis-cache.Deployment.yaml
+  - redis/redis-store.Deployment.yaml
+patchesJson6902:
+  - target:
+      kind: StatefulSet|Deployment
+      name: searcher
+      group: apps
+      version: v1
+    path: searcher/searcher.Deployment.yaml
+replacements:
+  - path: images-update.yaml
