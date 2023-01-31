@@ -1,0 +1,22 @@
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: pgsql
+# spec:
+#   template:
+#     spec:
+#       initContainers:
+#         - name: correct-data-dir-permissions
+#           securityContext:
+#             allowPrivilegeEscalation: false
+#             runAsUser: 999
+#             runAsGroup: 999
+#       containers:
+#         - name: pgsql
+#           securityContext:
+#             allowPrivilegeEscalation: false
+#             runAsUser: 999
+#             runAsGroup: 999
+#       securityContext:
+#         runAsUser: 999
+#         fsGroup: 999

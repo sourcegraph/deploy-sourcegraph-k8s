@@ -1,6 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1alpha1
-kind: Component
-patchesStrategicMerge:
-  - patches/codeinsights-db.Deployment.yaml
-  - patches/codeintel-db.Deployment.yaml
-  - patches/pgsql.Deployment.yaml

@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - path: patches/codeintel-db.Deployment.yaml
+    target:
+      kind: StatefulSet
+      name: codeintel-db
+    options:
+      allowKindChange: true

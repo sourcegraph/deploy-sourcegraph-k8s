@@ -1,5 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
+components:
+  - ../../storage-class/minikube
 patches:
   - target:
       kind: Deployment
@@ -25,19 +27,6 @@ patches:
       group: apps
       version: v1
     path: patches/remove-statefulset-resources-container-1.yaml
-  - target:
-      kind: PersistentVolumeClaim
-    patch: |-
-      - op: replace
-        path: /spec/storageClassName
-        # This is the default storage class for minikube
-        value: standard
-  - target:
-      kind: PersistentVolumeClaim
-    patch: |-
-      - op: replace 
-        path: /spec/resources/requests/storage
-        value: 10Gi
   - target:
       kind: Deployment
       name: sourcegraph-frontend|pgsql|codeintel-db|codeinsights-db

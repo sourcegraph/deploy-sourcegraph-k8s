@@ -170,6 +170,12 @@ data:
         - symbols-2.symbols:6060
         - symbols-3.symbols:6060
         - symbols-4.symbols:6060
+        - symbols-5.symbols:6060
+        - symbols-6.symbols:6060
+        - symbols-7.symbols:6060
+        - symbols-8.symbols:6060
+        - symbols-9.symbols:6060
+        - symbols-10.symbols:6060
     - labels:
         nodename: "sourcegraph-services"
         job: pgsql

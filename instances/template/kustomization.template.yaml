@@ -16,7 +16,7 @@ resources:
 #
 # NOTE: Include the 'namespace' component to create namespace with the same name if needed
 ##########################################################################################
-namespace: sg-dev
+namespace: sourcegraph
 
 ##########################################################################################
 # [COMPONENTS] Uncomment the lines for the components you'd like to include
@@ -107,11 +107,15 @@ components:
 
   #---------------------------------------------------------------------------------------
   # External Services
+  # You must add external instances via frontend env vars if you remove the bundled instances
   #---------------------------------------------------------------------------------------
-  # You must use external instances if you remove the bundled instances
-  # - ../../components/remove/pgsql # -- Remove default database instance for frontend
-  # - ../../components/remove/codeintel-db # -- Remove default database instance for codeintel
-  # - ../../components/remove/codeinsights-db # -- Remove default database instance for codeinsights
+  # - ../../components/remove/pgsql/deployment # -- Remove default database deployment for frontend
+  # - ../../components/remove/pgsql/statefulset # -- Remove default database statefulset for frontend
+  # - ../../components/remove/codeintel-db/deployment # -- Remove default database deployment for code-intel
+  # - ../../components/remove/codeintel-db/statefulset # -- Remove default database statefulset for code-intel
+  # - ../../components/remove/codeinsights-db/deployment # -- Remove default database deployment for code-insights
+  # - ../../components/remove/codeinsights-db/statefulset # -- Remove default database statefulset for code-insights
+
   # - ../../components/remove/redis # -- Remove embedded redis instance
 
   # - ../../components/services/redis # -- Use external redis servers
@@ -192,7 +196,6 @@ configMapGenerator:
   - name: sourcegraph-kustomize-env
     behavior: merge
     literals:
-      - CONFIG_KEYS=CONFIG_VALUES
       # - PRIVATE_REGISTRY=index.docker.io
       # - STORAGECLASS_NAME=sourcegraph
       # - STORAGECLASS_PROVISIONER=

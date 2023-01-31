@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patchesStrategicMerge:
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: codeinsights-db-conf
+  - |-
+    $patch: delete
+    apiVersion: apps/v1
+    kind: StatefulSet
+    metadata:
+      name: codeinsights-db
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: codeinsights-db

@@ -8,7 +8,7 @@ configMapGenerator:
 patchesJson6902:
   - target:
       kind: StatefulSet
-      name: .*
+      name: searcher|symbols|indexed-search|grafana|gitserver
       group: apps
       version: v1
     path: patches/replace-storageclass-name-sts.yaml

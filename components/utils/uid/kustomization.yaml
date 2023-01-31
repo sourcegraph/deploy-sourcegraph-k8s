@@ -1,6 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesStrategicMerge:
-  - patches/codeinsights-db.Deployment.yaml
-  - patches/codeintel-db.Deployment.yaml
-  - patches/pgsql.Deployment.yaml
+patchesJson6902:
+  - target:
+      kind: StatefulSet|Deployment
+      name: codeinsights-db|codeintel-db|pgsql
+      group: apps
+      version: v1
+    path: patches/databases.yaml

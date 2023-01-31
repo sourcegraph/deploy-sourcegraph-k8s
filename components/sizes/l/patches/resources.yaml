@@ -6,39 +6,11 @@ spec:
   template:
     spec:
       containers:
-      - name: blobstore
-        resources:
-          limits:
-            cpu: "2"
-            memory: 2Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: codeinsights-db
-spec:
-  template:
-    spec:
-      containers:
-      - name: codeinsights
-        resources:
-          limits:
-            cpu: "4"
-            memory: 2Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: codeintel-db
-spec:
-  template:
-    spec:
-      containers:
-      - name: pgsql
-        resources:
-          limits:
-            cpu: "4"
-            memory: 4Gi
+        - name: blobstore
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -48,25 +20,11 @@ spec:
   template:
     spec:
       containers:
-      - name: github-proxy
-        resources:
-          limits:
-            cpu: "1"
-            memory: 1G
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: pgsql
-spec:
-  template:
-    spec:
-      containers:
-      - name: pgsql
-        resources:
-          limits:
-            cpu: "4"
-            memory: 6Gi
+        - name: github-proxy
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1G
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -77,11 +35,11 @@ spec:
   template:
     spec:
       containers:
-      - name: precise-code-intel-worker
-        resources:
-          limits:
-            cpu: "2"
-            memory: 50G
+        - name: precise-code-intel-worker
+          resources:
+            limits:
+              cpu: "2"
+              memory: 50G
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -91,11 +49,11 @@ spec:
   template:
     spec:
       containers:
-      - name: redis-cache
-        resources:
-          limits:
-            cpu: "1"
-            memory: 5Gi
+        - name: redis-cache
+          resources:
+            limits:
+              cpu: "1"
+              memory: 5Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -105,11 +63,11 @@ spec:
   template:
     spec:
       containers:
-      - name: redis-store
-        resources:
-          limits:
-            cpu: "1"
-            memory: 6Gi
+        - name: redis-store
+          resources:
+            limits:
+              cpu: "1"
+              memory: 6Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -119,11 +77,11 @@ spec:
   template:
     spec:
       containers:
-      - name: repo-updater
-        resources:
-          limits:
-            cpu: "4"
-            memory: 4Gi
+        - name: repo-updater
+          resources:
+            limits:
+              cpu: "4"
+              memory: 4Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -134,12 +92,12 @@ spec:
   template:
     spec:
       containers:
-      - name: frontend
-        resources:
-          limits:
-            cpu: "6"
-            memory: 6G
-            ephemeral-storage: 8Gi
+        - name: frontend
+          resources:
+            limits:
+              cpu: "6"
+              memory: 6G
+              ephemeral-storage: 8Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -150,18 +108,18 @@ spec:
   template:
     spec:
       containers:
-      - name: symbols
-        resources:
-          limits:
-            cpu: "4"
-            memory: 4G
-        env:
-        # Enables Rockskip
-        - name: USE_ROCKSKIP
-          value: "true"
-        # Uses Rockskip for all repositories over 1GB
-        - name: ROCKSKIP_MIN_REPO_SIZE_MB
-          value: "1000"
+        - name: symbols
+          resources:
+            limits:
+              cpu: "4"
+              memory: 4G
+          env:
+            # Enables Rockskip
+            - name: USE_ROCKSKIP
+              value: "true"
+            # Uses Rockskip for all repositories over 1GB
+            - name: ROCKSKIP_MIN_REPO_SIZE_MB
+              value: "1000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -172,11 +130,11 @@ spec:
   template:
     spec:
       containers:
-      - name: syntect-server
-        resources:
-          limits:
-            cpu: "4"
-            memory: 6G
+        - name: syntect-server
+          resources:
+            limits:
+              cpu: "4"
+              memory: 6G
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -187,11 +145,11 @@ spec:
   template:
     spec:
       containers:
-      - name: worker
-        resources:
-          limits:
-            cpu: "4"
-            memory: 4G
+        - name: worker
+          resources:
+            limits:
+              cpu: "4"
+              memory: 4G
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -202,11 +160,11 @@ spec:
   template:
     spec:
       containers:
-      - name: gitserver
-        resources:
-          limits:
-            cpu: "8"
-            memory: 26G
+        - name: gitserver
+          resources:
+            limits:
+              cpu: "8"
+              memory: 26G
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -217,13 +175,13 @@ spec:
   template:
     spec:
       containers:
-      - name: zoekt-webserver
-        resources:
-          limits:
-            cpu: "8"
-            memory: 16G
-      - name: zoekt-indexserver
-        resources:
-          limits:
-            cpu: "4"
-            memory: 16G
+        - name: zoekt-webserver
+          resources:
+            limits:
+              cpu: "8"
+              memory: 16G
+        - name: zoekt-indexserver
+          resources:
+            limits:
+              cpu: "4"
+              memory: 16G
