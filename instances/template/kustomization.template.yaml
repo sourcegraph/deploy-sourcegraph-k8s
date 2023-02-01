@@ -40,7 +40,8 @@ components:
   #---------------------------------------------------------------------------------------
   # Resource Allocation - Instance size based
   #---------------------------------------------------------------------------------------
-  # Use size XS resources by default. Pick one only.
+  # Use size XS resources by default. Include one only.
+  # Find your instance size on https://docs.sourcegraph.com/admin/deploy/instance-size
   - ../../components/sizes/xs # -- Allocate resources for size XS instance
   # - ../../components/sizes/s # -- Allocate resources for size S instance
   # - ../../components/sizes/m # -- Allocate resources for size M instance
