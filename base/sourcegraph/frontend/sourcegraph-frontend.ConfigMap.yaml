@@ -8,7 +8,7 @@ metadata:
     sourcegraph-resource-requires: no-cluster-admin
   name: sourcegraph-frontend-env
 data:
-  DEPLOY_TYPE: kustomize
+  DEPLOY_TYPE: kubernetes
   PGDATABASE: sg
   PGHOST: pgsql
   PGPORT: "5432"
