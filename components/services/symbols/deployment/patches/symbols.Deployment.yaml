@@ -3,6 +3,11 @@ kind: Deployment
 metadata:
   name: symbols
 spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     spec:
       containers:
@@ -48,3 +53,5 @@ spec:
           name: cache-ssd
   updateStrategy:
     $patch: delete
+  volumeClaimTemplates:
+  serviceName:

@@ -20,3 +20,21 @@ patchesJson6902:
       group: apps
       version: v1
     path: patches/symbols.yaml
+  - target:
+      kind: StatefulSet|Deployment
+      name: pgsql
+      group: apps
+      version: v1
+    path: patches/pgsql.yaml
+  - target:
+      kind: StatefulSet|Deployment
+      name: codeinsights-db
+      group: apps
+      version: v1
+    path: patches/codeinsights-db.yaml
+  - target:
+      kind: StatefulSet|Deployment
+      name: codeintel-db
+      group: apps
+      version: v1
+    path: patches/codeintel-db.yaml

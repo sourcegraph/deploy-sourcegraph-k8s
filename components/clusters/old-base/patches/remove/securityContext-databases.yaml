@@ -2,3 +2,6 @@
   path: /spec/template/spec/initContainers/0/securityContext/allowPrivilegeEscalation
 - op: remove
   path: /spec/template/spec/initContainers/0/securityContext/runAsGroup
+- op: replace
+  path: /spec/template/spec/initContainers/0/securityContext/runAsUser
+  value: 0

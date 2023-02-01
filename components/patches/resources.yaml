@@ -60,6 +60,28 @@
 #               memory: "2Gi"
 ---
 # apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: codeinsights-db
+# spec:
+#   template:
+#     spec:
+#       containers:
+#         - name: codeinsights
+#           resources:
+#             limits:
+#               cpu: "4"
+#               memory: "2Gi"
+#             requests:
+#               cpu: "4"
+#               memory: "2Gi"
+#   volumeClaimTemplates:
+#     - spec:
+#         resources:
+#           requests:
+#             storage: 200Gi
+---
+# apiVersion: apps/v1
 # kind: Deployment
 # metadata:
 #   name: codeintel-db
@@ -75,6 +97,28 @@
 #           requests:
 #             cpu: "8"
 #             memory: 8G
+---
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: codeintel-db
+# spec:
+#   template:
+#     spec:
+#       containers:
+#         - name: pgsql
+#           resources:
+#             limits:
+#               cpu: "16"
+#               memory: 16G
+#             requests:
+#               cpu: "8"
+#               memory: 8G
+#   volumeClaimTemplates:
+#     - spec:
+#         resources:
+#           requests:
+#             storage: 200Gi
 ---
 # apiVersion: apps/v1
 # kind: Deployment
@@ -182,6 +226,28 @@
 #           requests:
 #             cpu: "4"
 #             memory: 4Gi
+---
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: pgsql
+# spec:
+#   template:
+#     spec:
+#       containers:
+#         - name: pgsql
+#           resources:
+#             limits:
+#               cpu: "4"
+#               memory: 4Gi
+#             requests:
+#               cpu: "4"
+#               memory: 4Gi
+#   volumeClaimTemplates:
+#     - spec:
+#         resources:
+#           requests:
+#             storage: 200Gi
 ---
 # apiVersion: apps/v1
 # kind: Deployment

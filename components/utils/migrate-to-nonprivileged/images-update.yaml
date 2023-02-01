@@ -1,0 +1,50 @@
+- source:
+    kind: StatefulSet
+    name: pgsql
+    fieldPath: spec.template.spec.initContainers.0.image
+  targets:
+    - select:
+        kind: StatefulSet
+        name: indexed-search
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: Deployment
+        name: blobstore
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: StatefulSet
+        name: gitserver
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: StatefulSet
+        name: grafana
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: Deployment
+        name: prometheus
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: Deployment
+        name: redis-cache
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: Deployment
+        name: searcher
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: StatefulSet
+        name: searcher
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image
+    - select:
+        kind: Deployment
+        name: redis-store
+      fieldPaths:
+        - spec.template.spec.initContainers.0.image

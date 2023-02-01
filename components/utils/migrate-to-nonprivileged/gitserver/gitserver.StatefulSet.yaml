@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gitserver
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: transfer-file-ownership
+          image: index.docker.io/sourcegraph/alpine-3.14:insiders
+          command:
+            [
+              "sh",
+              "-c",
+              'if [[ "$(stat -c ''%u'' /data/repos)" -ne 100 ]]; then chown -R 100:101 /data/repos; fi',
+            ]
+          volumeMounts:
+            - mountPath: /data/repos
+              name: repos
+          securityContext:
+            runAsUser: 0

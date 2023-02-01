@@ -4,30 +4,31 @@ components:
   - ../../monitoring
   - ../../monitoring/cadvisor
   - ../../monitoring/rbacs
-  # Switch from StatefulSet to Deployment
-  - ../../services/searcher/deployment
-  # Switch from StatefulSet to Deployment
-  - ../../services/symbols/deployment
   - ../../enable/service-discovery
+  # Switch below from StatefulSet to Deployment
+  - ../../services/searcher/deployment
+  - ../../services/symbols/deployment
+  - ../../services/pgsql
+  - ../../services/codeinsights-db
+  - ../../services/codeintel-db
+  # Add sourcegraph as default storage class name
+  - ../../storage-class/sourcegraph
 patchesStrategicMerge:
   - patches/blobstore/blobstore.Deployment.yaml
   - patches/cadvisor/cadvisor.DaemonSet.yaml
-  - patches/codeinsights-db/codeinsights-db.Deployment.yaml
-  - patches/codeintel-db/codeintel-db.Deployment.yaml
   - patches/frontend/sourcegraph-frontend.Deployment.yaml
   - patches/github-proxy/github-proxy.Deployment.yaml
   - patches/gitserver/gitserver.StatefulSet.yaml
   - patches/indexed-search/indexed-search.StatefulSet.yaml
   - patches/otel-collector/otel-collector.Deployment.yaml
-  - patches/pgsql/pgsql.Deployment.yaml
   - patches/precise-code-intel/worker.Deployment.yaml
   - patches/redis/redis-cache.Deployment.yaml
   - patches/redis/redis-store.Deployment.yaml
   - patches/repo-updater/repo-updater.Deployment.yaml
   - patches/syntect-server/syntect-server.Deployment.yaml
   - patches/worker/worker.Deployment.yaml
-# To support searcher and symbols as both statefulset and deployment
 patchesJson6902:
+  # To support searcher and symbols as both statefulset and deployment
   - target:
       kind: StatefulSet|Deployment
       name: searcher
@@ -53,7 +54,7 @@ patchesJson6902:
       version: v1
     path: patches/remove/securityContext-daemonset.yaml
   - target:
-      kind: Deployment
+      kind: StatefulSet|Deployment
       name: codeinsights-db|codeintel-db|pgsql|sourcegraph-frontend
       group: apps
       version: v1

@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - path: patches/codeinsights-db.Deployment.yaml
+    target:
+      kind: StatefulSet
+      name: codeinsights-db
+    options:
+      allowKindChange: true

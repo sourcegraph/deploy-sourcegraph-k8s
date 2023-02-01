@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    description: Postgres database for various data.
+    kubectl.kubernetes.io/default-container: pgsql
+  labels:
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+    app.kubernetes.io/component: pgsql
+  name: pgsql
+spec:
+  serviceName: pgsql
+  minReadySeconds: 10
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pgsql
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        deploy: sourcegraph
+        app: pgsql
+        group: backend
+    spec:
+      initContainers:
+        - name: correct-data-dir-permissions
+          image: index.docker.io/sourcegraph/alpine-3.14:4.4.1@sha256:d84049e03b36abe84efae5d408cb6dd16b1ca3a9ccc3e7b5e7e5ce0ca8e74dd4
+          command: ["sh", "-c", "if [ -d /data/pgdata-12 ]; then chmod 750 /data/pgdata-12; fi"]
+          volumeMounts:
+            - mountPath: /data
+              name: disk
+          securityContext:
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            runAsUser: 999
+            runAsGroup: 999
+          resources:
+            limits:
+              cpu: "10m"
+              memory: "50Mi"
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+      containers:
+        - name: pgsql
+          image: index.docker.io/sourcegraph/postgres-12-alpine:4.4.1@sha256:e35cc240cdff97ef5fd596a541630ce8598656872ed8fffdc267b44ee62b6ae6
+          terminationMessagePolicy: FallbackToLogsOnError
+          readinessProbe:
+            exec:
+              command:
+                - /ready.sh
+          livenessProbe:
+            initialDelaySeconds: 15
+            exec:
+              command:
+                - /liveness.sh
+          startupProbe:
+            exec:
+              command:
+                - /liveness.sh
+            failureThreshold: 360
+            periodSeconds: 10
+          ports:
+            - name: pgsql
+              containerPort: 5432
+          resources:
+            limits:
+              cpu: "4"
+              memory: 4Gi
+            requests:
+              cpu: "4"
+              memory: 4Gi
+          securityContext:
+            # Required to prevent escalations to root.
+            allowPrivilegeEscalation: false
+            runAsUser: 999
+            runAsGroup: 999
+          volumeMounts:
+            - mountPath: /data
+              name: disk
+            - mountPath: /conf
+              name: pgsql-conf
+            - mountPath: /dev/shm
+              name: dshm
+        - env:
+            - name: DATA_SOURCE_NAME
+              value: postgres://sg:@localhost:5432/?sslmode=disable
+            - name: PG_EXPORTER_EXTEND_QUERY_PATH
+              value: /config/queries.yaml
+          image: index.docker.io/sourcegraph/postgres_exporter:4.4.1@sha256:ca9601bb42c6feb73d2353feee4824d4aff66efbbcb69b4d3a1d7fa613ea384c
+          terminationMessagePolicy: FallbackToLogsOnError
+          name: pgsql-exporter
+          ports:
+            - name: pgsql-exporter
+              containerPort: 9187
+          resources:
+            limits:
+              cpu: 10m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+      terminationGracePeriodSeconds: 120
+      securityContext:
+        runAsUser: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+      volumes:
+        - name: disk
+          persistentVolumeClaim:
+            claimName: pgsql
+        - name: pgsql-conf
+          configMap:
+            # 511 in decimal = 0777 in octal
+            defaultMode: 511
+            name: pgsql-conf
+        - name: dshm # Allocate shared memory to match the shared_buffers value
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1G

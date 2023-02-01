@@ -3,6 +3,12 @@ kind: Deployment
 metadata:
   name: searcher
 spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  replica: 2
   template:
     spec:
       containers:
@@ -48,3 +54,5 @@ spec:
           name: cache-ssd
   updateStrategy:
     $patch: delete
+  volumeClaimTemplates:
+  serviceName:

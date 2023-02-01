@@ -1,7 +1,7 @@
-generated-cluster
 .env
 .envrc
 .crt
 .key
 id_rsa
 known_hosts
+dev-clusters

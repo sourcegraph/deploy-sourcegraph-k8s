@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: transfer-file-ownership
+          image: index.docker.io/sourcegraph/alpine-3.14
+          command: ["sh", "-c", "chown -R 472:472 /var/lib/grafana"]
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-data
+          securityContext:
+            runAsUser: 0

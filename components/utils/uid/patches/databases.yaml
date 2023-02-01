@@ -1,0 +1,18 @@
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: passwd
+    mountPath: /etc/passwd
+    readOnly: true
+- op: add
+  path: /spec/template/spec/initContainers/0/volumeMounts/-
+  value:
+    name: passwd
+    mountPath: /etc/passwd
+    readOnly: true
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: passwd
+    hostPath:
+      path: /etc/passwd

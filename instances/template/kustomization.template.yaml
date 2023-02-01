@@ -35,12 +35,13 @@ components:
   #---------------------------------------------------------------------------------------
   # Namespace Creation
   #---------------------------------------------------------------------------------------
-  - ../../components/resources/namespace # -- Create namespace based on NAMESPACE input above
+  # - ../../components/resources/namespace # -- Create namespace based on NAMESPACE input above
 
   #---------------------------------------------------------------------------------------
   # Resource Allocation - Instance size based
   #---------------------------------------------------------------------------------------
-  # Use size XS resources by default. Pick one only.
+  # Use size XS resources by default. Include one only.
+  # Find your instance size on https://docs.sourcegraph.com/admin/deploy/instance-size
   - ../../components/sizes/xs # -- Allocate resources for size XS instance
   # - ../../components/sizes/s # -- Allocate resources for size S instance
   # - ../../components/sizes/m # -- Allocate resources for size M instance
@@ -107,11 +108,15 @@ components:
 
   #---------------------------------------------------------------------------------------
   # External Services
+  # You must add external instances via frontend env vars if you remove the bundled instances
   #---------------------------------------------------------------------------------------
-  # You must use external instances if you remove the bundled instances
-  # - ../../components/remove/pgsql # -- Remove default database instance for frontend
-  # - ../../components/remove/codeintel-db # -- Remove default database instance for codeintel
-  # - ../../components/remove/codeinsights-db # -- Remove default database instance for codeinsights
+  # - ../../components/remove/pgsql/deployment # -- Remove default database deployment for frontend
+  # - ../../components/remove/pgsql/statefulset # -- Remove default database statefulset for frontend
+  # - ../../components/remove/codeintel-db/deployment # -- Remove default database deployment for code-intel
+  # - ../../components/remove/codeintel-db/statefulset # -- Remove default database statefulset for code-intel
+  # - ../../components/remove/codeinsights-db/deployment # -- Remove default database deployment for code-insights
+  # - ../../components/remove/codeinsights-db/statefulset # -- Remove default database statefulset for code-insights
+
   # - ../../components/remove/redis # -- Remove embedded redis instance
 
   # - ../../components/services/redis # -- Use external redis servers
@@ -131,8 +136,9 @@ components:
   # ../../components/remove/prometheus # -- Remove prometheus
   # - ../../components/remove/resources # -- Remove resources (Limits, requests) from all containers
   # - ../../components/remove/security-context # -- Remove security context from all resources
-  # - ../../components/utils/multi-version-upgrade # -- Scale down non-database pods to 0 for multi-version upgrade
   # - ../../components/utils/uid # -- Run all Postgres database with valid users on host
+  # - ../../components/utils/multi-version-upgrade # -- Scale down non-database pods to 0 for multi-version upgrade
+  # - ../../components/utils/migrate-to-nonprivileged # -- Component for migrating from privileged to non-privileged
 
   # ------------------------------------------------------------------------
   # Keep these as the LAST components
@@ -140,6 +146,7 @@ components:
   # - ../../components/privileged # -- Run Sourcegraph with privileged and root access
   # Recommended for clusters with RBAC enabled.
   # - ../../components/enable/service-discovery # -- Enable service-discovery for frontend
+#
 ##########################################################################################
 # [SECRETS GENERATOR] Turns the contents of the secret files into Kubernetes secrets
 #
@@ -202,3 +209,11 @@ components:
 #       - SSD_NODE_PATH=/mnt/disks/ssd0
 #       - AWS_MANAGED_CERT_ARN=
 #       - GKE_MANAGED_CERT_NAME=
+
+##########################################################################################
+# DEPLOY INSTRUCTIONS
+#
+# Build Manifests: kubectl kustomize instances/$CURRENT_DIR -o cluster.yaml
+# Review Manifests: less cluster.yaml
+# kubectl apply --prune -l deploy=sourcegraph -f cluster.yaml
+##########################################################################################

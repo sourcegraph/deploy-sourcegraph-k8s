@@ -1,4 +1,4 @@
-# [BETA] Sourcegraph on Kubernetes with Kustomize
+# [BETA] Deploy Sourcegraph with Kustomize
 
 [![sourcegraph: beta](https://img.shields.io/badge/sourcegraph-beta-blue.svg)](https://sourcegraph.com/github.com/sourcegraph/deploy-sourcegrap-k8s)
 
@@ -13,7 +13,7 @@ For product and [pricing](https://about.sourcegraph.com/pricing/) information, v
 [about.sourcegraph.com](https://about.sourcegraph.com) or [contact
 us](https://about.sourcegraph.com/contact/sales) for more information.
 
-- [Installing](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize)
+- [Installing](https://docs.sourcegraph.com/admin/deploy/kubernetes)
 - [Configuring](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure)
 - [Updating](https://docs.sourcegraph.com/admin/updates/kubernetes)
 - [Scaling](https://docs.sourcegraph.com/admin/deploy/scale)- general advice on scaling services
@@ -24,7 +24,7 @@ us](https://about.sourcegraph.com/contact/sales) for more information.
 
 ## Deploying
 
-🚨 **The `master` branch tracks development. Use the branch of this repository corresponding to the version of Sourcegraph you wish to deploy, e.g. `git checkout v4.4.1`.**
+🚨 **Please use the branch corresponding to the version of Sourcegraph you wish to deploy, e.g. `git checkout v4.5.0`.**
 
 Always refer to the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latest instructions.
 
@@ -34,7 +34,9 @@ When upgrading Sourcegraph, please check [upgrading docs](https://docs.sourcegra
 
 ## Contributing
 
-We've made our deployment configurations open source to better serve our customers' needs. If there is anything we can do to make deploying Sourcegraph easier just [open an issue (in sourcegraph/sourcegraph)](https://github.com/sourcegraph/sourcegraph/issues/new?assignees=&labels=deploy-sourcegraph&template=deploy-sourcegraph.md&title=%5Bdeploy-sourcegraph%5D) or a pull request and we will respond promptly!
+The `dev` branch is used to track development.
+
+We've made our deployment configurations open source to better serve our customers' needs. If there is anything we can do to make deploying Sourcegraph easier just [open an issue (in sourcegraph/sourcegraph)](https://github.com/sourcegraph/sourcegraph/issues/new?assignees=&labels=deploy-sourcegraph&template=deploy-sourcegraph.md&title=%5Bdeploy-sourcegraph%5D) or a pull request and we will respond as soon as possible!
 
 ## Questions & Issues
 
