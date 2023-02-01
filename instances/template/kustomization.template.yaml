@@ -35,7 +35,7 @@ components:
   #---------------------------------------------------------------------------------------
   # Namespace Creation
   #---------------------------------------------------------------------------------------
-  - ../../components/resources/namespace # -- Create namespace based on NAMESPACE input above
+  # - ../../components/resources/namespace # -- Create namespace based on NAMESPACE input above
 
   #---------------------------------------------------------------------------------------
   # Resource Allocation - Instance size based
@@ -145,7 +145,7 @@ components:
   # - ../../components/privileged # -- Run Sourcegraph with privileged and root access
   # Recommended for clusters with RBAC enabled.
   # - ../../components/enable/service-discovery # -- Enable service-discovery for frontend
-
+#
 ##########################################################################################
 # [SECRETS GENERATOR] Turns the contents of the secret files into Kubernetes secrets
 #
@@ -193,18 +193,26 @@ components:
 # Always refer to the component’s documentation or comments before updating
 ##########################################################################################
 
-configMapGenerator:
-  - name: sourcegraph-kustomize-env
-    behavior: merge
-    literals:
-      # - PRIVATE_REGISTRY=index.docker.io
-      # - STORAGECLASS_NAME=sourcegraph
-      # - STORAGECLASS_PROVISIONER=
-      # - STORAGECLASS_PARAM_TYPE=
-      # - HOST_DOMAIN=
-      # - TLS_HOST=
-      # - TLS_INGRESS_CLASS_NAME=
-      # - TLS_CLUSTER_ISSUER=
-      # - SSD_NODE_PATH=/mnt/disks/ssd0
-      # - AWS_MANAGED_CERT_ARN=
-      # - GKE_MANAGED_CERT_NAME=
+# configMapGenerator:
+#   - name: sourcegraph-kustomize-env
+#     behavior: merge
+#     literals:
+#       - PRIVATE_REGISTRY=index.docker.io
+#       - STORAGECLASS_NAME=sourcegraph
+#       - STORAGECLASS_PROVISIONER=
+#       - STORAGECLASS_PARAM_TYPE=
+#       - HOST_DOMAIN=
+#       - TLS_HOST=
+#       - TLS_INGRESS_CLASS_NAME=
+#       - TLS_CLUSTER_ISSUER=
+#       - SSD_NODE_PATH=/mnt/disks/ssd0
+#       - AWS_MANAGED_CERT_ARN=
+#       - GKE_MANAGED_CERT_NAME=
+
+##########################################################################################
+# DEPLOY INSTRUCTIONS
+#
+# Build Manifests: kubectl kustomize instances/$CURRENT_DIR -o cluster.yaml
+# Review Manifests: less cluster.yaml
+# kubectl apply --prune -l deploy=sourcegraph -f cluster.yaml
+##########################################################################################
