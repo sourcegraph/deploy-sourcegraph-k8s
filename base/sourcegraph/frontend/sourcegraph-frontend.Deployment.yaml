@@ -29,7 +29,7 @@ spec:
     spec:
       initContainers:
         - name: migrator
-          image: index.docker.io/sourcegraph/migrator:insiders@sha256:f540c204a001a3d723c5de229c7ddb36446f7f20aaca24d29d963e9925519ae6
+          image: index.docker.io/sourcegraph/migrator:4.4.2@sha256:603b17216b6390e486fed6ff3ce4d6bced1446f8ef820b5b4e1278e4d885123f
           args: ["up"]
           resources:
             limits:
@@ -48,7 +48,7 @@ spec:
                 name: sourcegraph-frontend-env
       containers:
         - name: frontend
-          image: index.docker.io/sourcegraph/frontend:insiders@sha256:b063b3d0dabdb9000929b49face859f7fa5b74cb850a7ce512eb5b104197cf6a
+          image: index.docker.io/sourcegraph/frontend:4.4.2@sha256:9f7b7d2feccc8e6b404bd4d82f2866b61880447e21a56015ec393547ca3981ce
           args:
             - serve
           envFrom:

@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: github-proxy
-          image: index.docker.io/sourcegraph/github-proxy:insiders@sha256:a58d3afffa1de042050717771758d1c9447fb760b1a2568a0d10926f8663f34f
+          image: index.docker.io/sourcegraph/github-proxy:4.4.2@sha256:f5b2b2e8251e6599a5757ad5cbab8fdfe11b3f71446af852b70cf2a58cc062e1
           env:
             # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable
             - name: OTEL_AGENT_HOST
