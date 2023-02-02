@@ -8,3 +8,5 @@ components:
   # Use resources for a size-XS instance
   - ../../../components/sizes/xs
   - ../../../components/clusters/aws/ebs-csi
+  # Monitoring Stack
+  - ../../../components/monitoring

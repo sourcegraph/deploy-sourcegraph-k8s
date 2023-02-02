@@ -6,7 +6,10 @@ resources:
   - ../../../base/sourcegraph
 components:
   - ../../../components/monitoring
+  - ../../../components/monitoring/cadvisor
+  - ../../../components/monitoring/privileged
   # Use resources for a size-XS instance
   - ../../../components/sizes/xs
+  - ../../../components/privileged
   - ../../../components/clusters/gke/configure
   - ../../../components/enable/service-discovery
