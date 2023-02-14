@@ -15,6 +15,9 @@ spec:
     - name: http
       port: 30080
       targetPort: http
+    - name: debug
+      port: 6060
+      targetPort: debug
   selector:
     app: sourcegraph-frontend
   type: ClusterIP

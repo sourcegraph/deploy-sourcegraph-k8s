@@ -44,6 +44,8 @@ spec:
           ports:
             - containerPort: 9238
               name: http
+            - containerPort: 6060
+              name: debug
           readinessProbe:
             tcpSocket:
               port: http
