@@ -5,7 +5,6 @@ components:
 patchesStrategicMerge:
   - patches/resources.yaml
   - patches/endpoints.yaml
-  # - patches/prometheus.ConfigMap.yaml
 # To support searcher and symbols as both statefulset and deployment
 patchesJson6902:
   - target:
