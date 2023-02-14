@@ -6,8 +6,6 @@ resources:
   # Sourcegraph Main Stack
   - ../../../base/sourcegraph
 components:
-  # Monitoring Stacks
-  - ../../../components/monitoring
   # Use resources for a size-L instance
   - ../../../components/sizes/l
   # This configures the Sourcegraph instance and networking to work in a k3s cluster

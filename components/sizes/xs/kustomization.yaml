@@ -25,3 +25,8 @@ patchesJson6902:
       group: apps
       version: v1
     path: patches/databases.yaml
+  - target:
+      kind: ConfigMap
+      name: prometheus
+      version: v1
+    path: patches/prometheus.yaml

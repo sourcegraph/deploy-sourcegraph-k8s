@@ -296,3 +296,7 @@ data:
             app: alertmanager
   extra_rules.yml: ""
   prometheus_targets.yml: ""
+  symbols_targets.yml: ""
+  searcher_targets.yml: ""
+  gitserver_targets.yml: ""
+  indexed-search_targets.yml: ""

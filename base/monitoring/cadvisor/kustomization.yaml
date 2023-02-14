@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cadvisor.DaemonSet.yaml
   - cadvisor.ServiceAccount.yaml
+  - cadvisor.Service.yaml
