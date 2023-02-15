@@ -5,5 +5,5 @@ pushd "$(dirname "${BASH_SOURCE[0]}")"/../..
 
 WORKDIR=$(pwd)
 
-echo "Installing asdf dependencies as defined in '${WORKDIR}/.tool-versions':"
+echo "Installing asdf dependencies as defined in '${WORKDIR}/.buildkite/.tool-versions':"
 asdf install
