@@ -29,8 +29,8 @@ spec:
       containers:
         - name: symbols
           env:
-            # - name: SYMBOLS_CACHE_SIZE_MB
-            #   value: "500000"
+            - name: SYMBOLS_CACHE_SIZE_MB
+              value: "12000"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -77,18 +77,18 @@ spec:
           terminationMessagePolicy: FallbackToLogsOnError
           volumeMounts:
             - mountPath: /mnt/cache
-              name: cache-ssd
+              name: cache
       volumes:
-        - name: cache-ssd
+        - name: cache
           emptyDir: {}
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:
     - metadata:
-        name: cache-ssd
+        name: cache
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 50G
+            storage: 12G

@@ -31,8 +31,8 @@ spec:
       containers:
         - name: searcher
           env:
-            # - name: SEARCHER_CACHE_SIZE_MB
-            #   value: "500000"
+            - name: SEARCHER_CACHE_SIZE_MB
+              value: "25000"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -74,16 +74,16 @@ spec:
             runAsUser: 100
           volumeMounts:
             - mountPath: /mnt/cache
-              name: cache-ssd
+              name: cache
       volumes:
         - emptyDir: {}
-          name: cache-ssd
+          name: cache
   volumeClaimTemplates:
     - metadata:
-        name: cache-ssd
+        name: cache
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 50G
+            storage: 30G

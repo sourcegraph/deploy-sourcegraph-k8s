@@ -194,6 +194,25 @@ components:
 #   - patches/custom.NodePort.yaml
 #   - patches/resources.yaml
 
+# ------------------------------------------------------------------------
+# Storage Size
+# ------------------------------------------------------------------------
+# patchesJson6902:
+#   - target:
+#       kind: PersistentVolumeClaim
+#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
+#     patch: |-
+#       - op: replace
+#         path: /spec/resources/requests/storage
+#         value: 100Gi
+#   - target:
+#       kind: StatefulSet
+#       name: gitserver|indexed-search|searcher|symbols
+#     patch: |-
+#       - op: replace
+#         path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage
+#         value: 200Gi
+
 ##########################################################################################
 # [BUILD CONFIGURATIONS] Handles updating configs using env vars for kustomize
 #

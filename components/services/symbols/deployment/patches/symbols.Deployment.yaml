@@ -14,6 +14,7 @@ spec:
         - name: symbols
           env:
             - name: SYMBOLS_CACHE_SIZE_MB
+              value: null
               valueFrom:
                 resourceFieldRef:
                   containerName: symbols
@@ -23,6 +24,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+              $patch: delete
+              value: ""
             - name: CACHE_DIR
               value: /mnt/cache/$(POD_NAME)
               # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable

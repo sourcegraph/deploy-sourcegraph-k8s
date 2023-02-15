@@ -15,6 +15,7 @@ spec:
         - name: searcher
           env:
             - name: SEARCHER_CACHE_SIZE_MB
+              value: null
               valueFrom:
                 resourceFieldRef:
                   containerName: searcher
