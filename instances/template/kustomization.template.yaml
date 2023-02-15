@@ -1,3 +1,10 @@
+##########################################################################################
+# DEPLOY INSTRUCTIONS
+#
+# Build Manifests: kubectl kustomize instances/$CURRENT_DIR -o cluster.yaml
+# Review Manifests: less cluster.yaml
+# kubectl apply --prune -l deploy=sourcegraph -f cluster.yaml
+##########################################################################################
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -195,6 +202,9 @@ components:
 ##########################################################################################
 
 # configMapGenerator:
+#   # ------------------------------------------------------------------------
+#   # BUILD CONFIGURATIONS
+#   # ------------------------------------------------------------------------
 #   - name: sourcegraph-kustomize-env
 #     behavior: merge
 #     literals:
@@ -209,11 +219,14 @@ components:
 #       - SSD_NODE_PATH=/mnt/disks/ssd0
 #       - AWS_MANAGED_CERT_ARN=
 #       - GKE_MANAGED_CERT_NAME=
-
-##########################################################################################
-# DEPLOY INSTRUCTIONS
-#
-# Build Manifests: kubectl kustomize instances/$CURRENT_DIR -o cluster.yaml
-# Review Manifests: less cluster.yaml
-# kubectl apply --prune -l deploy=sourcegraph -f cluster.yaml
-##########################################################################################
+#       -
+#       -
+#       -
+#       -
+#   # ------------------------------------------------------------------------
+#   # FRONTEND ENV VARS
+#   # ------------------------------------------------------------------------
+#   - name: sourcegraph-frontend-env
+#     behavior: merge
+#     literals:
+#       - DEPLOY_TYPE=kustomize # make your edit below this line

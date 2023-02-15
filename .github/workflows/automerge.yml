@@ -1,0 +1,32 @@
+# based on https://github.com/pascalgn/automerge-action/tree/v0.13.0#usage
+name: Automerge
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: pascalgn/automerge-action@01fb84a9d077930bf9d16d1f7fa3fe2ffe45aabe # renovate: tag=v0.14.2
+        env:
+          # Allows this merge to trigger other actions
+          GITHUB_TOKEN: "${{ secrets.DISPATCH_PERSONAL_ACCESS_TOKEN }}"
+          MERGE_METHOD: squash
+          MERGE_RETRIES: 60
+          MERGE_LABELS: automerge # Set by renovate bot or users
