@@ -3,8 +3,8 @@
 set -eu
 pushd "$(dirname "${BASH_SOURCE[0]}")"/..
 
-OVERLAYS=("aws/ebs")
-mapfile -t OVERLAYS < <(find examples -maxdepth 2 -type d ! -name '.*' ! -name 'bases' ! -name 'examples' -printf '%f\n')
+OVERLAYS=()
+mapfile -t OVERLAYS < <(find examples -maxdepth 2 -type d ! -name '.*' ! -name 'monitoring' ! -name 'ingress-controller' -printf '%f\n')
 
 for O in "${OVERLAYS[@]}"; do
   echo "<<<< GENERATING ${O} OVERLAY >>>>>"

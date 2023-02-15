@@ -5,3 +5,4 @@
 id_rsa
 known_hosts
 dev-clusters
+test.yaml

@@ -1,6 +1,6 @@
 # Privileged Overlay
 
-An overlay to enable service discover for frontend. It also starts all non-monitoring services with root user and allows privilege.
+An overlay to enable service discover for frontend. It also starts all services with root user and allows privilege.
 
 IMPORTANT: RBACs must be enabled for your cluster to use this overlay.
 

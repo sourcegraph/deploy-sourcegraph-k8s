@@ -3,9 +3,10 @@ kind: Kustomization
 namespace: default
 resources:
   # Sourcegraph Main Stack
-  - ../../../base/sourcegraph
+  - ../../base/sourcegraph
 components:
-  # Monitoring Stack
-  - ../../../components/monitoring
   # Use resources for a size-XS instance
-  - ../../../components/sizes/xs
+  - ../../components/sizes/xs
+  - ../../components/clusters/aws/eks-ebs
+  # Monitoring Stack
+  - ../../components/monitoring
