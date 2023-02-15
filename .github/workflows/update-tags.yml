@@ -18,7 +18,7 @@ jobs:
 
       # generate update
       - name: Pin tags to ${{ github.event.inputs.semver }}
-        run: tools/update-docker-tags.sh "${{ github.event.inputs.semver }}"
+        run: .buildkite/tools/update-docker-tags.sh "${{ github.event.inputs.semver }}"
       - name: Open pull request
         uses: peter-evans/create-pull-request@dcd5fd746d53dd8de555c0f10bca6c35628be47a # renovate: tag=v3
         with:
