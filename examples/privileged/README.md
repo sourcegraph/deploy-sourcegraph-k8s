@@ -1,6 +1,6 @@
 # Privileged Overlay
 
-An overlay to enable service discover for frontend. It also starts all non-monitoring services with root user and allows privilege.
+An overlay to enable service discover for frontend. It also starts all services with root user and allows privilege.
 
 IMPORTANT: RBACs must be enabled for your cluster to use this overlay.
 
@@ -24,7 +24,7 @@ You can generate the manifests without cloning the repository using the kustomiz
 ```sh
 # Replace xs with your instance size
 # Replace bee/newBase to a version branch that support this overlay
-kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph/examples/privileged/xs?ref=bee/newBase -o cluster.yaml
+kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph-k8s/examples/privileged/xs?ref=bee/newBase -o cluster.yaml
 ```
 
 The manifests will be grouped and exported to the cluster.yaml file in the directory where you run the command from.

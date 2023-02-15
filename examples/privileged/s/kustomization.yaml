@@ -7,6 +7,8 @@ resources:
 components:
   # Monitoring Stack
   - ../../../components/monitoring
+  - ../../../components/monitoring/cadvisor
+  - ../../../components/monitoring/privileged
   - ../../../components/sizes/s
   - ../../../components/privileged
   - ../../../components/enable/service-discovery
