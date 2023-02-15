@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+resources:
+  - ../../../base/monitoring/otel-collector
+  - ../../../base/monitoring/jaeger
+patchesStrategicMerge:
+  - patches/otel-collector.Deployment.yaml
+  - patches/grafana.ConfigMap.yaml
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: JAEGER_SERVER_URL
+          value: http://jaeger-query:16686
+    target:
+      kind: Deployment
+      name: sourcegraph-frontend

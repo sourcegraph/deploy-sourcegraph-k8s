@@ -8,3 +8,4 @@ resources:
 components:
   # Monitoring Stack
   - ../../components/monitoring
+  - ../../components/monitoring/tracing
