@@ -11,10 +11,6 @@ steps:
     command: .buildkite/verify-rbac-labels.sh
     agents: { queue: standard }
 
-  - label: ":lipstick:"
-    command: .buildkite/shfmt.sh
-    agents: { queue: standard }
-
   - label: ":git: :sleuth_or_spy:"
     command: .buildkite/verify-release/verify-release.sh
     agents: { queue: standard }
