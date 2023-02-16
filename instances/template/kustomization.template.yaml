@@ -89,6 +89,8 @@ components:
   #---------------------------------------------------------------------------------------
   - ../../components/monitoring # -- Add default resources for Sourcegraph monitoring services
   # - ../../components/monitoring/cadvisor # -- Add resources for cAdvisor (requires privileges)
+  # - ../../components/monitoring/otel # -- Add resources for otel
+  # - ../../components/monitoring/tracing # -- Add resources for otel with Jaeger as tracing backend
   # - ../../components/monitoring/privileged # -- Run monitoring stack with privileged and root access
   # - ../../components/remove/daemonset # -- Remove all services with daemonsets: node-exporter & otel
   # - ../../components/remove/otel-collector # -- Remove otel-collector and otel-agent
