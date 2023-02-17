@@ -4,7 +4,7 @@ kind: Component
 replacements:
   - source:
       fieldPath: data.TLS_HOST
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:
@@ -16,7 +16,7 @@ replacements:
           name: sourcegraph-frontend
   - source:
       fieldPath: data.TLS_INGRESS_CLASS_NAME
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:
@@ -28,7 +28,7 @@ replacements:
           name: sourcegraph-frontend
   - source:
       fieldPath: data.TLS_CLUSTER_ISSUER
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:

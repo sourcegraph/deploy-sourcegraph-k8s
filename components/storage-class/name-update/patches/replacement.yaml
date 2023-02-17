@@ -1,6 +1,6 @@
 - source:
     fieldPath: data.STORAGECLASS_NAME
-    kind: SourcegraphKustomizeConfig
+    kind: SourcegraphBuildConfig
     name: sourcegraph-kustomize-config
     version: v1
   targets:
@@ -10,7 +10,7 @@
         - spec.storageClassName
 - source:
     fieldPath: data.STORAGECLASS_NAME
-    kind: SourcegraphKustomizeConfig
+    kind: SourcegraphBuildConfig
     name: sourcegraph-kustomize-config
     version: v1
   targets:

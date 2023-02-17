@@ -3,7 +3,7 @@ kind: Component
 replacements:
   - source:
       fieldPath: data.PRIVATE_REGISTRY
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:

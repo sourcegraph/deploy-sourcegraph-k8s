@@ -7,7 +7,7 @@
 # Always refer to the component’s documentation or comments before updating
 ##########################################################################################
 apiVersion: v1
-kind: SourcegraphKustomizeConfig
+kind: SourcegraphBuildConfig
 metadata:
   labels:
     deploy: sourcegraph-kustomize
@@ -15,16 +15,16 @@ metadata:
 data:
   #-------- Update config options below ---------#
   EXAMPLE: __placeholder__
-  AWS_MANAGED_CERT_ARN: __placeholder__
-  GKE_MANAGED_CERT_NAME: __placeholder__
-  HOST_DOMAIN: __placeholder__
-  NEW_REDIS_CACHE_ENDPOINT: __placeholder__
-  NEW_REDIS_STORE_ENDPOINT: __placeholder__
-  PRIVATE_REGISTRY: __placeholder__
-  SSD_NODE_PATH: __placeholder__
-  STORAGECLASS_NAME: __placeholder__
-  STORAGECLASS_PROVISIONER: __placeholder__
-  STORAGECLASS_PARAM_TYPE: __placeholder__
-  TLS_HOST: __placeholder__
-  TLS_INGRESS_CLASS_NAME: __placeholder__
-  TLS_CLUSTER_ISSUER: __placeholder__
+  # AWS_MANAGED_CERT_ARN: __placeholder__
+  # GKE_MANAGED_CERT_NAME: __placeholder__
+  # HOST_DOMAIN: __placeholder__
+  # NEW_REDIS_CACHE_ENDPOINT: __placeholder__
+  # NEW_REDIS_STORE_ENDPOINT: __placeholder__
+  # PRIVATE_REGISTRY: __placeholder__
+  # SSD_NODE_PATH: __placeholder__
+  # STORAGECLASS_NAME: __placeholder__
+  # STORAGECLASS_PROVISIONER: __placeholder__
+  # STORAGECLASS_PARAM_TYPE: __placeholder__
+  # TLS_HOST: __placeholder__
+  # TLS_INGRESS_CLASS_NAME: __placeholder__
+  # TLS_CLUSTER_ISSUER: __placeholder__

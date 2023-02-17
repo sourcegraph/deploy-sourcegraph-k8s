@@ -3,7 +3,7 @@ kind: Component
 replacements:
   - source:
       fieldPath: data.GKE_MANAGED_CERT_NAME
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:

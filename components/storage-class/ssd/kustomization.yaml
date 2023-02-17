@@ -5,7 +5,7 @@ components:
 replacements:
   - source:
       fieldPath: data.SSD_NODE_PATH
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:

@@ -7,7 +7,7 @@ components:
 replacements:
   - source:
       fieldPath: data.STORAGECLASS_PROVISIONER
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:
@@ -18,7 +18,7 @@ replacements:
           - provisioner
   - source:
       fieldPath: data.STORAGECLASS_PARAM_TYPE
-      kind: SourcegraphKustomizeConfig
+      kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
       version: v1
     targets:
