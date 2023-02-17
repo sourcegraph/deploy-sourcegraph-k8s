@@ -4,6 +4,7 @@ namespace: default
 components:
   - ../../components/utils/migrator
 
+# Update migration commands under the value field
 patches:
   - patch: |-
       - op: replace
@@ -17,9 +18,26 @@ patches:
       name: migrator
       version: v1
 
-# Update env vars for migrator at the end of this file
+# Update env vars for migrator below
 configMapGenerator:
   - behavior: merge
-    literals:
-      - ENV_VAR=VALUE
     name: sourcegraph-frontend-env
+    literals:
+      - PGHOST=pgsql
+      - PGPORT=5432
+      - PGUSER=sg
+      - PGPASSWORD=sg
+      - PGDATABASE=sg
+      - PGSSLMODE=disable
+      - CODEINTEL_PGHOST=codeintel-db
+      - CODEINTEL_PGPORT=5432
+      - CODEINTEL_PGUSER=sg
+      - CODEINTEL_PGPASSWORD=sg
+      - CODEINTEL_PGDATABASE=sg
+      - CODEINTEL_PGSSLMODE=disable
+      - CODEINSIGHTS_PGHOST=codeinsights-db
+      - CODEINSIGHTS_PGPORT=5432
+      - CODEINSIGHTS_PGUSER=postgres
+      - CODEINSIGHTS_PGPASSWORD=password
+      - CODEINSIGHTS_PGDATABASE=postgres
+      - CODEINSIGHTS_PGSSLMODE=disable
