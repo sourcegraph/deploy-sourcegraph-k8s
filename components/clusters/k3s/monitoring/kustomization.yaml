@@ -6,5 +6,5 @@ resources:
 components:
   - ../../../monitoring/privileged
   - ../../../storage-class/k3s
-patchesStrategicMerge:
-  - patches/prometheus.ConfigMap.yaml
+patches:
+  - path: patches/prometheus.ConfigMap.yaml

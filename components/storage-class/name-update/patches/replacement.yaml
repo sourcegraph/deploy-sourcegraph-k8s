@@ -1,0 +1,24 @@
+- source:
+    fieldPath: data.STORAGECLASS_NAME
+    kind: SourcegraphKustomizeConfig
+    name: sourcegraph-kustomize-env
+    version: v1
+  targets:
+    - select:
+        kind: PersistentVolumeClaim
+      fieldPaths:
+        - spec.storageClassName
+- source:
+    fieldPath: data.STORAGECLASS_NAME
+    kind: SourcegraphKustomizeConfig
+    name: sourcegraph-kustomize-env
+    version: v1
+  targets:
+    - select:
+        kind: StatefulSet
+      fieldPaths:
+        - spec.volumeClaimTemplates.0.spec.storageClassName
+      reject:
+        - name: codeinsights-db
+        - name: codeintel-db
+        - name: pgsql

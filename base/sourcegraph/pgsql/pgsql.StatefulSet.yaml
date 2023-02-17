@@ -28,7 +28,12 @@ spec:
       initContainers:
         - name: correct-data-dir-permissions
           image: index.docker.io/sourcegraph/alpine-3.14:4.4.2@sha256:f5b9588d8bc2107cf37ed135ae63ba1930df0828a425bd445a8d9eb3aad5f783
-          command: ["sh", "-c", "if [ -d /data/pgdata-12 ]; then chmod 750 /data/pgdata-12; fi"]
+          command:
+            [
+              "sh",
+              "-c",
+              "if [ -d /data/pgdata-12 ]; then chmod 750 /data/pgdata-12; fi",
+            ]
           volumeMounts:
             - mountPath: /data
               name: disk

@@ -1,4 +1,0 @@
-varReference:
-  - kind: DaemonSet
-    group: apps
-    path: spec/template/spec/containers/volumeMounts/mountPath

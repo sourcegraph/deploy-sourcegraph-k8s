@@ -1,14 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 patchesStrategicMerge:
-- frontend.Ingress.yaml
-configurations:
-- patches/transformer.yaml
-vars:
-  - name: HOST_DOMAIN
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
+  - patches/frontend.Ingress.yaml
+replacements:
+  - source:
+      fieldPath: data.HOST_DOMAIN
+      kind: SourcegraphKustomizeConfig
       name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.HOST_DOMAIN
+      version: v1
+    targets:
+      - select:
+          kind: Ingress
+          name: sourcegraph-frontend
+        fieldPaths:
+          - metadata.host

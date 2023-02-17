@@ -14,6 +14,7 @@ kind: Kustomization
 # You can add additional resources to the end of this section if needed
 ##########################################################################################
 resources:
+  - config.yaml
   # [REQUIRED] Resources for the default Sourcegraph instance
   - ../../base/sourcegraph # -- Resources for Sourcegraph
   # Add additional resources below this line if needed
@@ -31,8 +32,7 @@ namespace: sourcegraph
 # To configure your Sourcegraph deployment, uncomment the components/section
 # below following the instructions in our configuration docs.
 #
-# Components with CONFIG KEYS require additional input in [BUILD CONFIGURATIONS] section
-# at the bottom of this file
+# Components with CONFIG KEYS require additional input in the config.yaml file
 #
 # Docs:
 # https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure
@@ -49,7 +49,7 @@ components:
   #---------------------------------------------------------------------------------------
   # Use size XS resources by default. Include one only.
   # Find your instance size on https://docs.sourcegraph.com/admin/deploy/instance-size
-  - ../../components/sizes/xs # -- Allocate resources for size XS instance
+  # - ../../components/sizes/xs # -- Allocate resources for size XS instance
   # - ../../components/sizes/s # -- Allocate resources for size S instance
   # - ../../components/sizes/m # -- Allocate resources for size M instance
   # - ../../components/sizes/l # -- Allocate resources for size L instance
@@ -61,11 +61,13 @@ components:
   # - ../../components/storage-class/aws # -- Create storage class resources for AWS EKS
   # - ../../components/storage-class/azure # -- Create storage class resources for Azure AKS
   # - ../../components/storage-class/gcp # -- Create storage class resources for GCP GKE
+  # - ../../components/storage-class/cloud # -- Create storage class resources for other cloud provider
   # - ../../components/storage-class/trident/ext3 # -- Create storage class resources for Trident, fsType ext3
   # - ../../components/storage-class/trident/ext4 # -- Create storage class resources for Trident, fsType ext4
   # - ../../components/storage-class/trident/xfs # -- Create storage class resources for Trident, fsType xfs
   # - ../../components/storage-class/k3s # -- Configure to use the default storage class in a k3s cluster
   # - ../../components/storage-class/sourcegraph # -- Update storageClassName for all resources to 'sourcegraph'
+  # - ../../components/storage-class/name-update # -- Update storageClassName to $STORAGECLASS_NAME
 
   # - ../../components/storage-class/update-class-name # -- Update storageClassName to $STORAGECLASS_NAME
   # CONFIG KEYS: STORAGECLASS_NAME
@@ -88,9 +90,9 @@ components:
   # Monitoring Stack
   #---------------------------------------------------------------------------------------
   - ../../components/monitoring # -- Add default resources for Sourcegraph monitoring services
+  # - ../../components/monitoring/otel # -- Deploy OpenTelemetry Collector
+  # - ../../components/monitoring/tracing # -- Deploy OpenTelemetry Collector with Jaeger as tracing backend
   # - ../../components/monitoring/cadvisor # -- Add resources for cAdvisor (requires privileges)
-  # - ../../components/monitoring/otel # -- Add resources for otel
-  # - ../../components/monitoring/tracing # -- Add resources for otel with Jaeger as tracing backend
   # - ../../components/monitoring/privileged # -- Run monitoring stack with privileged and root access
   # - ../../components/remove/daemonset # -- Remove all services with daemonsets: node-exporter & otel
   # - ../../components/remove/otel-collector # -- Remove otel-collector and otel-agent
@@ -106,7 +108,10 @@ components:
   # - ../../components/ingress/gke # -- Ingress controller settings for GKE with HTTP load balancing enabled
   # - ../../components/ingress/alb # -- Ingress controller settings for AWS ALB
   # - ../../components/ingress/k3s # -- Ingress controller settings for K3s
-
+  # - ../../components/clusters/aws/managed-cert # -- Apply settings to frontend ingress for aws managed cert
+  # - ../../components/clusters/gke/managed-cert # -- Apply settings to frontend ingress for gke managed cert
+  # - ../../components/ingress/domain # -- Set domain for your Sourcegraph ingress
+  # CONFIG KEYS: HOST_DOMAIN
   # - ../../components/ingress/hostname # -- Set hostname for your Sourcegraph ingress
   # CONFIG KEYS: HOST_DOMAIN
 
@@ -187,33 +192,31 @@ components:
 # resources using patch files to customize your deployment
 ##########################################################################################
 
-# patchesStrategicMerge:
-#   - patches/frontend-ingress.annotations.yaml # Add new annotations to frontend ingress
-#   - patches/frontend-env-vars.yaml # Update env vars in frontend
-#   - patches/prometheus.ConfigMap.yaml
-#   - patches/pgsql.ConfigMap.yaml
-#   - patches/otel-collector.ConfigMap.yaml
-#   - patches/custom.NodePort.yaml
-#   - patches/resources.yaml
-
-# ------------------------------------------------------------------------
-# Storage Size
-# ------------------------------------------------------------------------
-# patchesJson6902:
-#   - target:
-#       kind: PersistentVolumeClaim
-#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
-#     patch: |-
+# patches:
+#   - patch: patches/frontend-ingress.annotations.yaml
+#   - patch: patches/frontend-env-vars.yaml
+#   - patch: patches/prometheus.ConfigMap.yaml
+#   - patch: patches/pgsql.ConfigMap.yaml
+#   - patch: patches/otel-collector.ConfigMap.yaml
+#   - patch: patches/custom.NodePort.yaml
+#   - patch: patches/resources.yaml
+#   #---------------------------------------------------------------------------------------
+#   # [STORAGE SIZES]
+#   #---------------------------------------------------------------------------------------
+#   - patch: |-
 #       - op: replace
 #         path: /spec/resources/requests/storage
 #         value: 100Gi
-#   - target:
-#       kind: StatefulSet
-#       name: gitserver|indexed-search|searcher|symbols
-#     patch: |-
+#     target:
+#       kind: PersistentVolumeClaim
+#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
+#   - patch: |-
 #       - op: replace
 #         path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage
 #         value: 200Gi
+#     target:
+#       kind: StatefulSet
+#       name: gitserver|indexed-search|searcher|symbols
 
 ##########################################################################################
 # [BUILD CONFIGURATIONS] Handles updating configs using env vars for kustomize
@@ -224,30 +227,11 @@ components:
 
 # configMapGenerator:
 #   # ------------------------------------------------------------------------
-#   # BUILD CONFIGURATIONS
-#   # ------------------------------------------------------------------------
-#   - name: sourcegraph-kustomize-env
-#     behavior: merge
-#     literals:
-#       - PRIVATE_REGISTRY=index.docker.io
-#       - STORAGECLASS_NAME=sourcegraph
-#       - STORAGECLASS_PROVISIONER=
-#       - STORAGECLASS_PARAM_TYPE=
-#       - HOST_DOMAIN=
-#       - TLS_HOST=
-#       - TLS_INGRESS_CLASS_NAME=
-#       - TLS_CLUSTER_ISSUER=
-#       - SSD_NODE_PATH=/mnt/disks/ssd0
-#       - AWS_MANAGED_CERT_ARN=
-#       - GKE_MANAGED_CERT_NAME=
-#       -
-#       -
-#       -
-#       -
-#   # ------------------------------------------------------------------------
 #   # FRONTEND ENV VARS
 #   # ------------------------------------------------------------------------
 #   - name: sourcegraph-frontend-env
 #     behavior: merge
 #     literals:
 #       - DEPLOY_TYPE=kustomize # make your edit below this line
+# replacements:
+#   - path: ../../components/storage-class/name-update/replacement.yaml

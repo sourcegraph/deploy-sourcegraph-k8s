@@ -1,16 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesStrategicMerge:
-  - patches/frontend.Ingress.yaml
 replacements:
   - source:
-      fieldPath: data.HOST_DOMAIN
+      fieldPath: data.AWS_MANAGED_CERT_ARN
       kind: SourcegraphKustomizeConfig
       name: sourcegraph-kustomize-env
       version: v1
     targets:
-      - select:
+      - fieldPaths:
+          - metadata.annotations.[alb.ingress.kubernetes.io/certificate-arn]
+        select:
           kind: Ingress
           name: sourcegraph-frontend
-        fieldPaths:
-          - spec.rules.*.host
+patches:
+  - path: patches/frontend.Ingress.yaml

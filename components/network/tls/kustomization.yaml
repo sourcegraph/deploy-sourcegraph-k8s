@@ -1,35 +1,42 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 patchesStrategicMerge:
-- patches/sourcegraph-frontend.Ingress.yaml
-configMapGenerator:
-  - name: sourcegraph-kustomize-env
-    behavior: merge
-    literals:
-      - TLS_HOST=SOURCEGRAPH_OVERLAY_PLACEHOLDER
-      - TLS_INGRESS_CLASS_NAME=SOURCEGRAPH_OVERLAY_PLACEHOLDER
-      - TLS_CLUSTER_ISSUER=SOURCEGRAPH_OVERLAY_PLACEHOLDER
-configurations:
-- patches/transformer.yaml
-vars:
-  - name: TLS_HOST
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
+  - patches/frontend.Ingress.yaml
+replacements:
+  - source:
+      fieldPath: data.TLS_HOST
+      kind: SourcegraphKustomizeConfig
       name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.TLS_HOST
-  - name: TLS_INGRESS_CLASS_NAME
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
+      version: v1
+    targets:
+      - select:
+          kind: Ingress
+          name: sourcegraph-frontend
+        fieldPaths:
+          - spec.tls.*.hosts
+          - spec.rules.*.host
+
+  - source:
+      fieldPath: data.TLS_INGRESS_CLASS_NAME
+      kind: SourcegraphKustomizeConfig
       name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.TLS_INGRESS_CLASS_NAME
-  - name: TLS_CLUSTER_ISSUER
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
+      version: v1
+    targets:
+      - select:
+          kind: Ingress
+          name: sourcegraph-frontend
+        fieldPaths:
+          - spec.ingressClassName
+          - metadata.annotations.[kubernetes.io/ingress.class]
+
+  - source:
+      fieldPath: data.TLS_CLUSTER_ISSUER
+      kind: SourcegraphKustomizeConfig
       name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.TLS_CLUSTER_ISSUER
+      version: v1
+    targets:
+      - select:
+          kind: Ingress
+          name: sourcegraph-frontend
+        fieldPaths:
+          - metadata.annotations.[cert-manager.io/cluster-issuer]
