@@ -3,4 +3,4 @@ kind: Component
 resources:
   - sourcegraph.StorageClass.yaml
 components:
-- ../../sourcegraph
+  - ../../sourcegraph

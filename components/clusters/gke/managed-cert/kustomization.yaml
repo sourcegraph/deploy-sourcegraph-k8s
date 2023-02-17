@@ -4,7 +4,7 @@ replacements:
   - source:
       fieldPath: data.GKE_MANAGED_CERT_NAME
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
       - fieldPaths:

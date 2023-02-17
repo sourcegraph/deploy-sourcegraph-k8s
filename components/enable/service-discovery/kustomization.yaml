@@ -4,6 +4,6 @@ resources:
   - rbac/sourcegraph-frontend.Role.yaml
   - rbac/sourcegraph-frontend.RoleBinding.yaml
   - rbac/sourcegraph-frontend.ServiceAccount.yaml
-patchesStrategicMerge:
-  - patches/sourcegraph-frontend.Deployment.yaml
-  - patches/sourcegraph-frontend.ConfigMap.yaml
+patches:
+  - path: patches/sourcegraph-frontend.Deployment.yaml
+  - path: patches/sourcegraph-frontend.ConfigMap.yaml

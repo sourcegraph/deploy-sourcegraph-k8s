@@ -3,9 +3,6 @@ kind: Component
 resources:
   - ../../../base/monitoring/otel-collector
   - ../../../base/monitoring/jaeger
-patchesStrategicMerge:
-  - patches/otel-collector.Deployment.yaml
-  - patches/grafana.ConfigMap.yaml
 patches:
   - patch: |-
       - op: add
@@ -16,3 +13,5 @@ patches:
     target:
       kind: Deployment
       name: sourcegraph-frontend
+  - path: patches/otel-collector.Deployment.yaml
+  - path: patches/grafana.ConfigMap.yaml

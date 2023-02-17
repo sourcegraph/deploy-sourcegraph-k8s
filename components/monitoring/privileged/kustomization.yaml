@@ -4,24 +4,24 @@ kind: Component
 components:
   - ../rbacs
 # Remove security context
-patchesJson6902:
-  - target:
-      kind: StatefulSet|Deployment
-      name: grafana|prometheus|otel-collector
-      group: apps
-      version: v1
-    patch: |-
+patches:
+  - patch: |-
       - op: replace
         path: /spec/template/spec/securityContext
         value:
           runAsUser: 0
       - op: remove
         path: /spec/template/spec/containers/0/securityContext
-  - target:
-      kind: DaemonSet
-      name: otel-agent
+    target:
       group: apps
+      kind: StatefulSet|Deployment
+      name: grafana|prometheus|otel-collector
       version: v1
-    patch: |-
+  - patch: |-
       - op: remove
         path: /spec/template/spec/containers/0/securityContext
+    target:
+      group: apps
+      kind: DaemonSet
+      name: otel-agent
+      version: v1

@@ -4,7 +4,7 @@ replacements:
   - source:
       fieldPath: data.NEW_REDIS_CACHE_ENDPOINT
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
       - fieldPaths:
@@ -52,7 +52,7 @@ replacements:
   - source:
       fieldPath: data.NEW_REDIS_STORE_ENDPOINT
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
       - fieldPaths:

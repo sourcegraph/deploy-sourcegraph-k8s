@@ -1,54 +1,53 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesJson6902:
-  - target:
+patches:
+  - patch: |-
+      - op: remove
+        path: /spec/template/spec/volumes/0/persistentVolumeClaim
+    target:
       kind: StatefulSet|Deployment
       name: blobstore|codeinsights-db|codeintel-db|pgsql|redis-cache|redis-store|prometheus
       version: v1
-    patch: |-
+  - patch: |-
       - op: remove
-        path: /spec/template/spec/volumes/0/persistentVolumeClaim
-  - target:
+        path: /spec
+    target:
       kind: PersistentVolumeClaim
       name: .*
       version: v1
-    patch: |-
-      - op: remove
-        path: /spec
-patchesStrategicMerge:
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: blobstore
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: codeinsights-db
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: codeintel-db
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: pgsql
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: redis-cache
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: redis-store
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: blobstore
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: codeinsights-db
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: codeintel-db
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: pgsql
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: redis-cache
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: redis-store

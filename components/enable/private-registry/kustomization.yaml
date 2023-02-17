@@ -4,33 +4,30 @@ replacements:
   - source:
       fieldPath: data.PRIVATE_REGISTRY
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
-      - select:
+      - fieldPaths:
+          - spec.template.spec.containers.*.image
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
           kind: Deployment
-          group: apps
-        fieldPaths:
+      - fieldPaths:
           - spec.template.spec.containers.*.image
           - spec.template.spec.initContainers.*.image
         options:
-          delimiter: "/sourcegraph"
-          index: 0
-      - select:
+          delimiter: /sourcegraph
+        select:
+          group: apps
           kind: StatefulSet
-          group: apps
-        fieldPaths:
+      - fieldPaths:
           - spec.template.spec.containers.*.image
           - spec.template.spec.initContainers.*.image
         options:
-          delimiter: "/sourcegraph"
-          index: 0
-      - select:
+          delimiter: /sourcegraph
+        select:
+          group: apps
           kind: DaemonSet
-          group: apps
-        fieldPaths:
-          - spec.template.spec.containers.*.image
-          - spec.template.spec.initContainers.*.image
-        options:
-          delimiter: "/sourcegraph"
-          index: 0

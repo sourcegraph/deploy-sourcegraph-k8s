@@ -1,27 +1,27 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesStrategicMerge:
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: pgsql-conf
-  - |-
-    $patch: delete
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: pgsql
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: pgsql
-  - |-
-    $patch: delete
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: pgsql
+patches:
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: pgsql-conf
+  - patch: |-
+      $patch: delete
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: pgsql
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: pgsql
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: pgsql

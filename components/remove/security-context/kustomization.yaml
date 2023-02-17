@@ -1,33 +1,33 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesJson6902:
-  - target:
+patches:
+  - path: patches/securityContext-container-0.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: .*
-      group: apps
       version: v1
-    path: patches/securityContext-container-0.yaml
-  - target:
+  - path: patches/securityContext-daemonset.yaml
+    target:
+      group: apps
       kind: DaemonSet
       name: otel-agent
-      group: apps
       version: v1
-    path: patches/securityContext-daemonset.yaml
-  - target:
+  - path: patches/securityContext-databases.yaml
+    target:
+      group: apps
       kind: Deployment|StatefulSet
       name: codeinsights-db|codeintel-db|pgsql|sourcegraph-frontend
-      group: apps
       version: v1
-    path: patches/securityContext-databases.yaml
-  - target:
+  - path: patches/securityContext-initContainer.yaml
+    target:
+      group: apps
       kind: Deployment|StatefulSet
       name: codeinsights-db|codeintel-db|pgsql|sourcegraph-frontend
-      group: apps
       version: v1
-    path: patches/securityContext-initContainer.yaml
-  - target:
+  - path: patches/securityContext-container-1.yaml
+    target:
+      group: apps
       kind: Deployment|StatefulSet
       name: redis-cache|redis-store|indexed-search
-      group: apps
       version: v1
-    path: patches/securityContext-container-1.yaml

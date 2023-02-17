@@ -8,7 +8,7 @@ replacements:
   - source:
       fieldPath: data.STORAGECLASS_PROVISIONER
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
       - select:
@@ -19,7 +19,7 @@ replacements:
   - source:
       fieldPath: data.STORAGECLASS_PARAM_TYPE
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
       - select:

@@ -4,7 +4,7 @@ replacements:
   - source:
       fieldPath: data.AWS_MANAGED_CERT_ARN
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
       - fieldPaths:

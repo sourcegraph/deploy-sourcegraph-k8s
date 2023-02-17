@@ -4,22 +4,22 @@ namespace: default
 components:
   - ../../components/utils/migrator
 
-patchesJson6902:
-  - target:
-      version: v1
-      kind: Job
-      name: migrator
-    patch: |-
+patches:
+  - patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/args
         value:
           - upgrade
           - -from=v3.36
           - -to=v4.0
+    target:
+      kind: Job
+      name: migrator
+      version: v1
 
 # Update env vars for migrator at the end of this file
 configMapGenerator:
-  - name: sourcegraph-frontend-env
-    behavior: merge
+  - behavior: merge
     literals:
       - ENV_VAR=VALUE
+    name: sourcegraph-frontend-env

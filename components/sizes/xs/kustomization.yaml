@@ -187,7 +187,7 @@ patches:
                 resources:
                   limits:
                     cpu: "8"
-                    memory: 50G
+                    memory: 16G
               - name: zoekt-indexserver
                 resources:
                   limits:

@@ -6,12 +6,12 @@ replacements:
   - source:
       fieldPath: data.SSD_NODE_PATH
       kind: SourcegraphKustomizeConfig
-      name: sourcegraph-kustomize-env
+      name: sourcegraph-kustomize-config
       version: v1
     targets:
-      - select:
-          kind: DaemonSet
-          group: apps
-          name: pod-tmp-gc
-        fieldPaths:
+      - fieldPaths:
           - spec.template.spec.containers.*.volumeMounts.*.mountPath
+        select:
+          group: apps
+          kind: DaemonSet
+          name: pod-tmp-gc
