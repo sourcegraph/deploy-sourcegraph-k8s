@@ -75,6 +75,21 @@ data:
             target_label: name
             separator: '-'
 
+  # Extra rules
+  extra_rules.yml: |
+    groups:
+    - name: container.rules
+      rules:
+        - record: container:process_cpu_seconds_total:ratio_rate5m
+          expr: sum by (instance) (rate(process_cpu_seconds_total[5m])) / engine_daemon_engine_cpus_cpus
+        - record: container:process_cpu_seconds_total:sum
+          expr: sum by (instance) (irate(process_cpu_seconds_total[1m]))
+        - record: container:process_resident_memory_bytes:max
+          expr: max by (instance) (process_resident_memory_bytes)
+        - record: container:process_virtual_memory_bytes:max
+          expr: max by (instance) (process_virtual_memory_bytes)
+
+  # List of static targets
   prometheus_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"
@@ -103,7 +118,7 @@ data:
         - worker-executors:6996
     - labels:
         nodename: "sourcegraph-services"
-        job: node
+        job: syntect-server
       targets:
         - syntect-server:6060
     - labels:
@@ -147,19 +162,7 @@ data:
       targets:
         - otel-collector:8888
 
-  extra_rules.yml: |
-    groups:
-    - name: container.rules
-      rules:
-        - record: container:process_cpu_seconds_total:ratio_rate5m
-          expr: sum by (instance) (rate(process_cpu_seconds_total[5m])) / engine_daemon_engine_cpus_cpus
-        - record: container:process_cpu_seconds_total:sum
-          expr: sum by (instance) (irate(process_cpu_seconds_total[1m]))
-        - record: container:process_resident_memory_bytes:max
-          expr: max by (instance) (process_resident_memory_bytes)
-        - record: container:process_virtual_memory_bytes:max
-          expr: max by (instance) (process_virtual_memory_bytes)
-
+  # Add new targets based on replica count of symbols
   symbols_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"
@@ -167,6 +170,7 @@ data:
       targets:
         - symbols-0.symbols:6060
 
+  # Add new targets based on replica count of searcher
   searcher_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"
@@ -174,6 +178,7 @@ data:
       targets:
         - searcher-0.searcher:6060
 
+  # Add new targets based on replica count of gitserver
   gitserver_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"
@@ -181,6 +186,7 @@ data:
       targets:
         - gitserver-0.gitserver:6060
 
+  # Add new targets based on replica count of indexed-search
   indexed-search_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"
