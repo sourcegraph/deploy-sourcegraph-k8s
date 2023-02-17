@@ -28,7 +28,7 @@ patches:
       version: v1
     path: patches/remove-statefulset-resources-container-1.yaml
   - target:
-      kind: Deployment
+      kind: Deployment|StatefulSet
       name: sourcegraph-frontend|pgsql|codeintel-db|codeinsights-db
       group: apps
       version: v1

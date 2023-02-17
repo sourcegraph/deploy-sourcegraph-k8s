@@ -88,9 +88,9 @@ components:
   # Monitoring Stack
   #---------------------------------------------------------------------------------------
   - ../../components/monitoring # -- Add default resources for Sourcegraph monitoring services
+  # - ../../components/monitoring/otel # -- Deploy OpenTelemetry Collector
+  # - ../../components/monitoring/tracing # -- Deploy OpenTelemetry Collector with Jaeger as tracing backend
   # - ../../components/monitoring/cadvisor # -- Add resources for cAdvisor (requires privileges)
-  # - ../../components/monitoring/otel # -- Add resources for otel
-  # - ../../components/monitoring/tracing # -- Add resources for otel with Jaeger as tracing backend
   # - ../../components/monitoring/privileged # -- Run monitoring stack with privileged and root access
   # - ../../components/remove/daemonset # -- Remove all services with daemonsets: node-exporter & otel
   # - ../../components/remove/otel-collector # -- Remove otel-collector and otel-agent
@@ -187,33 +187,31 @@ components:
 # resources using patch files to customize your deployment
 ##########################################################################################
 
-# patchesStrategicMerge:
-#   - patches/frontend-ingress.annotations.yaml # Add new annotations to frontend ingress
-#   - patches/frontend-env-vars.yaml # Update env vars in frontend
-#   - patches/prometheus.ConfigMap.yaml
-#   - patches/pgsql.ConfigMap.yaml
-#   - patches/otel-collector.ConfigMap.yaml
-#   - patches/custom.NodePort.yaml
-#   - patches/resources.yaml
-
-# ------------------------------------------------------------------------
-# Storage Size
-# ------------------------------------------------------------------------
-# patchesJson6902:
-#   - target:
-#       kind: PersistentVolumeClaim
-#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
-#     patch: |-
+# patches:
+#   - patch: patches/frontend-ingress.annotations.yaml
+#   - patch: patches/frontend-env-vars.yaml
+#   - patch: patches/prometheus.ConfigMap.yaml
+#   - patch: patches/pgsql.ConfigMap.yaml
+#   - patch: patches/otel-collector.ConfigMap.yaml
+#   - patch: patches/custom.NodePort.yaml
+#   - patch: patches/resources.yaml
+#   #---------------------------------------------------------------------------------------
+#   # [STORAGE SIZES]
+#   #---------------------------------------------------------------------------------------
+#   - patch: |-
 #       - op: replace
 #         path: /spec/resources/requests/storage
 #         value: 100Gi
-#   - target:
-#       kind: StatefulSet
-#       name: gitserver|indexed-search|searcher|symbols
-#     patch: |-
+#     target:
+#       kind: PersistentVolumeClaim
+#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
+#   - patch: |-
 #       - op: replace
 #         path: /spec/volumeClaimTemplates/0/spec/resources/requests/storage
 #         value: 200Gi
+#     target:
+#       kind: StatefulSet
+#       name: gitserver|indexed-search|searcher|symbols
 
 ##########################################################################################
 # [BUILD CONFIGURATIONS] Handles updating configs using env vars for kustomize
