@@ -198,6 +198,7 @@ components:
 # resources using patch files to customize your deployment
 ##########################################################################################
 #
+
 # patches:
 #   - patch: patches/frontend-ingress.annotations.yaml
 #   - patch: patches/frontend-env-vars.yaml
@@ -225,6 +226,7 @@ components:
 #       kind: StatefulSet
 #       name: gitserver|indexed-search|searcher|symbols
 #
+
 ##########################################################################################
 # [BUILD CONFIGURATIONS] Handles updating configs using env vars for kustomize
 #
