@@ -12,7 +12,7 @@ patches:
   - path: patches/remove-deployment-resources-container-1.yaml
     target:
       group: apps
-      kind: Deployment
+      kind: Deployment|StatefulSet
       name: pgsql|redis-cache|redis-store|codeintel-db|codeinsights-db
       version: v1
   - path: patches/remove-statefulset-resources-container-0.yaml
