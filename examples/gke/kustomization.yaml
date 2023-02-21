@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ../../base/sourcegraph
+  - ../../base/monitoring
 components:
-  - ../../components/monitoring
   - ../../components/sizes/xs
   - ../../components/clusters/gke/configure

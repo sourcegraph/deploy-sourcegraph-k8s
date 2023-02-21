@@ -4,9 +4,9 @@ namespace: default
 resources:
   # Sourcegraph Main Stack
   - ../../../base/sourcegraph
-components:
   # Monitoring Stack
-  - ../../../components/monitoring
+  - ../../../base/monitoring
+components:
   # Use resources for a size-XS instance
   - ../../../components/sizes/xs
   - ../../../components/clusters/aws/ebs-csi

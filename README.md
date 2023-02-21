@@ -2,8 +2,8 @@
 
 [![sourcegraph: beta](https://img.shields.io/badge/sourcegraph-beta-blue.svg)](https://sourcegraph.com/github.com/sourcegraph/deploy-sourcegrap-k8s)
 
-> **Warning**
-> The contents of this repository are currently in beta and will not be officially released until v4.5.0. While we encourage testing and feedback, please do not use this in production environments. We cannot guarantee support for these beta features and recommend that you use them at your own risk. We will keep you updated as development progresses and official releases become available.
+> **Note**
+> This deployment method only supports Sourcegraph version 4.5.0 and above.
 
 Deploying Sourcegraph into a Kubernetes cluster is for organizations that need highly scalable and
 available code search and code intelligence. This repository contains documentation for creating,
@@ -26,9 +26,7 @@ Please refer to the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/ad
 
 When upgrading Sourcegraph, please check the [upgrade docs for Kubernetes](https://docs.sourcegraph.com/admin/updates/kubernetes) to confirm if manual migrations is necessary.
 
-## Development
-
-The `dev` branch is used to track development.
+## Feedback
 
 We've made our deployment configurations open source to better serve our customers' needs. If there is anything we can do to make deploying Sourcegraph easier just [open an issue (in sourcegraph/sourcegraph)](https://github.com/sourcegraph/sourcegraph/issues/new?assignees=&labels=deploy-sourcegraph-k8s&template=deploy-sourcegraph.md&title=%5Bdeploy-sourcegraph-k8s%5D) or a pull request and we will respond as soon as possible!
 

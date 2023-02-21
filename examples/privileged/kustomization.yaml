@@ -4,11 +4,11 @@ namespace: default
 resources:
   # Sourcegraph Main Stack
   - ../../base/sourcegraph
-components:
   # Monitoring Stack
-  - ../../components/monitoring
+  - ../../base/monitoring
+components:
   - ../../components/monitoring/cadvisor
-  - ../../components/monitoring/privileged
   - ../../components/sizes/xs
   - ../../components/privileged
+  - ../../components/monitoring/privileged
   - ../../components/enable/service-discovery

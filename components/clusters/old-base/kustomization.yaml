@@ -1,8 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
-kind:
-  Component
-  # Switch below from StatefulSet to Deployment
-  # Add sourcegraph as default storage class name
+kind: Component
 components:
   - ../../monitoring
   - ../../monitoring/otel
@@ -14,6 +11,7 @@ components:
   - ../../services/pgsql
   - ../../services/codeinsights-db
   - ../../services/codeintel-db
+  # Add sourcegraph as default storage class name
   - ../../storage-class/sourcegraph
     # To support searcher and symbols as both statefulset and deployment
 patches:

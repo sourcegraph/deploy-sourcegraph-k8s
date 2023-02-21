@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: default
 resources:
   - ../../../base/sourcegraph
+  - ../../../base/monitoring
 components:
-  - ../../../components/monitoring
   - ../../../components/clusters/minikube

@@ -4,8 +4,8 @@ namespace: default
 resources:
   # Sourcegraph Main Stack
   - ../../../base/sourcegraph
+  - ../../../base/monitoring
 components:
-  - ../../../components/monitoring
   - ../../../components/monitoring/cadvisor
   - ../../../components/monitoring/privileged
   # Use resources for a size-XS instance
