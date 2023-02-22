@@ -8,8 +8,8 @@ metadata:
   name: prometheus
 data:
   prometheus.yml: |
-    # Prometheus global config
     global:
+      # Prometheus global config
       scrape_interval:     30s
       evaluation_interval: 30s
       # scrape_timeout is set to the global default (10s).
@@ -41,21 +41,11 @@ data:
         static_configs:
           - targets: ['127.0.0.1:9093']
 
-      - job_name: 'sourcegraph-services'
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: instance
-            regex: (.*)\.(.*)
-            replacement: ${1}_${2}
-        metric_relabel_configs:
-          - source_labels: [container_label_io_kubernetes_pod_namespace]
-            regex: kube-system
-            action: drop
-        file_sd_configs:
-          - files:
-              - '/sg_prometheus_add_ons/*_targets.yml'
-      
-      - job_name: 'cadvisor'
+      ##########################################################################################
+      # cadvisor 
+      ##########################################################################################
+
+      - job_name: 'kubernetes-pods'
         dns_sd_configs:
           - names:
             - 'cadvisor.default.svc.cluster.local'
@@ -82,34 +72,23 @@ data:
           #   regex: ^$|ns-sourcegraph # ACTION: replace ns-sourcegraph with your namespace
           #   action: keep
       
-      - job_name: 'sourcegraph-statefulsets'
-        dns_sd_configs:
-          - names:
-            - 'symbols.default.svc.cluster.local'
-            - 'symbols.ns-sourcegraph.svc.cluster.local'
-            - 'searcher.default.svc.cluster.local'
-            - 'searcher.ns-sourcegraph.svc.cluster.local'
-            - 'gitserver.default.svc.cluster.local'
-            - 'gitserver.ns-sourcegraph.svc.cluster.local'
-            - 'sourcegraph-frontend.default.svc.cluster.local'
-            - 'sourcegraph-frontend.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 6060
-          - names:
-            - 'indexed-search.default.svc.cluster.local'
-            - 'indexed-search.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 6070
-          - names:
-            - 'indexed-search-indexer.default.svc.cluster.local'
-            - 'indexed-search-indexer.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 6072
+      ##########################################################################################
+      # sourcegraph-services 
+      ##########################################################################################
+      
+      - job_name: 'sourcegraph-services'
         relabel_configs:
-          - source_labels: [__meta_dns_name]
-            target_label: service_name
-            regex: (.*)\..*\..*\..*\..*
-            replacement: ${1}
+          - source_labels: [__address__]
+            target_label: instance
+            regex: (.*)\.(.*)
+            replacement: ${1}_${2}
+        metric_relabel_configs:
+          - source_labels: [container_label_io_kubernetes_pod_namespace]
+            regex: kube-system
+            action: drop
+        file_sd_configs:
+          - files:
+              - '/sg_prometheus_add_ons/*_targets.yml'
 
   # Extra rules
   extra_rules.yml: |

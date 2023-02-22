@@ -1,8 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: ns-sourcegraph
 resources:
+  # Sourcegraph Main Stack
   - ../../base/sourcegraph
   - ../../base/monitoring
 components:
+  - ../../components/resources/namespace
   - ../../components/sizes/xs
   - ../../components/clusters/gke/configure

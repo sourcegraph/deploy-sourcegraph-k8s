@@ -5,7 +5,7 @@ metadata:
     deploy: sourcegraph
     sourcegraph-resource-requires: no-cluster-admin
     app.kubernetes.io/component: prometheus
-  name: prometheus
+  name: prometheus-rbac
 data:
   prometheus.yml: |
     global:
