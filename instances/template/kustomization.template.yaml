@@ -25,7 +25,7 @@ resources:
 #
 # NOTE: Include the 'namespace' component to create namespace with the same name if needed
 ##########################################################################################
-namespace: sourcegraph
+namespace: ns-sourcegraph
 ##########################################################################################
 # [COMPONENTS] Uncomment the lines for the components you'd like to include
 #
@@ -120,7 +120,6 @@ components:
   # - ../../components/remove/codeintel-db/statefulset # -- Remove default database statefulset for code-intel
   # - ../../components/remove/codeinsights-db/deployment # -- Remove default database deployment for code-insights
   # - ../../components/remove/codeinsights-db/statefulset # -- Remove default database statefulset for code-insights
-  #
   # - ../../components/remove/redis # -- Remove embedded redis instance
   #
   # - ../../components/services/redis # -- Use external redis servers

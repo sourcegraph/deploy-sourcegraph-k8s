@@ -56,8 +56,12 @@ data:
               - '/sg_prometheus_add_ons/*_targets.yml'
       
       - job_name: 'cadvisor'
-        static_configs:
-          - targets: ['cadvisor:48080']
+        dns_sd_configs:
+          - names:
+            - 'cadvisor.default.svc.cluster.local'
+            - 'cadvisor.ns-sourcegraph.svc.cluster.local'
+            type: A
+            port: 48080
         relabel_configs:
           - source_labels: [__address__]
             target_label: instance
@@ -74,6 +78,38 @@ data:
             action: replace
             target_label: name
             separator: '-'
+          # - source_labels: [container_label_io_kubernetes_pod_namespace]
+          #   regex: ^$|ns-sourcegraph # ACTION: replace ns-sourcegraph with your namespace
+          #   action: keep
+      
+      - job_name: 'sourcegraph-statefulsets'
+        dns_sd_configs:
+          - names:
+            - 'symbols.default.svc.cluster.local'
+            - 'symbols.ns-sourcegraph.svc.cluster.local'
+            - 'searcher.default.svc.cluster.local'
+            - 'searcher.ns-sourcegraph.svc.cluster.local'
+            - 'gitserver.default.svc.cluster.local'
+            - 'gitserver.ns-sourcegraph.svc.cluster.local'
+            - 'sourcegraph-frontend.default.svc.cluster.local'
+            - 'sourcegraph-frontend.ns-sourcegraph.svc.cluster.local'
+            type: A
+            port: 6060
+          - names:
+            - 'indexed-search.default.svc.cluster.local'
+            - 'indexed-search.ns-sourcegraph.svc.cluster.local'
+            type: A
+            port: 6070
+          - names:
+            - 'indexed-search-indexer.default.svc.cluster.local'
+            - 'indexed-search-indexer.ns-sourcegraph.svc.cluster.local'
+            type: A
+            port: 6072
+        relabel_configs:
+          - source_labels: [__meta_dns_name]
+            target_label: service_name
+            regex: (.*)\..*\..*\..*\..*
+            replacement: ${1}
 
   # Extra rules
   extra_rules.yml: |
@@ -91,6 +127,11 @@ data:
 
   # List of static targets
   prometheus_targets.yml: |
+    - labels:
+        nodename: "sourcegraph-services"
+        job: cadvisor
+      targets:
+        - cadvisor:48080
     - labels:
         nodename: "sourcegraph-services"
         job: sourcegraph-frontend
