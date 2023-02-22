@@ -1,12 +1,104 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesJson6902:
-  - target:
-      kind: StatefulSet|Deployment
-      name: repo-updater|gitserver|searcher|symbols|worker
-      group: apps
+replacements:
+  - source:
+      fieldPath: data.NEW_REDIS_CACHE_ENDPOINT
+      kind: SourcegraphBuildConfig
+      name: sourcegraph-kustomize-config
       version: v1
-    patch: |-
+    targets:
+      - fieldPaths:
+          - data.REDIS_CACHE_ENDPOINT
+        options:
+          create: true
+        select:
+          kind: ConfigMap
+          name: sourcegraph-frontend-env
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: StatefulSet
+          name: gitserver
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: StatefulSet
+          name: searcher
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: StatefulSet
+          name: symbols
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: searcher
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: symbols
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: repo-updater
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: worker
+  - source:
+      fieldPath: data.NEW_REDIS_STORE_ENDPOINT
+      kind: SourcegraphBuildConfig
+      name: sourcegraph-kustomize-config
+      version: v1
+    targets:
+      - fieldPaths:
+          - data.REDIS_STORE_ENDPOINT
+        options:
+          create: true
+        select:
+          kind: ConfigMap
+          name: sourcegraph-frontend-env
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: StatefulSet
+          name: gitserver
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: StatefulSet
+          name: searcher
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: StatefulSet
+          name: symbols
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: searcher
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: symbols
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: repo-updater
+      - fieldPaths:
+          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
+        select:
+          kind: Deployment
+          name: worker
+patches:
+  - patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
         value:
@@ -17,18 +109,8 @@ patchesJson6902:
         value:
           name: REDIS_STORE_ENDPOINT
           value: $(NEW_REDIS_STORE_ENDPOINT)
-vars:
-  - name: NEW_REDIS_CACHE_ENDPOINT
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
-      name: sourcegraph-frontend-env
-    fieldref:
-      fieldpath: data.REDIS_CACHE_ENDPOINT
-  - name: NEW_REDIS_STORE_ENDPOINT
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
-      name: sourcegraph-frontend-env
-    fieldref:
-      fieldpath: data.REDIS_STORE_ENDPOINT
+    target:
+      group: apps
+      kind: StatefulSet|Deployment
+      name: repo-updater|gitserver|searcher|symbols|worker
+      version: v1

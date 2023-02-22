@@ -269,6 +269,9 @@ data:
       # - source_labels: [container_label_io_kubernetes_pod_namespace]
       #   regex: ^$|ns-sourcegraph # ensure this matches with namespace declarations
       #   action: keep
+      - source_labels: [container_label_io_kubernetes_pod_namespace]
+        regex: kube-system
+        action: drop
       # cAdvisor-specific customization. We want container metrics to be named after their container name label.
       # Note that 'io.kubernetes.container.name' and 'io.kubernetes.pod.name' must be provided in cAdvisor
       # '--whitelisted_container_labels' (see cadvisor.DaemonSet.yaml)

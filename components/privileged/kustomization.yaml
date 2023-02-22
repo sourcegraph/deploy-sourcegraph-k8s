@@ -1,34 +1,33 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesStrategicMerge:
-  - patches/blobstore/blobstore.Deployment.yaml
-  - patches/frontend/sourcegraph-frontend.Deployment.yaml
-  - patches/github-proxy/github-proxy.Deployment.yaml
-  - patches/gitserver/gitserver.StatefulSet.yaml
-  - patches/indexed-search/indexed-search.StatefulSet.yaml
-  - patches/precise-code-intel/worker.Deployment.yaml
-  - patches/redis/redis-cache.Deployment.yaml
-  - patches/redis/redis-store.Deployment.yaml
-  - patches/repo-updater/repo-updater.Deployment.yaml
-  - patches/syntect-server/syntect-server.Deployment.yaml
-  - patches/worker/worker.Deployment.yaml
 # To support searcher and symbols as both statefulset and deployment
-patchesJson6902:
-  - target:
+patches:
+  - path: patches/searcher/searcher.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      group: apps
       version: v1
-    path: patches/searcher/searcher.yaml
-  - target:
+  - path: patches/symbols/symbols.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: symbols
-      group: apps
       version: v1
-    path: patches/symbols/symbols.yaml
-  - target:
+  - path: patches/databases/securityContext.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: codeinsights-db|codeintel-db|pgsql
-      group: apps
       version: v1
-    path: patches/databases/securityContext.yaml
+  - path: patches/blobstore/blobstore.Deployment.yaml
+  - path: patches/frontend/sourcegraph-frontend.Deployment.yaml
+  - path: patches/github-proxy/github-proxy.Deployment.yaml
+  - path: patches/gitserver/gitserver.StatefulSet.yaml
+  - path: patches/indexed-search/indexed-search.StatefulSet.yaml
+  - path: patches/precise-code-intel/worker.Deployment.yaml
+  - path: patches/redis/redis-cache.Deployment.yaml
+  - path: patches/redis/redis-store.Deployment.yaml
+  - path: patches/repo-updater/repo-updater.Deployment.yaml
+  - path: patches/syntect-server/syntect-server.Deployment.yaml
+  - path: patches/worker/worker.Deployment.yaml

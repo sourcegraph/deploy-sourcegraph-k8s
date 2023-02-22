@@ -1,35 +1,41 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesStrategicMerge:
-- patches/sourcegraph-frontend.Ingress.yaml
-configMapGenerator:
-  - name: sourcegraph-kustomize-env
-    behavior: merge
-    literals:
-      - TLS_HOST=SOURCEGRAPH_OVERLAY_PLACEHOLDER
-      - TLS_INGRESS_CLASS_NAME=SOURCEGRAPH_OVERLAY_PLACEHOLDER
-      - TLS_CLUSTER_ISSUER=SOURCEGRAPH_OVERLAY_PLACEHOLDER
-configurations:
-- patches/transformer.yaml
-vars:
-  - name: TLS_HOST
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
-      name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.TLS_HOST
-  - name: TLS_INGRESS_CLASS_NAME
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
-      name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.TLS_INGRESS_CLASS_NAME
-  - name: TLS_CLUSTER_ISSUER
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
-      name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.TLS_CLUSTER_ISSUER
+
+replacements:
+  - source:
+      fieldPath: data.TLS_HOST
+      kind: SourcegraphBuildConfig
+      name: sourcegraph-kustomize-config
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.tls.*.hosts
+          - spec.rules.*.host
+        select:
+          kind: Ingress
+          name: sourcegraph-frontend
+  - source:
+      fieldPath: data.TLS_INGRESS_CLASS_NAME
+      kind: SourcegraphBuildConfig
+      name: sourcegraph-kustomize-config
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.ingressClassName
+          - metadata.annotations.[kubernetes.io/ingress.class]
+        select:
+          kind: Ingress
+          name: sourcegraph-frontend
+  - source:
+      fieldPath: data.TLS_CLUSTER_ISSUER
+      kind: SourcegraphBuildConfig
+      name: sourcegraph-kustomize-config
+      version: v1
+    targets:
+      - fieldPaths:
+          - metadata.annotations.[cert-manager.io/cluster-issuer]
+        select:
+          kind: Ingress
+          name: sourcegraph-frontend
+patches:
+  - path: patches/frontend.Ingress.yaml

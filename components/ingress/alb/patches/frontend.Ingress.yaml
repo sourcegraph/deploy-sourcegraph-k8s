@@ -3,6 +3,6 @@ kind: Ingress
 metadata:
   name: sourcegraph-frontend
   annotations:
+    alb.ingress.kubernetes.io/target-type: ip
     kubernetes.io/ingress.class: alb # aws load balancer controller ingressClass name
-      # additional aws alb ingress controller supported annotations
-  # host: $(HOST_DOMAIN)
+    # Add additional aws alb ingress controller supported annotations below

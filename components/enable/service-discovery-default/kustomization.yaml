@@ -1,5 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-patchesStrategicMerge:
-  - patches/sourcegraph-frontend.Deployment.yaml
-  - patches/sourcegraph-frontend.ConfigMap.yaml
+patches:
+  - path: patches/sourcegraph-frontend.Deployment.yaml
+  - path: patches/sourcegraph-frontend.ConfigMap.yaml

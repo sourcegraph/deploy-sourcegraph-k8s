@@ -1,109 +1,33 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-components:
-  - preconfig
-configMapGenerator:
-  - name: sourcegraph-kustomize-env
-    behavior: merge
-    literals:
-      - PRIVATE_REGISTRY=$(PRIVATE_REGISTRY)
-configurations:
-  - patches/transformer.yaml
-vars:
-  - name: PRIVATE_REGISTRY
-    objref:
-      apiVersion: v1
-      kind: ConfigMap
-      name: sourcegraph-kustomize-env
-    fieldref:
-      fieldpath: data.PRIVATE_REGISTRY
-########################## HOW TO USE ########################################
-# Replace the PRIVATE_REGISTRY variable with your registry
-#
-# Example:
-# - name: index.docker.io/sourcegraph/blobstore
-#   newName: my.private.registry.docker.io/sourcegraph/blobstore
-#
-# You can also update the tag using the "newTag" field
-################################################################################
-# images:
-# # MAIN STACKS
-# - name: index.docker.io/sourcegraph/blobstore
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/blobstore
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/alpine-3.14
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/alpine-3.14
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/codeinsights-db
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/codeinsights-db
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/codeintel-db
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/codeintel-db
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/frontend
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/frontend
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/github-proxy
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/github-proxy
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/gitserver
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/gitserver
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/indexed-searcher
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/indexed-searcher
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/migrator
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/migrator
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/opentelemetry-collector
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/opentelemetry-collector
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/postgres-12-alpine
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/postgres-12-alpine
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/postgres_exporter
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/postgres_exporter
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/precise-code-intel-worker
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/precise-code-intel-worker
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/redis-cache
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/redis-cache
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/redis-store
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/redis-store
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/redis_exporter
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/redis_exporter
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/repo-updater
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/repo-updater
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/search-indexer
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/search-indexer
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/searcher
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/searcher
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/symbols
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/symbols
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/syntax-highlighter
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/syntax-highlighter
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/worker
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/worker
-#   # newTag: new.private.tag
-# #################### MONITORING STACKS ####################
-# - name: index.docker.io/sourcegraph/cadvisor
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/cadvisor
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/grafana
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/grafana
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/prometheus
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/prometheus
-#   # newTag: new.private.tag
-# - name: index.docker.io/sourcegraph/node-exporter
-#   newName: $(PRIVATE_REGISTRY)/sourcegraph/prometheus
-#   # newTag: new.private.tag
+replacements:
+  - source:
+      fieldPath: data.PRIVATE_REGISTRY
+      kind: SourcegraphBuildConfig
+      name: sourcegraph-kustomize-config
+      version: v1
+    targets:
+      - fieldPaths:
+          - spec.template.spec.containers.*.image
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: Deployment
+      - fieldPaths:
+          - spec.template.spec.containers.*.image
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: StatefulSet
+      - fieldPaths:
+          - spec.template.spec.containers.*.image
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: DaemonSet

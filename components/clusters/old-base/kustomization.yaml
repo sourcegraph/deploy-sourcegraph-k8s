@@ -6,7 +6,6 @@ components:
   - ../../monitoring/cadvisor
   - ../../monitoring/rbacs
   - ../../enable/service-discovery
-  # Switch below from StatefulSet to Deployment
   - ../../services/searcher/deployment
   - ../../services/symbols/deployment
   - ../../services/pgsql
@@ -14,61 +13,60 @@ components:
   - ../../services/codeintel-db
   # Add sourcegraph as default storage class name
   - ../../storage-class/sourcegraph
-patchesStrategicMerge:
-  - patches/blobstore/blobstore.Deployment.yaml
-  - patches/cadvisor/cadvisor.DaemonSet.yaml
-  - patches/frontend/sourcegraph-frontend.Deployment.yaml
-  - patches/github-proxy/github-proxy.Deployment.yaml
-  - patches/gitserver/gitserver.StatefulSet.yaml
-  - patches/indexed-search/indexed-search.StatefulSet.yaml
-  - patches/otel-collector/otel-collector.Deployment.yaml
-  - patches/precise-code-intel/worker.Deployment.yaml
-  - patches/redis/redis-cache.Deployment.yaml
-  - patches/redis/redis-store.Deployment.yaml
-  - patches/repo-updater/repo-updater.Deployment.yaml
-  - patches/syntect-server/syntect-server.Deployment.yaml
-  - patches/worker/worker.Deployment.yaml
-patchesJson6902:
-  # To support searcher and symbols as both statefulset and deployment
-  - target:
+    # To support searcher and symbols as both statefulset and deployment
+patches:
+  - path: patches/searcher/searcher.patchesJson6902.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      group: apps
       version: v1
-    path: patches/searcher/searcher.patchesJson6902.yaml
-  - target:
+  - path: patches/symbols/symbols.patchesJson6902.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: symbols
-      group: apps
       version: v1
-    path: patches/symbols/symbols.patchesJson6902.yaml
-  - target:
+  - path: patches/remove/securityContext-container-0.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: .*
-      group: apps
       version: v1
-    path: patches/remove/securityContext-container-0.yaml
-  - target:
+  - path: patches/remove/securityContext-daemonset.yaml
+    target:
+      group: apps
       kind: DaemonSet
       name: otel-agent
-      group: apps
       version: v1
-    path: patches/remove/securityContext-daemonset.yaml
-  - target:
+  - path: patches/remove/securityContext-databases.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: codeinsights-db|codeintel-db|pgsql|sourcegraph-frontend
-      group: apps
       version: v1
-    path: patches/remove/securityContext-databases.yaml
-  - target:
+  - path: patches/remove/securityContext-initContainer.yaml
+    target:
+      group: apps
       kind: Deployment
       name: sourcegraph-frontend
-      group: apps
       version: v1
-    path: patches/remove/securityContext-initContainer.yaml
-  - target:
+  - path: patches/remove/securityContext-container-1.yaml
+    target:
+      group: apps
       kind: Deployment|StatefulSet
       name: redis-cache|redis-store|indexed-search
-      group: apps
       version: v1
-    path: patches/remove/securityContext-container-1.yaml
+  - path: patches/blobstore/blobstore.Deployment.yaml
+  - path: patches/cadvisor/cadvisor.DaemonSet.yaml
+  - path: patches/frontend/sourcegraph-frontend.Deployment.yaml
+  - path: patches/github-proxy/github-proxy.Deployment.yaml
+  - path: patches/gitserver/gitserver.StatefulSet.yaml
+  - path: patches/indexed-search/indexed-search.StatefulSet.yaml
+  - path: patches/otel-collector/otel-collector.Deployment.yaml
+  - path: patches/precise-code-intel/worker.Deployment.yaml
+  - path: patches/redis/redis-cache.Deployment.yaml
+  - path: patches/redis/redis-store.Deployment.yaml
+  - path: patches/repo-updater/repo-updater.Deployment.yaml
+  - path: patches/syntect-server/syntect-server.Deployment.yaml
+  - path: patches/worker/worker.Deployment.yaml

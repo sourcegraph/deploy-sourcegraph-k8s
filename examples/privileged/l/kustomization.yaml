@@ -1,14 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: default
 resources:
   # Sourcegraph Main Stack
   - ../../../base/sourcegraph
-components:
   # Monitoring Stack
-  - ../../../components/monitoring
+  - ../../../base/monitoring
+components:
   - ../../../components/monitoring/cadvisor
-  - ../../../components/monitoring/privileged
   - ../../../components/sizes/l
   - ../../../components/privileged
+  - ../../../components/monitoring/privileged
   - ../../../components/enable/service-discovery

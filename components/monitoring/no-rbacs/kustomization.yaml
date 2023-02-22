@@ -5,5 +5,5 @@ resources:
 components:
   - ../../remove/daemonset
   - ../../remove/prometheus
-patchesStrategicMerge:
-  - patches/grafana/grafana.StatefulSet.yaml
+patches:
+  - path: patches/grafana/grafana.StatefulSet.yaml

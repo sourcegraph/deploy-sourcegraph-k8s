@@ -3,33 +3,33 @@ kind: Component
 components:
   - ../../storage-class/minikube
 patches:
-  - target:
+  - path: patches/remove-deployment-resources-container-0.yaml
+    target:
+      group: apps
       kind: Deployment
       name: .*
-      group: apps
       version: v1
-    path: patches/remove-deployment-resources-container-0.yaml
-  - target:
-      kind: Deployment
+  - path: patches/remove-deployment-resources-container-1.yaml
+    target:
+      group: apps
+      kind: Deployment|StatefulSet
       name: pgsql|redis-cache|redis-store|codeintel-db|codeinsights-db
-      group: apps
       version: v1
-    path: patches/remove-deployment-resources-container-1.yaml
-  - target:
+  - path: patches/remove-statefulset-resources-container-0.yaml
+    target:
+      group: apps
       kind: StatefulSet
       name: .*
-      group: apps
       version: v1
-    path: patches/remove-statefulset-resources-container-0.yaml
-  - target:
+  - path: patches/remove-statefulset-resources-container-1.yaml
+    target:
+      group: apps
       kind: StatefulSet
       name: indexed-search
-      group: apps
       version: v1
-    path: patches/remove-statefulset-resources-container-1.yaml
-  - target:
+  - path: patches/remove-deployment-resources-container-init.yaml
+    target:
+      group: apps
       kind: Deployment|StatefulSet
       name: sourcegraph-frontend|pgsql|codeintel-db|codeinsights-db
-      group: apps
       version: v1
-    path: patches/remove-deployment-resources-container-init.yaml

@@ -2,43 +2,207 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 components:
   - ../../resources/lower-requests
-patchesStrategicMerge:
-  - patches/resources.yaml
-  - patches/endpoints.yaml
 # To support searcher and symbols as both statefulset and deployment
-patchesJson6902:
-  - target:
+patches:
+  - path: patches/searcher.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      group: apps
       version: v1
-    path: patches/searcher.yaml
-  - target:
+  - path: patches/symbols.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: symbols
-      group: apps
       version: v1
-    path: patches/symbols.yaml
-  - target:
+  - path: patches/pgsql.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: pgsql
-      group: apps
       version: v1
-    path: patches/pgsql.yaml
-  - target:
+  - path: patches/codeinsights-db.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: codeinsights-db
-      group: apps
       version: v1
-    path: patches/codeinsights-db.yaml
-  - target:
+  - path: patches/codeintel-db.yaml
+    target:
+      group: apps
       kind: StatefulSet|Deployment
       name: codeintel-db
-      group: apps
       version: v1
-    path: patches/codeintel-db.yaml
-  - target:
+  - path: patches/prometheus.yaml
+    target:
       kind: ConfigMap
       name: prometheus
       version: v1
-    path: patches/prometheus.yaml
+  - path: patches/endpoints.yaml
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: blobstore
+      spec:
+        template:
+          spec:
+            containers:
+              - name: blobstore
+                resources:
+                  limits:
+                    cpu: "2"
+                    memory: 2Gi
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: github-proxy
+      spec:
+        template:
+          spec:
+            containers:
+              - name: github-proxy
+                resources:
+                  limits:
+                    cpu: "1"
+                    memory: 1G
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: precise-code-intel-worker
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: precise-code-intel-worker
+                resources:
+                  limits:
+                    cpu: "2"
+                    memory: 50G
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: redis-cache
+      spec:
+        template:
+          spec:
+            containers:
+              - name: redis-cache
+                resources:
+                  limits:
+                    cpu: "1"
+                    memory: 5Gi
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: redis-store
+      spec:
+        template:
+          spec:
+            containers:
+              - name: redis-store
+                resources:
+                  limits:
+                    cpu: "1"
+                    memory: 5Gi
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: repo-updater
+      spec:
+        template:
+          spec:
+            containers:
+              - name: repo-updater
+                resources:
+                  limits:
+                    cpu: "4"
+                    memory: 4Gi
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: sourcegraph-frontend
+      spec:
+        replicas: 2
+        template:
+          spec:
+            containers:
+              - name: frontend
+                resources:
+                  limits:
+                    cpu: "4"
+                    memory: 8G
+                    ephemeral-storage: 8Gi
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: syntect-server
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: syntect-server
+                resources:
+                  limits:
+                    cpu: "4"
+                    memory: 6G
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: worker
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: worker
+                resources:
+                  limits:
+                    cpu: "4"
+                    memory: 4G
+  - patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: gitserver
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: gitserver
+                resources:
+                  limits:
+                    cpu: "6"
+                    memory: 26G
+  - patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: indexed-search
+      spec:
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - name: zoekt-webserver
+                resources:
+                  limits:
+                    cpu: "6"
+                    memory: 12G
+              - name: zoekt-indexserver
+                resources:
+                  limits:
+                    cpu: "4"
+                    memory: 12G
