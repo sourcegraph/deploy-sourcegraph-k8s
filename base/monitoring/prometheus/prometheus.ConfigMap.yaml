@@ -8,8 +8,8 @@ metadata:
   name: prometheus
 data:
   prometheus.yml: |
+    # Prometheus global config
     global:
-      # Prometheus global config
       scrape_interval:     30s
       evaluation_interval: 30s
       # scrape_timeout is set to the global default (10s).
@@ -68,9 +68,6 @@ data:
             action: replace
             target_label: name
             separator: '-'
-          # - source_labels: [container_label_io_kubernetes_pod_namespace]
-          #   regex: ^$|ns-sourcegraph # ACTION: replace ns-sourcegraph with your namespace
-          #   action: keep
       
       ##########################################################################################
       # sourcegraph-services 
@@ -90,21 +87,66 @@ data:
           - files:
               - '/sg_prometheus_add_ons/*_targets.yml'
 
-  # Extra rules
-  extra_rules.yml: |
-    groups:
-    - name: container.rules
-      rules:
-        - record: container:process_cpu_seconds_total:ratio_rate5m
-          expr: sum by (instance) (rate(process_cpu_seconds_total[5m])) / engine_daemon_engine_cpus_cpus
-        - record: container:process_cpu_seconds_total:sum
-          expr: sum by (instance) (irate(process_cpu_seconds_total[1m]))
-        - record: container:process_resident_memory_bytes:max
-          expr: max by (instance) (process_resident_memory_bytes)
-        - record: container:process_virtual_memory_bytes:max
-          expr: max by (instance) (process_virtual_memory_bytes)
+      - job_name: 'sourcegraph-statefulsets'
+        dns_sd_configs:
+          - names:
+            - 'symbols.default.svc.cluster.local'
+            - 'symbols.ns-sourcegraph.svc.cluster.local'
+            - 'symbols.$SG_NAMESPACE.svc.cluster.local'
+            - 'searcher.default.svc.cluster.local'
+            - 'searcher.ns-sourcegraph.svc.cluster.local'
+            - 'searcher.$SG_NAMESPACE.svc.cluster.local'
+            - 'gitserver.default.svc.cluster.local'
+            - 'gitserver.ns-sourcegraph.svc.cluster.local'
+            - 'gitserver.$SG_NAMESPACE.svc.cluster.local'
+            - 'sourcegraph-frontend.default.svc.cluster.local'
+            - 'sourcegraph-frontend.ns-sourcegraph.svc.cluster.local'
+            - 'sourcegraph-frontend.$SG_NAMESPACE.svc.cluster.local'
+            - 'indexed-search.default.svc.cluster.local'
+            - 'indexed-search.ns-sourcegraph.svc.cluster.local'
+            - 'indexed-search.$SG_NAMESPACE.svc.cluster.local'
+            - 'indexed-search-indexer.default.svc.cluster.local'
+            - 'indexed-search-indexer.ns-sourcegraph.svc.cluster.local'
+            - 'indexed-search-indexer.$SG_NAMESPACE.svc.cluster.local'
+            type: SRV
+        relabel_configs:
+          - source_labels: [__meta_dns_srv_record_target]
+            target_label: __address__
+            regex: (.*)\.
+            replacement: ${1}:6060
+          - source_labels: [__meta_dns_srv_record_target]
+            target_label: __address__
+            regex: ^(indexed-search.*)\.
+            replacement: ${1}:6070
+          - source_labels: [__meta_dns_srv_record_target]
+            target_label: __address__
+            regex: (.*)\.(indexed-search-indexer.*)\.
+            replacement: ${1}.${2}:6072
+          - source_labels: [__meta_dns_srv_record_port]
+            target_label: __meta_dns_srv_record_port
+            replacement: 6060
+          - source_labels: [__address__]
+            regex: ^(indexed-search).*$
+            target_label: __meta_dns_srv_record_port
+            replacement: 6070
+          - source_labels: [__meta_dns_name]
+            target_label: job
+            regex: (.*)\..*\..*\..*\..*
+            replacement: ${1}
+          - source_labels: [__meta_dns_srv_record_target]
+            regex: (.*)\.(.*)\..*\..*\..*\..*\..*
+            target_label: instance
+            replacement: ${2}_${1}
+        metric_relabel_configs:
+          - source_labels: [__address__]
+            target_label: instance
+            regex: (.*)\:.*
+            replacement: $1:6060
+          - source_labels: [__address__]
+            target_label: instance
+            regex: (.*)\.(.*)\..*\..*\..*\..*\..*
+            replacement: ${2}_${1}
 
-  # List of static targets
   prometheus_targets.yml: |
     - labels:
         nodename: "sourcegraph-services"
@@ -182,39 +224,15 @@ data:
       targets:
         - otel-collector:8888
 
-  # Add new targets based on replica count of symbols
-  symbols_targets.yml: |
-    - labels:
-        nodename: "sourcegraph-services"
-        job: symbols
-      targets:
-        - symbols-0.symbols:6060
-
-  # Add new targets based on replica count of searcher
-  searcher_targets.yml: |
-    - labels:
-        nodename: "sourcegraph-services"
-        job: searcher
-      targets:
-        - searcher-0.searcher:6060
-
-  # Add new targets based on replica count of gitserver
-  gitserver_targets.yml: |
-    - labels:
-        nodename: "sourcegraph-services"
-        job: gitserver
-      targets:
-        - gitserver-0.gitserver:6060
-
-  # Add new targets based on replica count of indexed-search
-  indexed-search_targets.yml: |
-    - labels:
-        nodename: "sourcegraph-services"
-        job: zoekt-indexserver
-      targets:
-        - indexed-search-0.indexed-search:6072
-    - labels:
-        nodename: "sourcegraph-services"
-        job: zoekt-webserver
-      targets:
-        - indexed-search-0.indexed-search:6070
+  extra_rules.yml: |
+    groups:
+    - name: container.rules
+      rules:
+        - record: container:process_cpu_seconds_total:ratio_rate5m
+          expr: sum by (instance) (rate(process_cpu_seconds_total[5m])) / engine_daemon_engine_cpus_cpus
+        - record: container:process_cpu_seconds_total:sum
+          expr: sum by (instance) (irate(process_cpu_seconds_total[1m]))
+        - record: container:process_resident_memory_bytes:max
+          expr: max by (instance) (process_resident_memory_bytes)
+        - record: container:process_virtual_memory_bytes:max
+          expr: max by (instance) (process_virtual_memory_bytes)

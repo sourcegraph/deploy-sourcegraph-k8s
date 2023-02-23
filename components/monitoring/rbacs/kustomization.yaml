@@ -11,16 +11,6 @@ patches:
       - op: remove
         path: /data/prometheus.yml
       - op: remove
-        path: /data/gitserver_targets.yml
-      - op: remove
-        path: /data/indexed-search_targets.yml
-      - op: remove
-        path: /data/prometheus_targets.yml
-      - op: remove
-        path: /data/searcher_targets.yml
-      - op: remove
-        path: /data/symbols_targets.yml
-      - op: remove
         path: /data/extra_rules.yml
     target:
       name: prometheus

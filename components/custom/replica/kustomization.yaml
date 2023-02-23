@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 # DO NOT REMOVE: Handle updating endpoints configs for frontend
-replacements:
-  - path: patches/endpoints-update.yaml
+components:
+  - ../../utils/endpoints
 ########################## HOW TO USE ########################################
 # IMPORTANT: No changes should be made above this line
 # Step 1 Uncomment the "name" and "count" for service you'd like to scale
