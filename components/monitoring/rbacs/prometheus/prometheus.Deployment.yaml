@@ -6,3 +6,8 @@ spec:
   template:
     spec:
       serviceAccountName: prometheus
+      volumes:
+        - configMap:
+            defaultMode: 0777
+            name: prometheus-rbac
+          name: config

@@ -25,10 +25,10 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: index.docker.io/sourcegraph/prometheus:4.4.2@sha256:d833d00a39937cf700f276f816dc789615d6396979418a7d9362386513b1fc9d
+          image: index.docker.io/sourcegraph/prometheus:4.5.0@sha256:4fe9a5fdee206b1aac9d32afb31ad57e1882394aad9e7e9f719a1b2741afcae5
           terminationMessagePolicy: FallbackToLogsOnError
           env:
-            - name: MY_POD_NAMESPACE
+            - name: SG_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
@@ -70,7 +70,6 @@ spec:
         runAsUser: 100
         fsGroup: 100
         fsGroupChangePolicy: "OnRootMismatch"
-      # serviceAccountName: prometheus
       volumes:
         - name: data
           persistentVolumeClaim:

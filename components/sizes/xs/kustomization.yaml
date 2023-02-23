@@ -22,11 +22,6 @@ patches:
       kind: StatefulSet|Deployment
       name: pgsql|codeinsights-db|codeintel-db
       version: v1
-  - path: patches/prometheus.yaml
-    target:
-      kind: ConfigMap
-      name: prometheus
-      version: v1
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment

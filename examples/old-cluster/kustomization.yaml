@@ -1,8 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: ns-sourcegraph
 resources:
   # Sourcegraph Main Stack
   - ../../base/sourcegraph
+  # Monitoring Stack
+  - ../../base/monitoring
 components:
   # Update and generate resources for the old cluster
   # This includes the monitoring stack
