@@ -7,110 +7,7 @@ metadata:
     app.kubernetes.io/component: prometheus
   name: prometheus
 data:
-  prometheus.yml: |
-    # Prometheus global config
-    global:
-      scrape_interval:     30s
-      evaluation_interval: 30s
-      # scrape_timeout is set to the global default (10s).
-
-    # Alertmanager configuration
-    alerting:
-      alertmanagers:
-        # bundled alertmanager, started by prom-wrapper
-        - static_configs:
-            - targets: ['127.0.0.1:9093']
-          path_prefix: /alertmanager
-        # add more alertmanagers here
-
-    # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-    rule_files:
-      - '/sg_config_prometheus/*_rules.yml'
-      - '/sg_prometheus_add_ons/*_rules.yml'
-
-    # Configure targets to scrape
-    scrape_configs:
-
-      # Scrape prometheus itself for metrics.
-      - job_name: 'builtin-prometheus'
-        static_configs:
-          - targets: ['127.0.0.1:9092']
-
-      - job_name: 'builtin-alertmanager'
-        metrics_path: /alertmanager/metrics
-        static_configs:
-          - targets: ['127.0.0.1:9093']
-
-      - job_name: 'sourcegraph-services'
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: instance
-            regex: (.*)\.(.*)
-            replacement: ${1}_${2}
-        metric_relabel_configs:
-          - source_labels: [container_label_io_kubernetes_pod_namespace]
-            regex: kube-system
-            action: drop
-        file_sd_configs:
-          - files:
-              - '/sg_prometheus_add_ons/*_targets.yml'
-      
-      - job_name: 'cadvisor'
-        dns_sd_configs:
-          - names:
-            - 'cadvisor.default.svc.cluster.local'
-            - 'cadvisor.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 48080
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: instance
-            regex: (.*)\.(.*)
-            replacement: ${1}_${2}
-          - source_labels: [container_label_io_kubernetes_pod_name]
-            target_label: name
-        metric_relabel_configs:
-          - source_labels: [container_label_io_kubernetes_pod_namespace]
-            regex: kube-system
-            action: drop
-          - source_labels: [container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name]
-            regex: (.+)
-            action: replace
-            target_label: name
-            separator: '-'
-          # - source_labels: [container_label_io_kubernetes_pod_namespace]
-          #   regex: ^$|ns-sourcegraph # ACTION: replace ns-sourcegraph with your namespace
-          #   action: keep
-      
-      - job_name: 'sourcegraph-statefulsets'
-        dns_sd_configs:
-          - names:
-            - 'symbols.default.svc.cluster.local'
-            - 'symbols.ns-sourcegraph.svc.cluster.local'
-            - 'searcher.default.svc.cluster.local'
-            - 'searcher.ns-sourcegraph.svc.cluster.local'
-            - 'gitserver.default.svc.cluster.local'
-            - 'gitserver.ns-sourcegraph.svc.cluster.local'
-            - 'sourcegraph-frontend.default.svc.cluster.local'
-            - 'sourcegraph-frontend.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 6060
-          - names:
-            - 'indexed-search.default.svc.cluster.local'
-            - 'indexed-search.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 6070
-          - names:
-            - 'indexed-search-indexer.default.svc.cluster.local'
-            - 'indexed-search-indexer.ns-sourcegraph.svc.cluster.local'
-            type: A
-            port: 6072
-        relabel_configs:
-          - source_labels: [__meta_dns_name]
-            target_label: service_name
-            regex: (.*)\..*\..*\..*\..*
-            replacement: ${1}
-
+  prometheus.yml: "# Prometheus global config\nglobal:\n  scrape_interval:     30s\n  evaluation_interval: 30s\n  # scrape_timeout is set to the global default (10s).\n\n# Alertmanager configuration\nalerting:\n  alertmanagers:\n    # bundled alertmanager, started by prom-wrapper\n    - static_configs:\n        - targets: ['127.0.0.1:9093']\n      path_prefix: /alertmanager\n    # add more alertmanagers here\n\n# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.\nrule_files:\n  - '/sg_config_prometheus/*_rules.yml'\n  - '/sg_prometheus_add_ons/*_rules.yml'\n\n# Configure targets to scrape\nscrape_configs:\n\n  # Scrape prometheus itself for metrics.\n  - job_name: 'builtin-prometheus'\n    static_configs:\n      - targets: ['127.0.0.1:9092']\n\n  - job_name: 'builtin-alertmanager'\n    metrics_path: /alertmanager/metrics\n    static_configs:\n      - targets: ['127.0.0.1:9093']\n\n  - job_name: 'sourcegraph-services'\n    relabel_configs:\n      - source_labels: [__address__]\n        target_label: instance\n        regex: (.*)\\.(.*)\n        replacement: ${1}_${2}\n    metric_relabel_configs:\n      - source_labels: [container_label_io_kubernetes_pod_namespace]\n        regex: kube-system\n        action: drop\n    file_sd_configs:\n      - files:\n          - '/sg_prometheus_add_ons/*_targets.yml'\n  \n  - job_name: 'cadvisor'\n    dns_sd_configs:\n      - names:\n        - 'cadvisor.default.svc.cluster.local'\n        - 'cadvisor.ns-sourcegraph.svc.cluster.local'\n        type: A\n        port: 48080\n    relabel_configs:\n      - source_labels: [__address__]\n        target_label: instance\n        regex: (.*)\\.(.*)\n        replacement: ${1}_${2}\n      - source_labels: [container_label_io_kubernetes_pod_name]\n        target_label: name\n    metric_relabel_configs:\n      - source_labels: [container_label_io_kubernetes_pod_namespace]\n        regex: kube-system\n        action: drop\n      - source_labels: [container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name]\n        regex: (.+)\n        action: replace\n        target_label: name\n        separator: '-'\n      # - source_labels: [container_label_io_kubernetes_pod_namespace]\n      #   regex: ^$|ns-sourcegraph # ACTION: replace ns-sourcegraph with your namespace\n      #   action: keep\n  \n  - job_name: 'sourcegraph-statefulsets'\n    dns_sd_configs:\n      - names:\n        - 'symbols.default.svc.cluster.local'\n        - 'symbols.ns-sourcegraph.svc.cluster.local'\n        - 'searcher.default.svc.cluster.local'\n        - 'searcher.ns-sourcegraph.svc.cluster.local'\n        - 'gitserver.default.svc.cluster.local'\n        - 'gitserver.ns-sourcegraph.svc.cluster.local'\n        - 'sourcegraph-frontend.default.svc.cluster.local'\n        - 'sourcegraph-frontend.ns-sourcegraph.svc.cluster.local'\n        type: A\n        port: 6060\n      - names:\n        - 'indexed-search.default.svc.cluster.local'\n        - 'indexed-search.ns-sourcegraph.svc.cluster.local'\n        type: A\n        port: 6070\n      - names:\n        - 'indexed-search-indexer.default.svc.cluster.local'\n        - 'indexed-search-indexer.ns-sourcegraph.svc.cluster.local'\n        type: A\n        port: 6072\n    relabel_configs:\n      - source_labels: [__meta_dns_name]\n        target_label: service_name\n        regex: (.*)\\..*\\..*\\..*\\..*\n        replacement: ${1}\n"
   # Extra rules
   extra_rules.yml: |
     groups:
@@ -124,7 +21,6 @@ data:
           expr: max by (instance) (process_resident_memory_bytes)
         - record: container:process_virtual_memory_bytes:max
           expr: max by (instance) (process_virtual_memory_bytes)
-
   # List of static targets
   prometheus_targets.yml: |
     - labels:
@@ -202,7 +98,6 @@ data:
         job: otel-collector
       targets:
         - otel-collector:8888
-
   # Add new targets based on replica count of symbols
   symbols_targets.yml: |
     - labels:
@@ -210,7 +105,6 @@ data:
         job: symbols
       targets:
         - symbols-0.symbols:6060
-
   # Add new targets based on replica count of searcher
   searcher_targets.yml: |
     - labels:
@@ -218,7 +112,6 @@ data:
         job: searcher
       targets:
         - searcher-0.searcher:6060
-
   # Add new targets based on replica count of gitserver
   gitserver_targets.yml: |
     - labels:
@@ -226,7 +119,6 @@ data:
         job: gitserver
       targets:
         - gitserver-0.gitserver:6060
-
   # Add new targets based on replica count of indexed-search
   indexed-search_targets.yml: |
     - labels:
