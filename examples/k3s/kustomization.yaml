@@ -1,11 +1,12 @@
 # Includes RBAC resources
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: default
+namespace: ns-sourcegraph
 resources:
   # Sourcegraph Main Stack
   - ../../base/sourcegraph
 components:
+  - ../../components/resources/namespace
   # Use resources for a size-XS instance
   - ../../components/sizes/xs
   # This configures the Sourcegraph instance and networking to work in a k3s cluster
