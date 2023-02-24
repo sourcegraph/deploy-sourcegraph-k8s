@@ -159,13 +159,10 @@ data:
         target_label: ns
       metric_relabel_configs:
       - source_labels: [kubernetes_io_hostname]
-        regex: sourcegraph-0
+        regex: sourcegraph-0 # ACTION: replace 'sourcegraph-0' with your node name
         action: keep
       - source_labels: [namespace]
-        regex: default
-        action: keep
-      - source_labels: [container_label_io_kubernetes_pod_namespace]
-        regex: ^$|default # ACTION: replace default with your namespace
+        regex: default # ACTION: replace 'default' with your namespace
         action: keep
       ############################################################################################################
 
