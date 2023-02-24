@@ -10,7 +10,7 @@ available code search and code intelligence. This repository contains documentat
 updating, and maintaining a Sourcegraph cluster using Kustomize.
 
 - [Installing](https://docs.sourcegraph.com/admin/deploy/kubernetes)
-- [Configuring](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure)
+- [Configuring](https://docs.sourcegraph.com/admin/deploy/kubernetes/configure)
 - [Updating](https://docs.sourcegraph.com/admin/updates/kubernetes)
 - [Scaling](https://docs.sourcegraph.com/admin/deploy/scale)- general advice on scaling services
 - [Resource estimator: instance size](https://docs.sourcegraph.com/admin/deploy/instance-size) - specific resource values for your instance based on your instance size
