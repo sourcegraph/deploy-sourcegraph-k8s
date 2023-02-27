@@ -1,0 +1,167 @@
+global: # Prometheus global config
+  # scrape_timeout is set to the global default (10s)
+  scrape_interval: 30s # How frequently to scrape targets by default
+  evaluation_interval: 30s # How frequently to evaluate rules
+
+alerting: # Alertmanager configuration
+  alertmanagers:
+    # bundled alertmanager, started by prom-wrapper
+    - static_configs:
+        - targets: ["127.0.0.1:9093"]
+      path_prefix: /alertmanager
+    # add more alertmanagers here
+
+rule_files: # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+  - "/sg_config_prometheus/*_rules.yml"
+  - "/sg_prometheus_add_ons/*_rules.yml"
+
+scrape_configs: # Configure targets to scrape
+  # Scrape prometheus itself for metrics.
+  - job_name: "builtin-prometheus"
+    static_configs:
+      - targets: ["127.0.0.1:9092"]
+  # Scrape Alertmanager
+  - job_name: "builtin-alertmanager"
+    metrics_path: /alertmanager/metrics
+    static_configs:
+      - targets: ["127.0.0.1:9093"]
+
+  #------------------------------------------------------------------------------
+  # cAdvisor
+  #------------------------------------------------------------------------------
+  - job_name: "kubernetes-pods"
+    dns_sd_configs:
+      - names:
+          - "cadvisor.default.svc.cluster.local"
+          - "cadvisor.ns-sourcegraph.svc.cluster.local"
+        type: A
+        port: 48080
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: (.*)\.(.*)
+        replacement: ${1}_${2}
+      - source_labels: [container_label_io_kubernetes_pod_name]
+        target_label: name
+    metric_relabel_configs:
+      - source_labels: [container_label_io_kubernetes_pod_namespace]
+        regex: kube-system
+        action: drop
+      - source_labels:
+          [
+            container_label_io_kubernetes_container_name,
+            container_label_io_kubernetes_pod_name,
+          ]
+        regex: (.+)
+        action: replace
+        target_label: name
+        separator: "-"
+
+  #------------------------------------------------------------------------------
+  # Sourcegraph Service Discovery with DNS-SRV records
+  # https://prometheus.io/docs/prometheus/latest/configuration/configuration/#dns_sd_config
+  #------------------------------------------------------------------------------
+  - job_name: "sourcegraph-statefulsets"
+    dns_sd_configs:
+      - names:
+          - "symbols.default.svc.cluster.local"
+          - "symbols.ns-sourcegraph.svc.cluster.local"
+          - "symbols.$SG_NAMESPACE.svc.cluster.local"
+          - "searcher.default.svc.cluster.local"
+          - "searcher.ns-sourcegraph.svc.cluster.local"
+          - "searcher.$SG_NAMESPACE.svc.cluster.local"
+          - "gitserver.default.svc.cluster.local"
+          - "gitserver.ns-sourcegraph.svc.cluster.local"
+          - "gitserver.$SG_NAMESPACE.svc.cluster.local"
+          - "sourcegraph-frontend.default.svc.cluster.local"
+          - "sourcegraph-frontend.ns-sourcegraph.svc.cluster.local"
+          - "sourcegraph-frontend.$SG_NAMESPACE.svc.cluster.local"
+          - "indexed-search.default.svc.cluster.local"
+          - "indexed-search.ns-sourcegraph.svc.cluster.local"
+          - "indexed-search.$SG_NAMESPACE.svc.cluster.local"
+          - "indexed-search-indexer.default.svc.cluster.local"
+          - "indexed-search-indexer.ns-sourcegraph.svc.cluster.local"
+          - "indexed-search-indexer.$SG_NAMESPACE.svc.cluster.local"
+        type: SRV
+    relabel_configs:
+      - source_labels: [__meta_dns_srv_record_target]
+        target_label: __address__
+        regex: (.*)\.
+        replacement: ${1}:6060
+      - source_labels: [__meta_dns_srv_record_target]
+        target_label: __address__
+        regex: ^(indexed-search.*)\.
+        replacement: ${1}:6070
+      - source_labels: [__meta_dns_srv_record_target]
+        target_label: __address__
+        regex: (.*)\.(indexed-search-indexer.*)\.
+        replacement: ${1}.${2}:6072
+      - source_labels: [__meta_dns_srv_record_port]
+        target_label: __meta_dns_srv_record_port
+        replacement: "6060"
+      - source_labels: [__address__]
+        regex: ^(indexed-search).*$
+        target_label: __meta_dns_srv_record_port
+        replacement: "6070"
+      - source_labels: [__meta_dns_name]
+        target_label: job
+        regex: (.*)\..*\..*\..*\..*
+        replacement: ${1}
+      - source_labels: [__meta_dns_srv_record_target]
+        regex: (.*)\.(.*)\..*\..*\..*\..*\..*
+        target_label: instance
+        replacement: ${2}_${1}
+    metric_relabel_configs:
+      - source_labels: [container_label_io_kubernetes_pod_namespace]
+        regex: kube-system
+        action: drop
+      - source_labels: [__address__]
+        target_label: instance
+        regex: (.*)\:.*
+        replacement: $1:6060
+      - source_labels: [__address__]
+        target_label: instance
+        regex: (.*)\.(.*)\..*\..*\..*\..*\..*
+        replacement: ${2}_${1}
+      - source_labels: [container_label_io_kubernetes_pod_namespace]
+        target_label: ns
+        action: replace
+
+  #------------------------------------------------------------------------------
+  # Sourcegraph Service Discovery with statics targets
+  #------------------------------------------------------------------------------
+  - job_name: "sourcegraph-services"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: (.*)\.(.*)
+        replacement: ${1}_${2}
+      - source_labels: [container_label_io_kubernetes_pod_namespace]
+        action: replace
+        target_label: ns
+      - source_labels: [pod]
+        action: replace
+        target_label: pod
+    metric_relabel_configs:
+      - source_labels: [container_label_io_kubernetes_pod_namespace]
+        regex: kube-system
+        action: drop
+    static_configs:
+      - labels:
+          job: sourcegraph-service
+        targets:
+          - sourcegraph-frontend:6060
+          - github-proxy:6060
+          - repo-updater:6060
+          - worker:6060
+          - worker-executors:6996
+          - syntect-server:6060
+          - precise-code-intel-worker:6060
+          - pgsql:9187
+          - codeintel-db:9187
+          - codeinsights-db:9187
+          - redis-cache:9121
+          - redis-store:9121
+          - node-exporter:9100
+          - otel-collector:8888
+          - cadvisor:48080

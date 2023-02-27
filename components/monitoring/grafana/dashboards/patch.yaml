@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: dashboards
+    configMap:
+      defaultMode: 0777
+      name: grafana-dashboards

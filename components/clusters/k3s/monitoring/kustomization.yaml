@@ -6,5 +6,9 @@ resources:
 components:
   - ../../../monitoring/privileged
   - ../../../storage-class/k3s
-patches:
-  - path: patches/prometheus.ConfigMap.yaml
+
+configMapGenerator:
+  - name: prometheus-rbac
+    behavior: merge
+    files:
+      - prometheus.yml=patches/prometheus-k3s.yml
