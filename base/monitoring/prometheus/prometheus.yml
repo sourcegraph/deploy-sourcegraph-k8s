@@ -2,19 +2,16 @@ global: # Prometheus global config
   # scrape_timeout is set to the global default (10s)
   scrape_interval: 30s # How frequently to scrape targets by default
   evaluation_interval: 30s # How frequently to evaluate rules
-
 alerting: # Alertmanager configuration
   alertmanagers:
     # bundled alertmanager, started by prom-wrapper
     - static_configs:
         - targets: ["127.0.0.1:9093"]
       path_prefix: /alertmanager
-    # add more alertmanagers here
-
+  # add more alertmanagers here
 rule_files: # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
   - "/sg_config_prometheus/*_rules.yml"
   - "/sg_prometheus_add_ons/*_rules.yml"
-
 scrape_configs: # Configure targets to scrape
   # Scrape prometheus itself for metrics.
   - job_name: "builtin-prometheus"
@@ -25,7 +22,6 @@ scrape_configs: # Configure targets to scrape
     metrics_path: /alertmanager/metrics
     static_configs:
       - targets: ["127.0.0.1:9093"]
-
   #------------------------------------------------------------------------------
   # cAdvisor
   #------------------------------------------------------------------------------
@@ -47,16 +43,11 @@ scrape_configs: # Configure targets to scrape
       - source_labels: [container_label_io_kubernetes_pod_namespace]
         regex: kube-system
         action: drop
-      - source_labels:
-          [
-            container_label_io_kubernetes_container_name,
-            container_label_io_kubernetes_pod_name,
-          ]
+      - source_labels: [container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name]
         regex: (.+)
         action: replace
         target_label: name
         separator: "-"
-
   #------------------------------------------------------------------------------
   # Sourcegraph Service Discovery with DNS-SRV records
   # https://prometheus.io/docs/prometheus/latest/configuration/configuration/#dns_sd_config
@@ -126,7 +117,6 @@ scrape_configs: # Configure targets to scrape
       - source_labels: [container_label_io_kubernetes_pod_namespace]
         target_label: ns
         action: replace
-
   #------------------------------------------------------------------------------
   # Sourcegraph Service Discovery with statics targets
   #------------------------------------------------------------------------------
