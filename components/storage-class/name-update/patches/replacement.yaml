@@ -1,8 +1,7 @@
 - source:
     fieldPath: data.STORAGECLASS_NAME
-    kind: SourcegraphBuildConfig
-    name: sourcegraph-kustomize-config
-    version: v1
+    kind: ConfigMap
+    name: sourcegraph-kustomize-build-config
   targets:
     - select:
         kind: PersistentVolumeClaim
@@ -10,9 +9,8 @@
         - spec.storageClassName
 - source:
     fieldPath: data.STORAGECLASS_NAME
-    kind: SourcegraphBuildConfig
-    name: sourcegraph-kustomize-config
-    version: v1
+    kind: ConfigMap
+    name: sourcegraph-kustomize-build-config
   targets:
     - select:
         kind: StatefulSet

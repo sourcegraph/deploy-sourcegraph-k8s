@@ -4,4 +4,3 @@ resources:
   - grafana.ConfigMap.yaml
   - grafana.Service.yaml
   - grafana.StatefulSet.yaml
-  - grafana.Dashboards.ConfigMap.yaml

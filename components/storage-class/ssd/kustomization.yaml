@@ -5,9 +5,8 @@ components:
 replacements:
   - source:
       fieldPath: data.SSD_NODE_PATH
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
-      version: v1
+      kind: ConfigMap
+      name: sourcegraph-kustomize-build-config
     targets:
       - fieldPaths:
           - spec.template.spec.containers.*.volumeMounts.*.mountPath

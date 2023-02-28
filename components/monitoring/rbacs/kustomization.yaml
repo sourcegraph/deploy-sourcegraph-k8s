@@ -6,7 +6,6 @@ resources:
 patches:
   - path: prometheus/prometheus.Deployment.yaml
   - path: grafana/grafana.StatefulSet.yaml
-  - path: grafana/grafana.Dashboards.ConfigMap.yaml
   - patch: |-
       - op: remove
         path: /data/prometheus.yml

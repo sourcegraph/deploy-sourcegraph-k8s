@@ -3,9 +3,8 @@ kind: Component
 replacements:
   - source:
       fieldPath: data.PRIVATE_REGISTRY
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
-      version: v1
+      kind: ConfigMap
+      name: sourcegraph-kustomize-build-config
     targets:
       - fieldPaths:
           - spec.template.spec.containers.*.image

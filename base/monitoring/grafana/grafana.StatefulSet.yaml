@@ -58,10 +58,6 @@ spec:
           configMap:
             defaultMode: 0777
             name: grafana
-        - name: dashboards
-          configMap:
-            defaultMode: 0777
-            name: grafana-dashboards
       securityContext:
         runAsUser: 472
         fsGroup: 472

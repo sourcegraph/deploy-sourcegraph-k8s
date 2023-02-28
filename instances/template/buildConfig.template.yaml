@@ -7,13 +7,13 @@
 # Always refer to the component’s documentation or comments before updating
 ################################################################################################
 apiVersion: v1
-kind: SourcegraphBuildConfig
+kind: ConfigMap
 metadata:
   annotations:
     description: Some components read the configuration values from the "data" field below during the build process. You only need to update this file if you are using components that require specific CONFIG_KEYS. If no components in your overlay require extra configuration, no update is necessary.
   labels:
-    deploy: sourcegraph-kustomize
-  name: sourcegraph-kustomize-config
+    deploy: sourcegraph
+  name: sourcegraph-kustomize-build-config
 data:
   # example:
   EXAMPLE_CONFIG_KEY: example
@@ -31,3 +31,4 @@ data:
   # TLS_HOST: __placeholder__
   # TLS_INGRESS_CLASS_NAME: __placeholder__
   # TLS_CLUSTER_ISSUER: __placeholder__
+  # TLS_SECRET_NAME: __placeholder__

@@ -21,8 +21,8 @@ You can generate the manifests without cloning the repository using the kustomiz
 
 ```sh
 # Replace xs with your instance size
-# Replace bee/newBase to a version branch that support this overlay
-kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph-k8s/examples/k3s/xs?ref=bee/newBase -o cluster.yaml
+# Replace v4.5.0 to a version branch that support this overlay
+kubectl kustomize https://github.com/sourcegraph/deploy-sourcegraph-k8s/examples/k3s/xs?ref=v4.5.0 -o cluster.yaml
 ```
 
 The manifests will be grouped and exported to the cluster.yaml file in the directory where you run the command from.
