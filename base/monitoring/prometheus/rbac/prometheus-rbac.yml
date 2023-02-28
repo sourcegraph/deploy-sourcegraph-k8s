@@ -7,15 +7,15 @@ alerting:
     - static_configs:
         - targets: ["127.0.0.1:9093"]
       path_prefix: /alertmanager
-    # Uncomment the following to have alerts delivered to additional Alertmanagers discovered
-    # in the cluster. This configuration is not required if you use Sourcegraph's built-in alerting:
-    # https://docs.sourcegraph.com/admin/observability/alerting
-    # - kubernetes_sd_configs:
-    #  - role: endpoints
-    #  relabel_configs:
-    #    - source_labels: [__meta_kubernetes_service_name]
-    #      regex: alertmanager
-    #      action: keep
+      # Uncomment the following to have alerts delivered to additional Alertmanagers discovered
+      # in the cluster. This configuration is not required if you use Sourcegraph's built-in alerting:
+      # https://docs.sourcegraph.com/admin/observability/alerting
+      # - kubernetes_sd_configs:
+      #  - role: endpoints
+      #  relabel_configs:
+      #    - source_labels: [__meta_kubernetes_service_name]
+      #      regex: alertmanager
+      #      action: keep
 rule_files:
   - "*_rules.yml"
   - "/sg_config_prometheus/*_rules.yml"
@@ -60,12 +60,7 @@ scrape_configs:
     # will add targets for each API server which Kubernetes adds an endpoint to
     # the default/kubernetes service.
     relabel_configs:
-      - source_labels:
-          [
-            __meta_kubernetes_namespace,
-            __meta_kubernetes_service_name,
-            __meta_kubernetes_endpoint_port_name,
-          ]
+      - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
         action: keep
         regex: default;kubernetes;https
   - job_name: "kubernetes-nodes"
@@ -115,12 +110,10 @@ scrape_configs:
       - role: endpoints
     relabel_configs:
       # Sourcegraph specific customization, only scrape pods with our annotation
-      - source_labels:
-          [__meta_kubernetes_service_annotation_sourcegraph_prometheus_scrape]
+      - source_labels: [__meta_kubernetes_service_annotation_sourcegraph_prometheus_scrape]
         action: keep
         regex: true
-      - source_labels:
-          [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
         action: replace
         target_label: __scheme__
         regex: (https?)
@@ -128,8 +121,7 @@ scrape_configs:
         action: replace
         target_label: __metrics_path__
         regex: (.+)
-      - source_labels:
-          [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+      - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
         action: replace
         target_label: __address__
         regex: (.+)(?::\d+);(\d+)
@@ -175,8 +167,7 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: service
     relabel_configs:
-      - source_labels:
-          [__meta_kubernetes_service_annotation_prometheus_io_probe]
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_probe]
         action: keep
         regex: true
       - source_labels: [__address__]
@@ -206,16 +197,14 @@ scrape_configs:
       - role: pod
     relabel_configs:
       # Sourcegraph specific customization, only scrape pods with our annotation
-      - source_labels:
-          [__meta_kubernetes_pod_annotation_sourcegraph_prometheus_scrape]
+      - source_labels: [__meta_kubernetes_pod_annotation_sourcegraph_prometheus_scrape]
         action: keep
         regex: true
       - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
         action: replace
         target_label: __metrics_path__
         regex: (.+)
-      - source_labels:
-          [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
         action: replace
         regex: (.+):(?:\d+);(\d+)
         replacement: ${1}:${2}
@@ -249,11 +238,7 @@ scrape_configs:
       # cAdvisor-specific customization. We want container metrics to be named after their container name label.
       # Note that 'io.kubernetes.container.name' and 'io.kubernetes.pod.name' must be provided in cAdvisor
       # '--whitelisted_container_labels' (see cadvisor.DaemonSet.yaml)
-      - source_labels:
-          [
-            container_label_io_kubernetes_container_name,
-            container_label_io_kubernetes_pod_name,
-          ]
+      - source_labels: [container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name]
         regex: (.+)
         action: replace
         target_label: name

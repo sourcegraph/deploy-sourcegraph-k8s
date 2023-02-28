@@ -4,7 +4,6 @@ resources:
   - prometheus.Deployment.yaml
   - prometheus.PersistentVolumeClaim.yaml
   - prometheus.Service.yaml
-
 # Create ConfigMap with prometheus.yml
 configMapGenerator:
   - name: prometheus
