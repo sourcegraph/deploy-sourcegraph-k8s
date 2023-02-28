@@ -4,7 +4,7 @@ replacements:
   - source:
       fieldPath: data.GKE_MANAGED_CERT_NAME
       kind: ConfigMap
-      name: sourcegraph-kustomize-buildConfig
+      name: sourcegraph-kustomize-build-config
     targets:
       - fieldPaths:
           - metadata.annotations.[networking.gke.io/managed-certificates]

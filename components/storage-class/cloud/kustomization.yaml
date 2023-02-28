@@ -8,7 +8,7 @@ replacements:
   - source:
       fieldPath: data.STORAGECLASS_PROVISIONER
       kind: ConfigMap
-      name: sourcegraph-kustomize-buildConfig
+      name: sourcegraph-kustomize-build-config
     targets:
       - select:
           kind: StorageClass
@@ -18,7 +18,7 @@ replacements:
   - source:
       fieldPath: data.STORAGECLASS_PARAM_TYPE
       kind: ConfigMap
-      name: sourcegraph-kustomize-buildConfig
+      name: sourcegraph-kustomize-build-config
     targets:
       - select:
           kind: StorageClass

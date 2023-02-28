@@ -4,7 +4,7 @@ replacements:
   - source:
       fieldPath: data.AWS_MANAGED_CERT_ARN
       kind: ConfigMap
-      name: sourcegraph-kustomize-buildConfig
+      name: sourcegraph-kustomize-build-config
     targets:
       - fieldPaths:
           - metadata.annotations.[alb.ingress.kubernetes.io/certificate-arn]

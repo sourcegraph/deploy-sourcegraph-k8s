@@ -5,7 +5,7 @@ replacements:
   - source:
       fieldPath: data.TLS_SECRET_NAME
       kind: ConfigMap
-      name: sourcegraph-kustomize-buildConfig
+      name: sourcegraph-kustomize-build-config
     targets:
       - fieldPaths:
           - spec.tls.*.secretName

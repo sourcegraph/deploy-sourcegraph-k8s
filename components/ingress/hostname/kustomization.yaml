@@ -4,7 +4,7 @@ replacements:
   - source:
       fieldPath: data.HOST_DOMAIN
       kind: ConfigMap
-      name: sourcegraph-kustomize-buildConfig
+      name: sourcegraph-kustomize-build-config
     targets:
       - fieldPaths:
           - spec.rules.*.host
