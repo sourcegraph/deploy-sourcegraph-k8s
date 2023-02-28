@@ -5,7 +5,6 @@ replacements:
       fieldPath: data.HOST_DOMAIN
       kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
-      version: v1
     targets:
       - fieldPaths:
           - spec.rules.*.host

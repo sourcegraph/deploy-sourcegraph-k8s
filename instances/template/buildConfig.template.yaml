@@ -6,13 +6,12 @@
 # Enter the configuration values as instructed by components used in your kustomization.yaml
 # Always refer to the component’s documentation or comments before updating
 ################################################################################################
-apiVersion: v1
 kind: SourcegraphBuildConfig
 metadata:
   annotations:
     description: Some components read the configuration values from the "data" field below during the build process. You only need to update this file if you are using components that require specific CONFIG_KEYS. If no components in your overlay require extra configuration, no update is necessary.
   labels:
-    deploy: sourcegraph-kustomize
+    deploy: kustomize-configs
   name: sourcegraph-kustomize-config
 data:
   # example:

@@ -6,7 +6,6 @@ replacements:
       fieldPath: data.TLS_HOST
       kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
-      version: v1
     targets:
       - fieldPaths:
           - spec.tls.*.hosts
@@ -18,7 +17,6 @@ replacements:
       fieldPath: data.TLS_INGRESS_CLASS_NAME
       kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
-      version: v1
     targets:
       - fieldPaths:
           - spec.ingressClassName
@@ -30,7 +28,6 @@ replacements:
       fieldPath: data.TLS_CLUSTER_ISSUER
       kind: SourcegraphBuildConfig
       name: sourcegraph-kustomize-config
-      version: v1
     targets:
       - fieldPaths:
           - metadata.annotations.[cert-manager.io/cluster-issuer]
