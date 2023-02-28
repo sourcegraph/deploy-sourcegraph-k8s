@@ -4,19 +4,19 @@ kind: Component
 replacements:
   - source:
       fieldPath: data.TLS_HOST
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
+      kind: ConfigMap
+      name: sourcegraph-kustomize-buildConfig
     targets:
       - fieldPaths:
-          - spec.tls.*.hosts
+          - spec.tls.*.hosts.*
           - spec.rules.*.host
         select:
           kind: Ingress
           name: sourcegraph-frontend
   - source:
       fieldPath: data.TLS_INGRESS_CLASS_NAME
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
+      kind: ConfigMap
+      name: sourcegraph-kustomize-buildConfig
     targets:
       - fieldPaths:
           - spec.ingressClassName
@@ -26,8 +26,8 @@ replacements:
           name: sourcegraph-frontend
   - source:
       fieldPath: data.TLS_CLUSTER_ISSUER
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
+      kind: ConfigMap
+      name: sourcegraph-kustomize-buildConfig
     targets:
       - fieldPaths:
           - metadata.annotations.[cert-manager.io/cluster-issuer]

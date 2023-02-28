@@ -6,13 +6,14 @@
 # Enter the configuration values as instructed by components used in your kustomization.yaml
 # Always refer to the component’s documentation or comments before updating
 ################################################################################################
-kind: SourcegraphBuildConfig
+apiVersion: v1
+kind: ConfigMap
 metadata:
   annotations:
     description: Some components read the configuration values from the "data" field below during the build process. You only need to update this file if you are using components that require specific CONFIG_KEYS. If no components in your overlay require extra configuration, no update is necessary.
   labels:
     deploy: kustomize-configs
-  name: sourcegraph-kustomize-config
+  name: sourcegraph-kustomize-buildConfig
 data:
   # example:
   EXAMPLE_CONFIG_KEY: example
@@ -30,3 +31,4 @@ data:
   # TLS_HOST: __placeholder__
   # TLS_INGRESS_CLASS_NAME: __placeholder__
   # TLS_CLUSTER_ISSUER: __placeholder__
+  # TLS_SECRET_NAME: __placeholder__

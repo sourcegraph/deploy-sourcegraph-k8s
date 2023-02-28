@@ -111,6 +111,9 @@ components:
   #              TLS_INGRESS_CLASS_NAME
   #              TLS_CLUSTER_ISSUER
   #
+  # - ../../components/network/tls-secretname # -- Replace TLS secretName with TLS_SECRET_NAME
+  # CONFIG KEYS: TLS_SECRET_NAME
+  #
   #---------------------------------------------------------------------------------------
   # External Services
   # You must add external instances via frontend env vars if you remove the bundled instances

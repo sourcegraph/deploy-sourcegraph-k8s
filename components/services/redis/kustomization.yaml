@@ -3,8 +3,8 @@ kind: Component
 replacements:
   - source:
       fieldPath: data.NEW_REDIS_CACHE_ENDPOINT
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
+      kind: ConfigMap
+      name: sourcegraph-kustomize-buildConfig
     targets:
       - fieldPaths:
           - data.REDIS_CACHE_ENDPOINT
@@ -50,8 +50,8 @@ replacements:
           name: worker
   - source:
       fieldPath: data.NEW_REDIS_STORE_ENDPOINT
-      kind: SourcegraphBuildConfig
-      name: sourcegraph-kustomize-config
+      kind: ConfigMap
+      name: sourcegraph-kustomize-buildConfig
     targets:
       - fieldPaths:
           - data.REDIS_STORE_ENDPOINT
