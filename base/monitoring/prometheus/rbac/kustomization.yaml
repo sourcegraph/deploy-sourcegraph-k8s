@@ -4,7 +4,6 @@ resources:
   - prometheus.ClusterRole.yaml
   - prometheus.ClusterRoleBinding.yaml
   - prometheus.ServiceAccount.yaml
-
 # Create ConfigMap with prometheus.yml
 configMapGenerator:
   - name: prometheus-rbac
