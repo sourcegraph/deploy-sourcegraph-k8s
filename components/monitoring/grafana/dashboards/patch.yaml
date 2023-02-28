@@ -5,3 +5,8 @@
     configMap:
       defaultMode: 0777
       name: grafana-dashboards
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /sg_grafana_additional_dashboards
+    name: dashboards
