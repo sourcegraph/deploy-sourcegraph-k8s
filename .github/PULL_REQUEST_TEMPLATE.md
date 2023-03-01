@@ -14,6 +14,7 @@
 
 - [ ] Update [CHANGELOG.md](https://github.com/sourcegraph/sourcegraph/blob/main/CHANGELOG.md)
 - [ ] Update [K8s Upgrade notes](https://github.com/sourcegraph/sourcegraph/blob/main/doc/admin/updates/kubernetes.md)
+- [ ] Kustomiz-specific changes
 - [ ] Update sister repository: [deploy-sourcegraph-helm](https://github.com/sourcegraph/deploy-sourcegraph-docker)
 - [ ] Update sister repository: [deploy-sourcegraph-docker](https://github.com/sourcegraph/deploy-sourcegraph-docker)
 - [ ] Verify all images have a valid tag and SHA256 sum
