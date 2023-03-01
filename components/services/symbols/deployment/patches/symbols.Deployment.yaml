@@ -57,4 +57,4 @@ spec:
   updateStrategy:
     $patch: delete
   volumeClaimTemplates:
-  serviceName:
+  serviceName: null

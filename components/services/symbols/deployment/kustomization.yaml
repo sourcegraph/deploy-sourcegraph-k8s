@@ -7,3 +7,9 @@ patches:
     target:
       kind: StatefulSet
       name: symbols
+  - patch: |-
+      - op: remove
+        path: /spec/clusterIP
+    target:
+      kind: Service
+      name: symbols

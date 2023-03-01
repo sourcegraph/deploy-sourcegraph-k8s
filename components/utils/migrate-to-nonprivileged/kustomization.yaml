@@ -1,18 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 replacements:
-- path: images-update.yaml
+  - path: images-update.yaml
 patches:
-- path: searcher/searcher.Deployment.yaml
-  target:
-    group: apps
-    kind: StatefulSet|Deployment
-    name: searcher
-    version: v1
-- path: gitserver/gitserver.StatefulSet.yaml
-- path: grafana/grafana.StatefulSet.yaml
-- path: blobstore/blobstore.Deployment.yaml
-- path: indexed-search/indexed-search.StatefulSet.yaml
-- path: prometheus/prometheus.Deployment.yaml
-- path: redis/redis-cache.Deployment.yaml
-- path: redis/redis-store.Deployment.yaml
+  - path: searcher/searcher.Deployment.yaml
+    target:
+      group: apps
+      kind: StatefulSet|Deployment
+      name: searcher
+      version: v1
+  - path: gitserver/gitserver.StatefulSet.yaml
+  - path: grafana/grafana.StatefulSet.yaml
+  - path: blobstore/blobstore.Deployment.yaml
+  - path: indexed-search/indexed-search.StatefulSet.yaml
+  - path: prometheus/prometheus.Deployment.yaml
+  - path: redis/redis-cache.Deployment.yaml
+  - path: redis/redis-store.Deployment.yaml
