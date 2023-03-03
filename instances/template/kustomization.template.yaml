@@ -148,6 +148,12 @@ components:
   # - ../../components/utils/migrate-to-nonprivileged # -- Component for migrating from privileged to non-privileged
   #
   #---------------------------------------------------------------------------------------
+  # Resource migration from deploy-sourcegraph
+  #---------------------------------------------------------------------------------------
+  # - ../../components/clusters/old-base # -- Generate old cluster from deploy-sourcegraph
+  # - old-patches # -- Component to store patches from old deployment. See migration docs for more information
+  #
+  #---------------------------------------------------------------------------------------
   # Use private registry
   #---------------------------------------------------------------------------------------
   # - ../../components/enable/private-registry # -- Update images name to private registry name

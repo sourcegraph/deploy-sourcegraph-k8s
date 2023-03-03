@@ -43,7 +43,11 @@ scrape_configs: # Configure targets to scrape
       - source_labels: [container_label_io_kubernetes_pod_namespace]
         regex: kube-system
         action: drop
-      - source_labels: [container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name]
+      - source_labels:
+          [
+            container_label_io_kubernetes_container_name,
+            container_label_io_kubernetes_pod_name,
+          ]
         regex: (.+)
         action: replace
         target_label: name
@@ -124,8 +128,12 @@ scrape_configs: # Configure targets to scrape
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
-        regex: (.*)\.(.*)
-        replacement: ${1}_${2}
+        regex: (.*)\:(.*)
+        replacement: ${1}
+      - source_labels: [__address__]
+        target_label: job
+        regex: (.*)\:(.*)
+        replacement: ${1}
       - source_labels: [container_label_io_kubernetes_pod_namespace]
         action: replace
         target_label: ns
@@ -138,7 +146,7 @@ scrape_configs: # Configure targets to scrape
         action: drop
     static_configs:
       - labels:
-          job: sourcegraph-service
+          group: sourcegraph-service
         targets:
           - sourcegraph-frontend:6060
           - github-proxy:6060
