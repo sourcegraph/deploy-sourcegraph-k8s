@@ -23,8 +23,8 @@ data:
   # HOST_DOMAIN: __placeholder__
   # NEW_REDIS_CACHE_ENDPOINT: __placeholder__
   # NEW_REDIS_STORE_ENDPOINT: __placeholder__
-  # PRIVATE_REGISTRY: __placeholder__
-  # PRIVATE_REGISTRY_SECRET_KEY: __placeholder__
+  PRIVATE_REGISTRY: my-private-registry.io
+  IMAGE_PULL_SECRET_NAME: secret-registry-key
   # SSD_NODE_PATH: __placeholder__
   # STORAGECLASS_NAME: __placeholder__
   # STORAGECLASS_PROVISIONER: __placeholder__

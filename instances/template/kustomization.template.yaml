@@ -159,6 +159,9 @@ components:
   # - ../../components/enable/private-registry # -- Update images name to private registry name
   # CONFIG KEYS: PRIVATE_REGISTRY
   #
+  # - ../../components/resources/imagepullsecrets # -- Add imagePullSecrets field to all resources
+  # CONFIG KEYS: IMAGE_PULL_SECRET_NAME
+  #
   # ------------------------------------------------------------------------
   # Permission Configurations
   # IMPORTANT: Keep the components below as the LAST components

@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/imagePullSecrets
+        value:
+          name: IMAGE_PULL_SECRET_NAME
+    target:
+      group: apps
+      kind: StatefulSet|Deployment|DaemonSet
+      version: v1
+replacements:
+  - source:
+      fieldPath: data.IMAGE_PULL_SECRET_NAME
+      kind: ConfigMap
+      name: sourcegraph-kustomize-build-config
+    targets:
+      - fieldPaths:
+          - spec.template.spec.imagePullSecrets.name
+        select:
+          group: apps
+          kind: Deployment
+      - fieldPaths:
+          - spec.template.spec.imagePullSecrets.name
+        select:
+          group: apps
+          kind: StatefulSet
+      - fieldPaths:
+          - spec.template.spec.imagePullSecrets.name
+        select:
+          group: apps
+          kind: DaemonSet
