@@ -12,8 +12,3 @@ components:
   - ../../../components/clusters/k3s
   - ../../../components/privileged
   - ../../../components/enable/service-discovery
-# configMapGenerator:
-#   - name: sourcegraph-frontend-env
-#     behavior: merge
-#     literals:
-#       - DEPLOY_TYPE=K3s
