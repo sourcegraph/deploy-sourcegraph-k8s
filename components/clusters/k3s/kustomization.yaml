@@ -5,3 +5,9 @@ components:
   - ../../storage-class/k3s
 patches:
   - path: patches/sourcegraph-frontend.Ingress.yaml
+# k3s deploy type added in 5.0.0
+configMapGenerator:
+  - name: sourcegraph-frontend-env
+    behavior: merge
+    literals:
+      - DEPLOY_TYPE=k3s
