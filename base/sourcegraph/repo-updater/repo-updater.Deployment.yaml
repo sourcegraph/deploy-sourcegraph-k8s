@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: repo-updater
-          image: index.docker.io/sourcegraph/repo-updater:4.5.1@sha256:b2973914ff0d8383909e1c7b4e2e0ab8e68f7eefb82fab994481c18788c9bbae
+          image: index.docker.io/sourcegraph/repo-updater:5.0.0@sha256:1d13afa3333564c9346309241f63b4a4b3f17e0d8a6b7ce6c5071b765c64ffc6
           env:
             # Required when service discovery is disabled
             - name: GITHUB_BASE_URL
