@@ -131,6 +131,12 @@ components:
   #              REDIS_STORE_ENDPOINT
   #
   #---------------------------------------------------------------------------------------
+  # Executors
+  # See https://docs.sourcegraph.com/admin/executors for information and instructions
+  #---------------------------------------------------------------------------------------
+  # - ../../components/executors # -- Enable executors
+  #
+  #---------------------------------------------------------------------------------------
   # Other Configurations
   #---------------------------------------------------------------------------------------
   # - ../../components/clusters/k3s # -- Configure instance to run in a k3s cluster (storage class, network, etc)
