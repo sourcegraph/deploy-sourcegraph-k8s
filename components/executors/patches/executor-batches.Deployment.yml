@@ -22,6 +22,7 @@ spec:
       serviceAccountName: sg-executor-service-account
       containers:
         - name: sg-executor-batches
+          # TODO: update tag once a prod image is published
           image: sourcegraph/executor-kubernetes:main-dry-run-rc-k8s-directory-creation_215977_2023-04-28_5.0-9b4f55fbff85@sha256:e11a50201f4e619f25b35edc26b037dc4f931073dc1bb10f34bbc17d670bd88d
           imagePullPolicy: IfNotPresent
           # TODO: how to kustomize these env vars properly?
