@@ -496,6 +496,23 @@ patches:
 #                   cpu: "0.5"
 #                   memory: 512Mi
 # - patch: |-
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     metadata:
+#       name: embeddings
+#     spec:
+#       template:
+#         spec:
+#           containers:
+#             - name: embeddings
+#               resources:
+#                 limits:
+#                   cpu: "8"
+#                   memory: "64Gi"
+#                 requests:
+#                   cpu: "4"
+#                   memory: "32Gi"
+# - patch: |-
 #     apiVersion: v1
 #     kind: PersistentVolumeClaim
 #     metadata:
