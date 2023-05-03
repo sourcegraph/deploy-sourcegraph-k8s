@@ -54,3 +54,11 @@ spec:
             requests:
               cpu: "4"
               memory: 32G
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 101
+            runAsUser: 100
+      securityContext:
+        runAsUser: 100
+        fsGroup: 101
+        fsGroupChangePolicy: "OnRootMismatch"
