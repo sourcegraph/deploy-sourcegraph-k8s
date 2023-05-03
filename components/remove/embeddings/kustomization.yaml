@@ -3,6 +3,12 @@ kind: Component
 patches:
   - patch: |-
       $patch: delete
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: embeddings-backend
+  - patch: |-
+      $patch: delete
       apiVersion: apps/v1
       kind: Deployment
       metadata:
