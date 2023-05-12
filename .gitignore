@@ -7,3 +7,4 @@ known_hosts
 dev-clusters
 test.yaml
 ci-generated-cluster
+.idea
