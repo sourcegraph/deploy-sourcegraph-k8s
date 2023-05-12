@@ -134,8 +134,8 @@ components:
   # Executors
   # See https://docs.sourcegraph.com/admin/executors for information and instructions
   #---------------------------------------------------------------------------------------
-  # ~../../components/executors/k8s # -- Enable executors
-  # ~../../components/executors/k8s/private-docker-registry # -- Enable private docker registry
+  # - ../../components/executors/k8s # -- Enable executors
+  # - ../../components/executors/k8s/private-docker-registry # -- Enable private docker registry
   #
   #---------------------------------------------------------------------------------------
   # Other Configurations
