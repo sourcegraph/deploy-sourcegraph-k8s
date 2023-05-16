@@ -44,7 +44,7 @@ spec:
                 - /usr/local/bin/executor
             periodSeconds: 5
           terminationMessagePolicy: FallbackToLogsOnError
-          # Refer to https://docs.sourcegraph.com/admin/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
+          # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
           env:
             - name: EXECUTOR_FRONTEND_URL
               value:
