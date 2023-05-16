@@ -13,4 +13,3 @@ spec:
     requests:
       # To be adjusted based on the number and size of images used in batch changes and auto-indexing
       storage: 100Gi
-  storageClassName: sourcegraph
