@@ -106,7 +106,7 @@ components:
   # - ../../components/ingress/hostname # -- Set hostname/domain for your Sourcegraph ingress
   # CONFIG KEYS: HOST_DOMAIN
   #
-  # - ../../components/network/tls # -- Enable TLS with exisiting certificates
+  # - ../../components/network/tls # -- Enable TLS with existing certificates
   # CONFIG KEYS: TLS_HOST
   #              TLS_INGRESS_CLASS_NAME
   #              TLS_CLUSTER_ISSUER
@@ -129,6 +129,13 @@ components:
   # - ../../components/services/redis # -- Use external redis servers
   # CONFIG KEYS: REDIS_CACHE_ENDPOINT
   #              REDIS_STORE_ENDPOINT
+  #
+  #---------------------------------------------------------------------------------------
+  # Executors
+  # See https://docs.sourcegraph.com/admin/executors for information and instructions
+  #---------------------------------------------------------------------------------------
+  # - ../../components/executors/k8s # -- Enable executors
+  # - ../../components/executors/k8s/private-docker-registry # -- Enable private docker registry
   #
   #---------------------------------------------------------------------------------------
   # Other Configurations
@@ -210,7 +217,7 @@ components:
 # Create a directory `patches` and then copy the required files as
 # instructed by the configuration docs to update ConfigMaps and other
 # resources using patch files to customize your deployment
-# Do not use the built-in replcias field to update replica counts
+# Do not use the built-in replicas field to update replica counts
 ##########################################################################################
 #
 # patches:
@@ -267,7 +274,7 @@ components:
 #         value: 100Gi
 #     target:
 #       kind: PersistentVolumeClaim
-#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
+#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache|private-docker-registry
 #
 #   - patch: |-
 #       - op: replace

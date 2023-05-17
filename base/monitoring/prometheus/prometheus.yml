@@ -163,3 +163,4 @@ scrape_configs: # Configure targets to scrape
           - node-exporter:9100
           - otel-collector:8888
           - cadvisor:48080
+          - executor:6060
