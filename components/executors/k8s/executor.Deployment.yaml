@@ -45,24 +45,9 @@ spec:
             periodSeconds: 5
           terminationMessagePolicy: FallbackToLogsOnError
           # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
-          env:
-            - name: EXECUTOR_FRONTEND_URL
-              value:
-            - name: EXECUTOR_FRONTEND_PASSWORD
-              value:
-            - name: EXECUTOR_USE_FIRECRACKER
-              value: "false"
-            - name: EXECUTOR_QUEUE_NAME
-              value:
-            - name: EXECUTOR_JOB_NUM_CPUS
-              value: "0"
-            - name: EXECUTOR_JOB_MEMORY
-              value: "0"
-            - name: DOCKER_HOST
-              value: tcp://localhost:2375
-            # Note: Must match the mount point shared with the docker-in-docker (dind) sidecar
-            - name: TMPDIR
-              value: /scratch
+          envFrom:
+            - configMapRef:
+                name: executor-config
           volumeMounts:
             - mountPath: /scratch
               name: executor-scratch

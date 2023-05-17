@@ -274,7 +274,7 @@ components:
 #         value: 100Gi
 #     target:
 #       kind: PersistentVolumeClaim
-#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
+#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache|private-docker-registry
 #
 #   - patch: |-
 #       - op: replace
