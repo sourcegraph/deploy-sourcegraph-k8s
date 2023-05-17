@@ -146,6 +146,7 @@ components:
   # - ../../components/utils/uid # -- Run all Postgres database with valid users on host
   # - ../../components/utils/multi-version-upgrade # -- Scale down non-database pods to 0 for multi-version upgrade
   # - ../../components/utils/migrate-to-nonprivileged # -- Component for migrating from privileged to non-privileged
+  - ../../components/remove/embeddings # -- Disable Embeddings service by default
   #
   #---------------------------------------------------------------------------------------
   # Resource migration from deploy-sourcegraph
@@ -216,12 +217,13 @@ components:
 #   #---------------------------------------------------------------------------------------
 #   # custom patches
 #   #---------------------------------------------------------------------------------------
-#   - patch: patches/frontend-ingress.annotations.yaml
-#   - patch: patches/prometheus.ConfigMap.yaml
-#   - patch: patches/pgsql.ConfigMap.yaml
-#   - patch: patches/otel-collector.ConfigMap.yaml
-#   - patch: patches/custom.NodePort.yaml
-#   - patch: patches/resources.yaml
+#   - path: patches/frontend-ingress.annotations.yaml
+#   - path: patches/prometheus.ConfigMap.yaml
+#   - path: patches/pgsql.ConfigMap.yaml
+#   - path: patches/otel-collector.ConfigMap.yaml
+#   - path: patches/custom.NodePort.yaml
+#   - path: patches/resources.yaml
+#   - path: patches/embeddings-backend.yaml
 #
 #   #---------------------------------------------------------------------------------------
 #   # Update env vars for non-frontend services
