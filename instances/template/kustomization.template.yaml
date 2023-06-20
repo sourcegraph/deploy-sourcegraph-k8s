@@ -106,7 +106,7 @@ components:
   # - ../../components/ingress/hostname # -- Set hostname/domain for your Sourcegraph ingress
   # CONFIG KEYS: HOST_DOMAIN
   #
-  # - ../../components/network/tls # -- Enable TLS with exisiting certificates
+  # - ../../components/network/tls # -- Enable TLS with existing certificates
   # CONFIG KEYS: TLS_HOST
   #              TLS_INGRESS_CLASS_NAME
   #              TLS_CLUSTER_ISSUER
@@ -134,7 +134,8 @@ components:
   # Executors
   # See https://docs.sourcegraph.com/admin/executors for information and instructions
   #---------------------------------------------------------------------------------------
-  # - ../../components/executors # -- Enable executors
+  # - ../../components/executors/k8s # -- Enable executors
+  # - ../../components/executors/k8s/private-docker-registry # -- Enable private docker registry
   #
   #---------------------------------------------------------------------------------------
   # Other Configurations
@@ -152,6 +153,7 @@ components:
   # - ../../components/utils/uid # -- Run all Postgres database with valid users on host
   # - ../../components/utils/multi-version-upgrade # -- Scale down non-database pods to 0 for multi-version upgrade
   # - ../../components/utils/migrate-to-nonprivileged # -- Component for migrating from privileged to non-privileged
+  - ../../components/remove/embeddings # -- Disable Embeddings service by default
   #
   #---------------------------------------------------------------------------------------
   # Resource migration from deploy-sourcegraph
@@ -215,19 +217,20 @@ components:
 # Create a directory `patches` and then copy the required files as
 # instructed by the configuration docs to update ConfigMaps and other
 # resources using patch files to customize your deployment
-# Do not use the built-in replcias field to update replica counts
+# Do not use the built-in replicas field to update replica counts
 ##########################################################################################
 #
 # patches:
 #   #---------------------------------------------------------------------------------------
 #   # custom patches
 #   #---------------------------------------------------------------------------------------
-#   - patch: patches/frontend-ingress.annotations.yaml
-#   - patch: patches/prometheus.ConfigMap.yaml
-#   - patch: patches/pgsql.ConfigMap.yaml
-#   - patch: patches/otel-collector.ConfigMap.yaml
-#   - patch: patches/custom.NodePort.yaml
-#   - patch: patches/resources.yaml
+#   - path: patches/frontend-ingress.annotations.yaml
+#   - path: patches/prometheus.ConfigMap.yaml
+#   - path: patches/pgsql.ConfigMap.yaml
+#   - path: patches/otel-collector.ConfigMap.yaml
+#   - path: patches/custom.NodePort.yaml
+#   - path: patches/resources.yaml
+#   - path: patches/embeddings-backend.yaml
 #
 #   #---------------------------------------------------------------------------------------
 #   # Update env vars for non-frontend services
@@ -271,7 +274,7 @@ components:
 #         value: 100Gi
 #     target:
 #       kind: PersistentVolumeClaim
-#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache
+#       name: blobstore|codeinsights-db|codeintel-db|pgsql|prometheus|redis-store|redis-cache|private-docker-registry
 #
 #   - patch: |-
 #       - op: replace

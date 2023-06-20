@@ -4,7 +4,7 @@ See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/k
 
 ## Create an overlay for your instances
 
-The [instances/template](template) folder contains a file named [kustomization.template.yaml](template/kustomization.template.yaml)) that is preconfigured to construct a Kustomize overlay for deploying Sourcegraph.
+The [instances/template](template) folder contains a file named [kustomization.template.yaml](template/kustomization.template.yaml) that is preconfigured to construct a Kustomize overlay for deploying Sourcegraph.
 
 **Step 1**: Create a new directory named `$INSTANCE_NAME` within the `instances` subdirectory
 
@@ -29,4 +29,4 @@ cp instances/template/kustomization.template.yaml instances/$INSTANCE_NAME/kusto
 cp instances/template/buildConfig.template.yaml instances/$INSTANCE_NAME/buildConfig.yaml
 ```
 
-**Step 3**: You can begin customizing your Sourcegraph deployment by updating the [kustomization.yaml file](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/intro#kustomization-yaml) inside $INSTANCE_NAME (the directory for your instance). Please follow our [configuration guides](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure.md) for guidance.
+**Step 3**: You can begin customizing your Sourcegraph deployment by updating the [kustomization.yaml file](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize#kustomization-yaml) inside $INSTANCE_NAME (the directory for your instance). Please follow our [configuration guides](https://docs.sourcegraph.com/admin/deploy/kubernetes/configure) for guidance.
