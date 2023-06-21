@@ -9,9 +9,9 @@ metadata:
     app.kubernetes.io/component: executor
 subjects:
   - kind: ServiceAccount
-    name: sg-executor-service-account
+    name: executor
     namespace: default
 roleRef:
+  apiGroup: "rbac.authorization.k8s.io"
   kind: Role
-  name: sg-executor-role
-  apiGroup: rbac.authorization.k8s.io
+  name: executor

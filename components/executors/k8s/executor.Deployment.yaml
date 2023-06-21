@@ -26,9 +26,10 @@ spec:
       labels:
         app: executor
     spec:
+      serviceAccountName: executor
       containers:
         - name: executor
-          image: index.docker.io/sourcegraph/executor:insiders@sha256:deda81624796df31b56bdaa6820b3332eaa2cbe5e1729886d15ce3c6f57b69b5
+          image: index.docker.io/sourcegraph/executor-kubernetes:insiders@sha256:80fb660597bb7d17b816c94ed42e3a0c6f21e5fdf3a30d01b06a8f7b6f3150eb
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -49,53 +50,9 @@ spec:
             - configMapRef:
                 name: executor-config
           volumeMounts:
-            - mountPath: /scratch
-              name: executor-scratch
-        - name: dind
-          image: index.docker.io/sourcegraph/dind:insiders@sha256:06a4a6ac7c200cdd14ebb1cde5be3f02e5df525e1a3e4c1bc258b08e514e550c
-          imagePullPolicy: Always
-          securityContext:
-            privileged: true
-          command:
-            - 'dockerd'
-            - '--tls=false'
-            - '--mtu=1200'
-            - '--registry-mirror=http://private-docker-registry:5000'
-            - '--host=tcp://0.0.0.0:2375'
-          livenessProbe:
-            tcpSocket:
-              port: 2375
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            failureThreshold: 5
-          readinessProbe:
-            tcpSocket:
-              port: 2375
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            failureThreshold: 5
-          env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
-          ports:
-            - containerPort: 2375
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /scratch
-              name: executor-scratch
-            - mountPath: /etc/docker/daemon.json
-              subPath: daemon.json
-              name: docker-config
+            - mountPath: /data
+              name: sg-executor-volume
       volumes:
-        - name: executor-scratch
-          emptyDir:
-            # Ensure we don't cause disk pressure on nodes. This value can be adjusted based on the size of the batch change or code intel requirements.
-            # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors#resource-recommendations for more information
-            sizeLimit: 20Gi
-        - name: docker-config
-          configMap:
-            defaultMode: 420
-            name: docker-config
+        - name: sg-executor-volume
+          persistentVolumeClaim:
+            claimName: sg-executor-pvc
