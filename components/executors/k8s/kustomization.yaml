@@ -6,3 +6,5 @@ resources:
   - executor.Deployment.yaml
   - executor.PersistentVolumeClaim.yaml
   - executor.Service.yaml
+patches:
+  - path: ../patches/executor.ConfigMap.yaml

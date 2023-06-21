@@ -5,3 +5,5 @@ resources:
   - executor.Deployment.yaml
   - executor.ConfigMap.yaml
   - executor.Service.yaml
+patches:
+  - path: ../patches/executor.ConfigMap.yaml
