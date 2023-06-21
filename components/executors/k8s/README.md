@@ -14,7 +14,7 @@ The following components will deploy:
 - [Executor Deployment](./executor.Deployment.yaml) An Executor replica with a Docker sidecar to run isolated batch changes and auto-indexing jobs. This deployment requires a [privileged security context](https://kubernetes.io/docs/concepts/security/pod-security-standards/).
 - [Executor Persistent Volume Claim](./executor.PersistentVolumeClaim.yaml) A headless service for executor metrics access. Executors are not externally accessible.
 - [Executor Service](./executor.Service.yaml) A headless service for executor metrics access. Executors are not externally accessible.
-- [RBAC] 
-  - [Executor Role](./rbac/executor.Role.yaml) 
-  - [Executor Role Binding](./rbac/executor.RoleBinding.yaml)
-  - [Executor Service Account](./rbac/executor.ServiceAccount.yaml)
+- [RBAC] The required rules for executors to interact with the Kubernetes API.
+  - [Executor Role](./rbac/executor.Role.yaml) Contains the required rules.
+  - [Executor Role Binding](./rbac/executor.RoleBinding.yaml) Binds the rules to the executor service account.
+  - [Executor Service Account](./rbac/executor.ServiceAccount.yaml) The service account used by executors.
