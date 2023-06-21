@@ -13,7 +13,6 @@ rules:
     resources:
       - jobs
     verbs:
-      - get
       - create
       - delete
   - apiGroups:
