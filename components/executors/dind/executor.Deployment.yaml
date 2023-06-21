@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: executor
-          image: index.docker.io/sourcegraph/executor:insiders@sha256:deda81624796df31b56bdaa6820b3332eaa2cbe5e1729886d15ce3c6f57b69b5
+          image: index.docker.io/sourcegraph/executor:insiders@sha256:80d7f19dc8325af1a690609721e614653222a964a9fb6c8d150751d05402d199
           imagePullPolicy: Always
           livenessProbe:
             exec:
