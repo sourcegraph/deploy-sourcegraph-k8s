@@ -35,6 +35,7 @@ spec:
             exec:
               command:
                 - /usr/bin/pgrep
+                - -f
                 - /usr/local/bin/executor
             initialDelaySeconds: 15
             timeoutSeconds: 5
@@ -42,6 +43,7 @@ spec:
             exec:
               command:
                 - /usr/bin/pgrep
+                - -f
                 - /usr/local/bin/executor
             periodSeconds: 5
           terminationMessagePolicy: FallbackToLogsOnError
