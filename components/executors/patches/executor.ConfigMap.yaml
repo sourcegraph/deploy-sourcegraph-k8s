@@ -14,8 +14,8 @@ data:
   EXECUTOR_USE_FIRECRACKER: "false"
   EXECUTOR_MAXIMUM_NUM_JOBS: "8"
   # Used configure which queues Executors will process.
-  # Can be "batches", "codeintel", or "batches,codeintel"
-  EXECUTOR_QUEUE_NAMES: ""
+  # Can be "batches" or "codeintel"
+  EXECUTOR_QUEUE_NAME: ""
 
   # For docker-in-docker (dind) executor
   # DOCKER_HOST: "tcp://localhost:2375"
