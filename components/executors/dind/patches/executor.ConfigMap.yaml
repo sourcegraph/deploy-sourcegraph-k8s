@@ -6,12 +6,7 @@ metadata:
 data:
   EXECUTOR_FRONTEND_URL: "http://sourcegraph.example.com"
   EXECUTOR_FRONTEND_PASSWORD: "our-shared-secret"
-  EXECUTOR_USE_FIRECRACKER: "false"
   EXECUTOR_MAXIMUM_NUM_JOBS: "8"
   # Used configure which queues Executors will process.
   # Can be "batches" or "codeintel"
   EXECUTOR_QUEUE_NAME: ""
-
-  DOCKER_HOST: "tcp://localhost:2375"
-  # Note: Must match the mount point shared with the docker-in-docker (dind) sidecar
-  TMPDIR: "/scratch"

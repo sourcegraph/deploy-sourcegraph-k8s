@@ -6,12 +6,8 @@ metadata:
 data:
   EXECUTOR_FRONTEND_URL: "http://sourcegraph.example.com"
   EXECUTOR_FRONTEND_PASSWORD: "our-shared-secret"
-  EXECUTOR_USE_FIRECRACKER: "false"
   EXECUTOR_MAXIMUM_NUM_JOBS: "8"
   # Used configure which queues Executors will process.
   # Can be "batches" or "codeintel"
   EXECUTOR_QUEUE_NAME: ""
-
   EXECUTOR_KUBERNETES_RESOURCE_REQUEST_MEMORY: "5Gi"
-  EXECUTOR_KUBERNETES_PERSISTENCE_VOLUME_NAME: "sg-executor-pvc"
-  EXECUTOR_KUBERNETES_POD_AFFINITY: '[{"labelSelector": {"matchExpressions": [{"key": "app", "operator": "In", "values": ["executor"]}]}, "topologyKey": "kubernetes.io/hostname"}]'

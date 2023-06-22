@@ -7,3 +7,8 @@ metadata:
     deploy: sourcegraph
     sourcegraph-resource-requires: no-cluster-admin
     app.kubernetes.io/component: executor
+data:
+  EXECUTOR_USE_FIRECRACKER: "false"
+  DOCKER_HOST: "tcp://localhost:2375"
+  # Note: Must match the mount point shared with the docker-in-docker (dind) sidecar
+  TMPDIR: "/scratch"
