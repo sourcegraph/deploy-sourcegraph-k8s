@@ -12,6 +12,6 @@ data:
   # Can be "batches" or "codeintel"
   EXECUTOR_QUEUE_NAME: ""
 
-  DOCKER_HOST: "tcp://localhost:2375"
-  # Note: Must match the mount point shared with the docker-in-docker (dind) sidecar
-  TMPDIR: "/scratch"
+  EXECUTOR_KUBERNETES_RESOURCE_REQUEST_MEMORY: "5Gi"
+  EXECUTOR_KUBERNETES_PERSISTENCE_VOLUME_NAME: "sg-executor-pvc"
+  EXECUTOR_KUBERNETES_POD_AFFINITY: '[{"labelSelector": {"matchExpressions": [{"key": "app", "operator": "In", "values": ["executor"]}]}, "topologyKey": "kubernetes.io/hostname"}]'

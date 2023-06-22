@@ -10,7 +10,7 @@ It is expected that all components contained in this directory and any subdirect
 
 The following components will deploy:
 
-- [Executor ConfigMap](../patches/executor.ConfigMap.yaml) the configurations for the executors.
+- [Executor ConfigMap](./executor.ConfigMap.yaml) the configurations for the executors.
 - [Executor Deployment](./executor.Deployment.yaml) An Executor replica with a Docker sidecar to run isolated batch changes and auto-indexing jobs.
 - [Executor Persistent Volume Claim](./executor.PersistentVolumeClaim.yaml) A headless service for executor metrics access. Executors are not externally accessible.
 - [Executor Service](./executor.Service.yaml) A headless service for executor metrics access. Executors are not externally accessible.
