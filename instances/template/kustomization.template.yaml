@@ -232,7 +232,6 @@ components:
 #   - path: patches/custom.NodePort.yaml
 #   - path: patches/resources.yaml
 #   - path: patches/embeddings-backend.yaml
-#   - path: patches/executor.ConfigMap.yaml
 #
 #   #---------------------------------------------------------------------------------------
 #   # Update env vars for non-frontend services
