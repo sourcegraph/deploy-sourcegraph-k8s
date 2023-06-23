@@ -10,3 +10,8 @@ components:
   - ../../components/executors/k8s
 patches:
   - path: patches/executor.ConfigMap.yaml
+secretGenerator:
+  - name: executor-secret
+    behavior: create
+    literals:
+      - password=our-shared-secret
