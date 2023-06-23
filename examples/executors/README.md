@@ -1,6 +1,6 @@
-# Quick start overlay for Executors
+# Quickstart overlay for executors
 
 This overlay:
 
-- deploy Sourcegraph without monitoring services
-- deploy native kubernetes executors
+- deploys Sourcegraph without monitoring services
+- deploys native kubernetes executors
