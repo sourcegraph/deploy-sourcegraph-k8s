@@ -8,6 +8,7 @@ metadata:
     sourcegraph-resource-requires: cluster-admin
     app.kubernetes.io/component: executor
 rules:
+  # Executors create Job pods to run processes. Once Jobs are completed, they are cleaned up.
   - apiGroups:
       - batch
     resources:
@@ -15,6 +16,7 @@ rules:
     verbs:
       - create
       - delete
+  # Executors need to look up and steam logs from the Job Pods.
   - apiGroups:
       - ""
     resources:
