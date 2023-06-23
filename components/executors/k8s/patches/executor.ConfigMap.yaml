@@ -9,5 +9,10 @@ data:
   EXECUTOR_MAXIMUM_NUM_JOBS: "8"
   # Used configure which queues Executors will process.
   # Can be "batches" or "codeintel"
+  # Either set this or EXECUTOR_QUEUE_NAMES.
   EXECUTOR_QUEUE_NAME: ""
+  # Used configure which queues Executors will process.
+  # Can be "batches" or "codeintel" or "batches,codeintel"
+  # Either set this or EXECUTOR_QUEUE_NAME.
+  EXECUTOR_QUEUE_NAMES: ""
   EXECUTOR_KUBERNETES_RESOURCE_REQUEST_MEMORY: "5Gi"
