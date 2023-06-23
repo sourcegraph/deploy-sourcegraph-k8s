@@ -211,6 +211,11 @@ components:
 #     files:
 #       - secrets.env
 #
+#   # - Executor -
+#   - name: executor-secret
+#     behavior: create
+#     literals:
+#       - password=our-shared-secret
 #
 ##########################################################################################
 # [CUSTOM RESOURCES] Add files as patches to customize resources
