@@ -1,3 +1,4 @@
+# This creates the configuration file for using the private docker registry.
 apiVersion: v1
 data:
   daemon.json: |

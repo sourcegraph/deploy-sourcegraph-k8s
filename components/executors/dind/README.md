@@ -13,7 +13,6 @@ The following components will deploy:
 - [Executor ConfigMap](./executor.ConfigMap.yaml) the configurations for the executors.
 - [Executor Deployment](./executor.Deployment.yaml) An Executor replica with a Docker sidecar to run isolated batch changes and auto-indexing jobs. This deployment requires a [privileged security context](https://kubernetes.io/docs/concepts/security/pod-security-standards/).
 - [Executor Service](./executor.Service.yaml) A headless service for executor metrics access. Executors are not externally accessible.
-- [Docker ConfigMap](./docker-daemon.ConfigMap.yaml) configuration for the docker sidecar to use the pull-through cache.
 
 Optionally, a Private Docker Registry can be deployed to avoid Docker Hub rate limits.
 

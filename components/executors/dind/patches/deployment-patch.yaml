@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: executor
+spec:
+  template:
+    spec:
+      containers:
+        - name: dind
+          volumeMounts:
+            - mountPath: /etc/docker/daemon.json
+              subPath: daemon.json
+              name: docker-config
+      volumes:
+        - name: docker-config
+          configMap:
+            defaultMode: 420
+            name: docker-config
