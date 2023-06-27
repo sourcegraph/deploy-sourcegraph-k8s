@@ -4,8 +4,7 @@ metadata:
   name: executor-config
 # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
 data:
-  # The URL of Sourcegraph. For example, http://sourcegraph-frontend.<the namespace>.svc.cluster.local:30080
-  EXECUTOR_FRONTEND_URL: "http://sourcegraph.example.com"
+  EXECUTOR_FRONTEND_URL: "http://sourcegraph-frontend"
   EXECUTOR_MAXIMUM_NUM_JOBS: "8"
   # Used configure which queues Executors will process.
   # Can be "batches" or "codeintel"
