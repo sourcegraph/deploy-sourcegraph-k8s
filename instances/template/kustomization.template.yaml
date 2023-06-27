@@ -134,8 +134,9 @@ components:
   # Executors
   # See https://docs.sourcegraph.com/admin/executors for information and instructions
   #---------------------------------------------------------------------------------------
-  # - ../../components/executors/k8s # -- Enable executors
-  # - ../../components/executors/k8s/private-docker-registry # -- Enable private docker registry
+  # - ../../components/executors/k8s # -- Enable native K8s executors
+  # - ../../components/executors/dind # -- Enable dind executors
+  # - ../../components/executors/dind/private-docker-registry # -- Enable private docker registry
   #
   #---------------------------------------------------------------------------------------
   # Other Configurations
@@ -210,6 +211,11 @@ components:
 #     files:
 #       - secrets.env
 #
+#   # - Executor -
+#   - name: executor-secret
+#     behavior: create
+#     literals:
+#       - password=our-shared-secret
 #
 ##########################################################################################
 # [CUSTOM RESOURCES] Add files as patches to customize resources
@@ -231,6 +237,7 @@ components:
 #   - path: patches/custom.NodePort.yaml
 #   - path: patches/resources.yaml
 #   - path: patches/embeddings-backend.yaml
+#   - path: patches/executor.ConfigMap.yaml
 #
 #   #---------------------------------------------------------------------------------------
 #   # Update env vars for non-frontend services

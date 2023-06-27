@@ -6,4 +6,4 @@ These components can include files and other resources that are used to enhance 
 
 ## How to use
 
-See our [Configure Sourcegraph with Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize/configure) for the latest instructions.
+See our [Configure Sourcegraph with Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/configure) for the latest instructions.
