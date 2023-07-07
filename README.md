@@ -15,7 +15,7 @@ updating, and maintaining a Sourcegraph cluster using Kustomize.
 - [Scaling](https://docs.sourcegraph.com/admin/deploy/scale)- general advice on scaling services
 - [Resource estimator: instance size](https://docs.sourcegraph.com/admin/deploy/instance-size) - specific resource values for your instance based on your instance size
 - [Troubleshooting](https://docs.sourcegraph.com/admin/install/kubernetes/troubleshoot)
-- [Enterprise Getting Started Guide](https://docs.sourcegraph.com/adopt/enterprise_getting_started_guide#kubernetes-admin) and [Admin guide](https://docs.sourcegraph.com/admin) - useful guides for Sourcegraph admins
+- [Enterprise Getting Started Guide](https://docs.sourcegraph.com/admin/enterprise_getting_started_guide) and [Admin guide](https://docs.sourcegraph.com/admin) - useful guides for Sourcegraph admins
   - [Metrics](https://docs.sourcegraph.com/admin/observability/metrics) - guidance of metrics that can be used for monitoring Sourcegraph
 
 ## Deploy
