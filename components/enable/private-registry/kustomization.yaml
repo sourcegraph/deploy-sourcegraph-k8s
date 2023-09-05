@@ -8,7 +8,6 @@ replacements:
     targets:
       - fieldPaths:
           - spec.template.spec.containers.*.image
-          - spec.template.spec.initContainers.*.image
         options:
           delimiter: /sourcegraph
         select:
@@ -16,7 +15,6 @@ replacements:
           kind: Deployment
       - fieldPaths:
           - spec.template.spec.containers.*.image
-          - spec.template.spec.initContainers.*.image
         options:
           delimiter: /sourcegraph
         select:
@@ -24,9 +22,40 @@ replacements:
           kind: StatefulSet
       - fieldPaths:
           - spec.template.spec.containers.*.image
-          - spec.template.spec.initContainers.*.image
         options:
           delimiter: /sourcegraph
         select:
           group: apps
           kind: DaemonSet
+      - fieldPaths:
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: Deployment
+          name: sourcegraph-frontend
+      - fieldPaths:
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: StatefulSet
+          name: codeinsights-db
+      - fieldPaths:
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: StatefulSet
+          name: codeintel-db
+      - fieldPaths:
+          - spec.template.spec.initContainers.*.image
+        options:
+          delimiter: /sourcegraph
+        select:
+          group: apps
+          kind: StatefulSet
+          name: pgsql
