@@ -22,7 +22,6 @@ patches:
       version: v1
   - path: patches/blobstore/blobstore.Deployment.yaml
   - path: patches/frontend/sourcegraph-frontend.Deployment.yaml
-  - path: patches/github-proxy/github-proxy.Deployment.yaml
   - path: patches/gitserver/gitserver.StatefulSet.yaml
   - path: patches/indexed-search/indexed-search.StatefulSet.yaml
   - path: patches/precise-code-intel/worker.Deployment.yaml

@@ -149,7 +149,6 @@ scrape_configs: # Configure targets to scrape
           group: sourcegraph-service
         targets:
           - sourcegraph-frontend:6060
-          - github-proxy:6060
           - repo-updater:6060
           - worker:6060
           - worker-executors:6996
