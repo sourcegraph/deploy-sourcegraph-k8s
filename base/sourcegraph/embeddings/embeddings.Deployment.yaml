@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: embeddings
-          image: index.docker.io/sourcegraph/embeddings:216430_2023-05-02_5.0-3cc9006de32c@sha256:c8cd7c5abca562d6a79bb524c49b9d0e76a3cb119226baa29ca0508faf652f03
+          image: index.docker.io/sourcegraph/embeddings:5.2.0@sha256:486acf13d0f036a033734ed3a15085564cfa2e5ce6e7578776756839eae64789
           env:
             - name: POD_NAME
               valueFrom:
