@@ -1,4 +1,4 @@
-productName: deploy-sourcegraph-k8s
+productName: deploy-sourcegraph-k8sA
 repository: "github.com/sourcegraph/deploy-sourcegraph-k8s"
 owners:
   - "@sourcegraph/release"
@@ -12,7 +12,7 @@ requirements:
     env: DOCKER_PASSWORD
 steps:
   patch:
-    - name: "sg ops (base)"
+    - name: "base"
       cmd: |
         sg ops update-images \
           --kind k8s \
@@ -20,14 +20,14 @@ steps:
           --docker-password=$DOCKER_PASSWORD \
           --pin-tag {{tag}} \
           base/ 
-    # - name: "sg ops (executors)"
-    #   cmd: |
-    #     sg ops update-images \
-    #       --kind k8s \
-    #       --docker-username=$DOCKER_USERNAME \
-    #       --docker-password=$DOCKER_PASSWORD \
-    #       --pin-tag {{tag}} \
-    #       components/executors/
+    - name: "executors"
+      cmd: |
+        sg ops update-images \
+          --kind k8s \
+          --docker-username=$DOCKER_USERNAME \
+          --docker-password=$DOCKER_PASSWORD \
+          --pin-tag {{tag}} \
+          components/executors/
     - name: "git"
       cmd: |
         echo "Creating branch wip_{{version}}"
