@@ -1,7 +1,9 @@
-productName: deploy-sourcegraph-k8s
-repository: "github.com/sourcegraph/deploy-sourcegraph-k8s"
-owners:
-  - "@sourcegraph/release"
+meta:
+  productName: deploy-sourcegraph-k8s
+  repository: "github.com/sourcegraph/deploy-sourcegraph-k8s"
+  owners:
+    - "@sourcegraph/release"
+
 requirements:
   - name: "Github CLI"
     cmd: gh version
@@ -10,37 +12,42 @@ requirements:
     env: DOCKER_USERNAME
   - name: "Docker password"
     env: DOCKER_PASSWORD
-steps:
-  patch:
-    - name: "sg ops (base)"
-      cmd: |
-        sg ops update-images \
-          --kind k8s \
-          --docker-username=$DOCKER_USERNAME \
-          --docker-password=$DOCKER_PASSWORD \
-          --pin-tag {{tag}} \
-          base/ 
-    # - name: "sg ops (executors)"
-    #   cmd: |
-    #     sg ops update-images \
-    #       --kind k8s \
-    #       --docker-username=$DOCKER_USERNAME \
-    #       --docker-password=$DOCKER_PASSWORD \
-    #       --pin-tag {{tag}} \
-    #       components/executors/
-    - name: "git"
-      cmd: |
-        echo "Creating branch wip_{{version}}"
-        release_branch="wip_{{version}}"
-        git checkout -b $release_branch
-    - name: "git"
-      cmd: |
-        find . -name "*.yaml" | xargs git add 
-        find . -name "*.yml" | xargs git add 
-        git commit -m "release_patch: build {{version}}"
-    - name: "git"
-      cmd: |
-        git push origin wip_{{version}}
-    - name: "gh cli"
-      cmd: |
-        gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" # -l "wip_release"
+
+inputs:
+  - releaseId: server
+
+create:
+  steps:
+    patch:
+      - name: "sg ops (base)"
+        cmd: |
+          sg ops update-images \
+            --kind k8s \
+            --docker-username=$DOCKER_USERNAME \
+            --docker-password=$DOCKER_PASSWORD \
+            --pin-tag wip_{{inputs.server.tag}} \
+            base/ 
+      # - name: "sg ops (executors)"
+      #   cmd: |
+      #     sg ops update-images \
+      #       --kind k8s \
+      #       --docker-username=$DOCKER_USERNAME \
+      #       --docker-password=$DOCKER_PASSWORD \
+      #       --pin-tag {{tag}} \
+      #       components/executors/
+      - name: "git"
+        cmd: |
+          echo "Creating branch wip_{{version}}"
+          release_branch="wip_{{version}}"
+          git checkout -b $release_branch
+      - name: "git"
+        cmd: |
+          find . -name "*.yaml" | xargs git add 
+          find . -name "*.yml" | xargs git add 
+          git commit -m "release_patch: build {{output.version}}"
+      - name: "git"
+        cmd: |
+          git push origin wip_{{version}}
+      - name: "gh cli"
+        cmd: |
+          gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" # -l "wip_release"
