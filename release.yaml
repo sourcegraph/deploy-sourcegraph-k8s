@@ -23,6 +23,7 @@ create:
         cmd: |
           sg ops update-images \
             --kind k8s \
+            --registry internal \
             --docker-username=$DOCKER_USERNAME \
             --docker-password=$DOCKER_PASSWORD \
             --pin-tag wip_{{inputs.server.tag}} \
