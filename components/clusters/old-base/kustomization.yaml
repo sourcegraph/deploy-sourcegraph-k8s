@@ -59,7 +59,6 @@ patches:
   - path: patches/blobstore/blobstore.Deployment.yaml
   - path: patches/cadvisor/cadvisor.DaemonSet.yaml
   - path: patches/frontend/sourcegraph-frontend.Deployment.yaml
-  - path: patches/github-proxy/github-proxy.Deployment.yaml
   - path: patches/gitserver/gitserver.StatefulSet.yaml
   - path: patches/indexed-search/indexed-search.StatefulSet.yaml
   - path: patches/otel-collector/otel-collector.Deployment.yaml

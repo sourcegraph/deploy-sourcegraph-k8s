@@ -53,20 +53,6 @@ patches:
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: github-proxy
-      spec:
-        template:
-          spec:
-            containers:
-              - name: github-proxy
-                resources:
-                  limits:
-                    cpu: "1"
-                    memory: 1G
-  - patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
         name: precise-code-intel-worker
       spec:
         replicas: 1
