@@ -26,7 +26,7 @@ create:
             --registry internal \
             --docker-username=$DOCKER_USERNAME \
             --docker-password=$DOCKER_PASSWORD \
-            --pin-tag wip_{{inputs.server.tag}} \
+            --pin-tag wip_v{{inputs.server.tag}} \
             base/ 
       # - name: "sg ops (executors)"
       #   cmd: |
