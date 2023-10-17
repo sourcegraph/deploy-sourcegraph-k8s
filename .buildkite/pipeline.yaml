@@ -24,8 +24,10 @@ steps:
     agents: { queue: standard }
 
   - label: "Release: finalize"
-    if: "build.branch =~ /^wip_v/"
+    if: "build.branch =~ /^wip_/"
     command: |
-      git checkout -b release-test-jh
-      git push origin
-      git checkout -
+      wget https://storage.googleapis.com/buildkite_public_assets/sg-rfc795.tar.gz 
+      tar zxf sg-rfc795.tar.gz
+      chmod +x ./sg-rfc795 
+
+      ./sg-rfc795 release finalize --workdir=. --config-from-commit
