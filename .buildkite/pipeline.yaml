@@ -22,3 +22,10 @@ steps:
   - label: ":k8s:"
     command: .buildkite/verify-overlays.sh
     agents: { queue: standard }
+
+  - label: "Release: finalize"
+    if: "build.branch =~ /^wip_v/"
+    command: |
+      git checkout -b release-test-jh
+      git push origin
+      git checkout -

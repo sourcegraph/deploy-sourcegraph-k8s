@@ -52,3 +52,11 @@ create:
       - name: "gh cli"
         cmd: |
           gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" # -l "wip_release"
+
+finalize:
+  steps:
+    - name: "git"
+      cmd: |
+        git checkout -b release-{{version}}
+        git push origin
+        git checkout - 
