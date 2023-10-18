@@ -46,12 +46,12 @@ create:
           find . -name "*.yaml" | xargs git add 
           find . -name "*.yml" | xargs git add 
           git commit -m "release_patch: {{version}}" -m "{{config}}"
-      - name: "git"
-        cmd: |
-          git push origin wip_{{version}}
-      - name: "gh cli"
-        cmd: |
-          gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" # -l "wip_release"
+      # - name: "git"
+      #   cmd: |
+      #     git push origin wip_{{version}}
+      # - name: "gh cli"
+      #   cmd: |
+      #     gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" # -l "wip_release"
 
 finalize:
   steps:
