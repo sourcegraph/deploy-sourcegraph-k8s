@@ -23,6 +23,15 @@ steps:
     command: .buildkite/verify-overlays.sh
     agents: { queue: standard }
 
+  - label: "Release: test"
+    if: "build.branch =~ /^wip_/"
+    command: |
+      wget https://storage.googleapis.com/buildkite_public_assets/sg-rfc795.tar.gz 
+      tar zxf sg-rfc795.tar.gz
+      chmod +x ./sg-rfc795 
+
+      ./sg-rfc795 release test --workdir=. --config-from-commit
+
   - wait
 
   - label: "Release: finalize"
