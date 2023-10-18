@@ -23,6 +23,8 @@ steps:
     command: .buildkite/verify-overlays.sh
     agents: { queue: standard }
 
+  - wait
+
   - label: "Release: finalize"
     if: "build.branch =~ /^wip_/"
     command: |
