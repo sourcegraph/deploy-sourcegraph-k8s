@@ -30,7 +30,7 @@ steps:
       tar zxf sg-rfc795.tar.gz
       chmod +x ./sg-rfc795 
 
-      ./sg-rfc795 release test --workdir=. --config-from-commit
+      ./sg-rfc795 release run test --workdir=. --config-from-commit
 
   - wait
 
