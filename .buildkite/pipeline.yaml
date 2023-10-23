@@ -41,4 +41,4 @@ steps:
       tar zxf sg-rfc795.tar.gz
       chmod +x ./sg-rfc795 
 
-      ./sg-rfc795 release finalize --workdir=. --config-from-commit
+      ./sg-rfc795 release run internal finalize --workdir=. --config-from-commit
