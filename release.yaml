@@ -69,3 +69,39 @@ test:
     - name: "placeholder"
       cmd: |
         echo "-- pretending to test release ..."
+
+promoteToPublic:
+  create:
+    steps:
+      - name: "git"
+        cmd: |
+          echo "Checking out origin/release-{{version}}"
+          git fetch origin
+          git checkout origin/release-{{version}}
+      - name: "sg ops"
+        cmd: |
+          # TODO switch to public
+          sg ops update-images \
+            --kind k8s \
+            --registry internal \
+            --docker-username=$DOCKER_USERNAME \
+            --docker-password=$DOCKER_PASSWORD \
+            --pin-tag wip_v{{inputs.server.tag}} \
+            base/ 
+      - name: "git"
+        cmd: |
+          echo "Creating branch promote-release_{{version}}"
+          branch="promote-release_{{version}}"
+          git checkout -b $branch
+      - name: "git"
+        cmd: |
+          find . -name "*.yaml" | xargs git add 
+          find . -name "*.yml" | xargs git add 
+          # Careful with the quoting for the config, using double quotes will lead 
+          # to the shell dropping out all quotes from the json, leading to failed 
+          # parsing.
+          git commit -m "promote_release: {{version}}" -m '{{config}}'
+      - name: "github"
+        cmd: |
+          git push origin promote-release_{{version}}
+          gh pr create -f -t "PRETEND PROMOTE RELEASE WIP: promote-release: build {{version}}" --base release-{{version}}
