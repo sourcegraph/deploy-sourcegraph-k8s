@@ -1,0 +1,68 @@
+---
+meta:
+  productName: "deploy-sourcegraph-k8s"
+  owners:
+    - "sourcegraph"
+  repository: "github.com/sourcegraph/deploy-sourcegraph-k8s"
+  artifacts:
+    - "nothing"
+requirements:
+  - name: "GitHub cli exists"
+    cmd: "which gh"
+    fixInstructions: "install GitHub cli"
+input:
+# No internal steps since any release in this repo is public
+
+test:
+  steps:
+    - name: "correct amount of new version tags in README"
+      cmd: |
+        count=$(git diff --name-only | wc -l)
+        expected=27
+        if [[ ${count} -ne ${expected} ]]; then
+          echo "expected ${expected} new images tags of \"{{tag}}\" in deployment and stateful files but got ${count}"
+          exit 1
+        fi
+
+internal:
+  create:
+    steps:
+      minor:
+        - name: "update base image tags"
+          cmd: sg ops update-images --registry internal --pin-tag {{tag}} base/
+        - name: "update executors image tags"
+          cmd: sg ops update-images --registry internal --pin-tag {{tag}} components/executors/
+      major:
+        - name: "update base image tags"
+          cmd: sg ops update-images --registry internal --pin-tag {{tag}} base/
+        - name: "update executors image tags"
+          cmd: sg ops update-images --registry internal --pin-tag {{tag}} components/executors/
+
+  finalize:
+    steps:
+        - name: "create new branch"
+          cmd: git switch -c "wb/wip-release-{{tag}}"
+        - name: "add changes branch"
+          cmd: "git commit -am 'WB-WIP: Test Release {{tag}}' -m 'This is a Test release'"
+        - name: "push branch"
+          cmd: "git push origin wb/wip-release-{{tag}}"
+        - name: "create release PR"
+          cmd: gh pr create --draft --fill
+        # TODO: should we tag here ???
+promoteToPublic:
+  create:
+    steps:
+        - name: "update base image tags"
+          cmd: sg ops update-images --registry public --pin-tag {{tag}} base/
+        - name: "update executors image tags"
+          cmd: sg ops update-images --registry public --pin-tag {{tag}} components/executors/
+    finalize:
+        - name: "create new branch"
+          cmd: git switch -c "wb/wip-release-{{tag}}"
+        - name: "add changes branch"
+          cmd: "git commit -am 'WB-WIP: Test Release {{tag}}' -m 'This is a Test release'"
+        - name: "push branch"
+          cmd: "git push origin wb/wip-release-{{tag}}"
+        - name: "create release PR"
+          cmd: gh pr create --draft --fill
+        # TODO: should we tag here ???
