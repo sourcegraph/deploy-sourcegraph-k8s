@@ -22,6 +22,7 @@ internal:
       patch:
         - name: "sg ops (base)"
           cmd: |
+            set -ex
             sg-rfc795 ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
