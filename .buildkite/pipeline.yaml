@@ -43,7 +43,8 @@ steps:
 
       ./sg-rfc795 release run internal finalize --workdir=. --config-from-commit
   - label: "Promote release to public"
-    if: "build.env(RELEASE_PUBLIC) == true"
+    if: build.env("RELEASE_PUBLIC") == "true"
+    command: |
       wget https://storage.googleapis.com/buildkite_public_assets/sg-rfc795.tar.gz
       tar zxf sg-rfc795.tar.gz
       chmod +x ./sg-rfc795
