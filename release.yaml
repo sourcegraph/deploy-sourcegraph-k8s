@@ -110,5 +110,5 @@ promoteToPublic:
           cmd: |
             branch="wip-release_{{version}}"
             git checkout ${branch}
-            git tag {{version}}
+            git tag wip_public_{{version}}
             git push origin ${branch} --tags
