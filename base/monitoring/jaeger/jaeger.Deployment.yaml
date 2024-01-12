@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: jaeger
-          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/jaeger-all-in-one:5.3.666@sha256:3b7d972994ba6ae3b58575db3249478e2d9393e8b7f1d5c952523aaf0fdd10cf
+          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-public/jaeger-all-in-one:5.3.666@sha256:9c84bf86249b404f6a7ecb30b5f30201b3ec17449aad275e4ad192d8e4d970eb
           args: ["--memory.max-traces=20000"]
           ports:
             - containerPort: 5775
