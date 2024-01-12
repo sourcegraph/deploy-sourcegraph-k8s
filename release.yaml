@@ -60,6 +60,7 @@ internal:
     steps:
       - name: "git"
         cmd: |
+          git switch wip_{{version}}
           git checkout -b wip-release-{{version}}
           git push origin wip-release-{{version}}
           git checkout -
@@ -107,8 +108,9 @@ promoteToPublic:
     finalize:
       steps:
         - name: git:tag
+          # The PR created in the create step should be merged by this stage
           cmd: |
-            branch="wip-release_{{version}}"
+            branch="wip-release-{{version}}"
             git checkout ${branch}
             git tag {{version}}
             git push origin ${branch} --tags
