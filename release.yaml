@@ -55,7 +55,7 @@ internal:
             git push origin wip_{{version}}
         - name: "gh cli"
           cmd: |
-            gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" # -l "wip_release"
+            gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" --body "Test plan: automated release PR, CI will perform additional checks"  # -l "wip_release"
   finalize:
     steps:
       - name: "git"
@@ -103,7 +103,7 @@ promoteToPublic:
       - name: "github"
         cmd: |
           git push origin promote-release_{{version}}
-          gh pr create -f -t "PRETEND PROMOTE RELEASE WIP: promote-release: build {{version}}" --base wip-release-{{version}}
+          gh pr create -f -t "PRETEND PROMOTE RELEASE WIP: promote-release: build {{version}}" --base wip-release-{{version}} --body "Test plan: automated release PR, CI will perform additional checks"
   finalize:
     # These steps should only really run once the pr created in the create step is merged
     steps:
