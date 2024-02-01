@@ -38,12 +38,12 @@ internal:
               --docker-password=$DOCKER_PASSWORD \
               --pin-tag {{inputs.server.tag}} \
               components/executors/
-        - name: "git"
+        - name: "git:branch"
           cmd: |
             echo "Creating branch wip_{{version}}"
             release_branch="wip_{{version}}"
             git checkout -b $release_branch
-        - name: "git"
+        - name: "git:commit"
           cmd: |
             find . -name "*.yaml" | xargs git add
             find . -name "*.yml" | xargs git add
@@ -51,12 +51,88 @@ internal:
             # to the shell dropping out all quotes from the json, leading to failed
             # parsing.
             git commit -m "release_patch: {{version}}" -m '{{config}}'
-        - name: "git"
+        - name: "git:push"
           cmd: |
             git push origin wip_{{version}}
         - name: "gh cli"
           cmd: |
             gh pr create -f -t "PRETEND RELEASE WIP: release_patch: build {{version}}" --body "Test plan: automated release PR, CI will perform additional checks"  # -l "wip_release"
+      minor:
+        - name: "sg ops (base)"
+          cmd: |
+            sg-rfc795 ops update-images \
+              --kind k8s \
+              --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
+              --docker-username=$DOCKER_USERNAME \
+              --docker-password=$DOCKER_PASSWORD \
+              --pin-tag {{inputs.server.tag}} \
+              base/
+        - name: "sg ops (executors)"
+          cmd: |
+            sg-rfc795 ops update-images \
+              --kind k8s \
+              --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
+              --docker-username=$DOCKER_USERNAME \
+              --docker-password=$DOCKER_PASSWORD \
+              --pin-tag {{inputs.server.tag}} \
+              components/executors/
+        - name: "git:branch"
+          cmd: |
+            echo "Creating branch wip_{{version}}"
+            release_branch="wip_{{version}}"
+            git checkout -b $release_branch
+        - name: "git:commit"
+          cmd: |
+            find . -name "*.yaml" | xargs git add
+            find . -name "*.yml" | xargs git add
+            # Careful with the quoting for the config, using double quotes will lead
+            # to the shell dropping out all quotes from the json, leading to failed
+            # parsing.
+            git commit -m "release_minor: {{version}}" -m '{{config}}'
+        - name: "git:push"
+          cmd: |
+            git push origin wip_{{version}}
+        - name: "gh cli"
+          cmd: |
+            gh pr create -f -t "PRETEND RELEASE WIP: release_minor: build {{version}}" --body "Test plan: automated release PR, CI will perform additional checks"  # -l "wip_release"
+      major:
+        - name: "sg ops (base)"
+          cmd: |
+            sg-rfc795 ops update-images \
+              --kind k8s \
+              --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
+              --docker-username=$DOCKER_USERNAME \
+              --docker-password=$DOCKER_PASSWORD \
+              --pin-tag {{inputs.server.tag}} \
+              base/
+        - name: "sg ops (executors)"
+          cmd: |
+            sg-rfc795 ops update-images \
+              --kind k8s \
+              --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
+              --docker-username=$DOCKER_USERNAME \
+              --docker-password=$DOCKER_PASSWORD \
+              --pin-tag {{inputs.server.tag}} \
+              components/executors/
+        - name: "git:branch"
+          cmd: |
+            echo "Creating branch wip_{{version}}"
+            release_branch="wip_{{version}}"
+            git checkout -b $release_branch
+        - name: "git:commit"
+          cmd: |
+            find . -name "*.yaml" | xargs git add
+            find . -name "*.yml" | xargs git add
+            # Careful with the quoting for the config, using double quotes will lead
+            # to the shell dropping out all quotes from the json, leading to failed
+            # parsing.
+            git commit -m "release_patch: {{version}}" -m '{{config}}'
+        - name: "git:push"
+          cmd: |
+            git push origin wip_{{version}}
+        - name: "gh cli"
+          cmd: |
+            gh pr create -f -t "PRETEND RELEASE WIP: release_major: build {{version}}" --body "Test plan: automated release PR, CI will perform additional checks"  # -l "wip_release"
   finalize:
     steps:
       - name: "git"
@@ -97,12 +173,12 @@ promoteToPublic:
             --docker-password=$DOCKER_PASSWORD \
             --pin-tag {{inputs.server.tag}} \
             components/executors/
-      - name: "git"
+      - name: "git:branch"
         cmd: |
           echo "Creating branch promote-release_{{version}}"
           branch="promote-release_{{version}}"
           git checkout -b $branch
-      - name: "git"
+      - name: "git:commit"
         cmd: |
           find . -name "*.yaml" | xargs git add
           find . -name "*.yml" | xargs git add
