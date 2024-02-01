@@ -29,14 +29,15 @@ internal:
               --docker-password=$DOCKER_PASSWORD \
               --pin-tag {{inputs.server.tag}} \
               base/
-        # - name: "sg ops (executors)"
-        #   cmd: |
-        #     sg ops update-images \
-        #       --kind k8s \
-        #       --docker-username=$DOCKER_USERNAME \
-        #       --docker-password=$DOCKER_PASSWORD \
-        #       --pin-tag {{tag}} \
-        #       components/executors/
+        - name: "sg ops (executors)"
+          cmd: |
+            sg-rfc795 ops update-images \
+              --kind k8s \
+              --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
+              --docker-username=$DOCKER_USERNAME \
+              --docker-password=$DOCKER_PASSWORD \
+              --pin-tag {{inputs.server.tag}} \
+              components/executors/
         - name: "git"
           cmd: |
             echo "Creating branch wip_{{version}}"
@@ -87,6 +88,15 @@ promoteToPublic:
             --docker-password=$DOCKER_PASSWORD \
             --pin-tag {{inputs.server.tag}} \
             base/
+      - name: "sg ops (executors)"
+        cmd: |
+          sg-rfc795 ops update-images \
+            --kind k8s \
+            --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-public \
+            --docker-username=$DOCKER_USERNAME \
+            --docker-password=$DOCKER_PASSWORD \
+            --pin-tag {{inputs.server.tag}} \
+            components/executors/
       - name: "git"
         cmd: |
           echo "Creating branch promote-release_{{version}}"
