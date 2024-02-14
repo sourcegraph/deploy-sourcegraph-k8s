@@ -20,3 +20,4 @@ Optionally, a Private Docker Registry can be deployed to avoid Docker Hub rate l
   - [Registry Deployment](./private-docker-registry/private-docker-registry.Deployment.yaml) A private docker registry configured as a pull-through cache to avoid docker hub rate limiting.
   - [Registry Service](./private-docker-registry/private-docker-registry.Service.yaml) A service to access the private-docker-registry.
   - [Registry Persistent Volume](./private-docker-registry/private-docker-registry.PersistentVolumeClaim.yaml) A volume to store images in the private-docker-registry.
+Hello World

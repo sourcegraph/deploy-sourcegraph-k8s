@@ -6,3 +6,4 @@ A Component to update the resources for your Sourcegraph deployment to support u
 - 10,000 repositories
 
 Rockskip is enabled by default. Use the rockskip/disable component to disable rockskip if needed.
+Hello World

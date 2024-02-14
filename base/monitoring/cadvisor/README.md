@@ -10,3 +10,4 @@ Note that the `sourcegraph/cadvisor` Docker images come with a set of default fl
 
 If you are deploying Sourcegraph to a non-default namespace, you'll have to change the namespace specified in
 [cadvisor.ClusterRoleBinding.yaml](cadvisor.ClusterRoleBinding.yaml) to the one that you created. You can do this by editing the namespace directly, or by using the [namespaced overlay](../../configure/../overlays/namespaced/README.md).
+Hello World

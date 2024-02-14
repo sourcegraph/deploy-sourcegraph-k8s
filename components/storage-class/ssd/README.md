@@ -23,3 +23,4 @@ This component should be run periodically to clean up files in the SSD on each n
 ## How to use
 
 Define the $SSD_NODE_PATH variable in your OVERLAY CONFIGURATIONS.
+Hello World

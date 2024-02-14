@@ -1,1 +1,1 @@
-This component deletes resource declarations and storage classnames to enable runnning Sourcegraph on minikube.
+This component deletes resource declarations and storage classnames to enable runnning Sourcegraph on minikube.Hello World

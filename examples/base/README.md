@@ -6,3 +6,4 @@ The base overlays are for deploying all Sourcegraph services from the base direc
 # NOTE: replace `xs` with your instance size.
 kubectl kustomize /examples/base/xs -o cluster.yaml
 ```
+Hello World

@@ -1,1 +1,2 @@
 Component to scale down all services to zero except for the databases to prepare the instance for the [multi-version-upgrade process](https://docs.sourcegraph.com/admin/deploy/kubernetes/update#multi-version-upgrades).
+Hello World

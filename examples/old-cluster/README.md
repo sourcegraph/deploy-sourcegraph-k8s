@@ -15,3 +15,4 @@ kubectl kustomize /examples/old-cluster -o cluster.yaml
 # To generate manifests for the old base cluster:
 kubectl kustomize /examples/old-cluster -o cluster.yaml
 ```
+Hello World

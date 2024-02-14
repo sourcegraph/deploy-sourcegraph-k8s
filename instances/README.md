@@ -30,3 +30,4 @@ cp instances/template/buildConfig.template.yaml instances/$INSTANCE_NAME/buildCo
 ```
 
 **Step 3**: You can begin customizing your Sourcegraph deployment by updating the [kustomization.yaml file](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize#kustomization-yaml) inside $INSTANCE_NAME (the directory for your instance). Please follow our [configuration guides](https://docs.sourcegraph.com/admin/deploy/kubernetes/configure) for guidance.
+Hello World

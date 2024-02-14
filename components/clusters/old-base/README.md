@@ -12,3 +12,4 @@ It updates and generates resources from the old cluster includes:
 This should only be used to generate old cluster for comparision purpose.
 
 Check out the `examples/old-cluster` directory to see how this component is used.
+Hello World

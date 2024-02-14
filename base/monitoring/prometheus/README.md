@@ -114,3 +114,4 @@ Additional rules and alerts can be defined in `extra_rules.yml` - see [Prometheu
 ## Metrics
 
 See [metrics and dashboards](https://docs.sourcegraph.com/admin/observability/metrics).
+Hello World

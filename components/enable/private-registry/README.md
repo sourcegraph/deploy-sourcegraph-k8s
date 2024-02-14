@@ -5,3 +5,4 @@ Update image names and tags easily using the built-in [images transformer](https
 ## How to use
 
 Replace the `$(PRIVATE_REGISTRY)` environment variables inside the kustomization.yaml file manually
+Hello World

@@ -48,3 +48,4 @@ kubectl apply --prune -l deploy=sourcegraph -f cluster.yaml
 This command will apply all the resources defined in the cluster.yaml file to your cluster, and also remove any resources that are no longer defined in the file.
 
 > NOTE: By default, the kubectl apply command does not remove resources that are no longer defined in the manifests. By adding the --prune flag, you are telling kubectl to remove any resources that are no longer present in the manifests.
+Hello World
