@@ -22,7 +22,7 @@ internal:
       patch:
         - name: "sg ops (base)"
           cmd: |
-            sg-rfc795 ops update-images \
+            sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -31,7 +31,7 @@ internal:
               base/
         - name: "sg ops (executors)"
           cmd: |
-            sg-rfc795 ops update-images \
+            sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -60,7 +60,7 @@ internal:
       minor:
         - name: "sg ops (base)"
           cmd: |
-            sg-rfc795 ops update-images \
+            sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -69,7 +69,7 @@ internal:
               base/
         - name: "sg ops (executors)"
           cmd: |
-            sg-rfc795 ops update-images \
+            sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -98,7 +98,7 @@ internal:
       major:
         - name: "sg ops (base)"
           cmd: |
-            sg-rfc795 ops update-images \
+            sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -107,7 +107,7 @@ internal:
               base/
         - name: "sg ops (executors)"
           cmd: |
-            sg-rfc795 ops update-images \
+            sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -157,7 +157,7 @@ promoteToPublic:
           git checkout origin/wip-release-{{version}}
       - name: "sg ops"
         cmd: |
-          sg-rfc795 ops update-images \
+          sg ops update-images \
             --kind k8s \
             --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-public \
             --docker-username=$DOCKER_USERNAME \
@@ -166,7 +166,7 @@ promoteToPublic:
             base/
       - name: "sg ops (executors)"
         cmd: |
-          sg-rfc795 ops update-images \
+          sg ops update-images \
             --kind k8s \
             --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-public \
             --docker-username=$DOCKER_USERNAME \
