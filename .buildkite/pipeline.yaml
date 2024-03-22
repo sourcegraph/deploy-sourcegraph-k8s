@@ -31,7 +31,7 @@ steps:
     plugins:
       - ssh://git@github.com/sourcegraph/sg-buildkite-plugin.git#main: ~
     command: |
-      sg release run test --workdir=. --config-from-commit/release-.*/
+      sg release run test --workdir=. --config-from-commit
 
   - label: "(promote) Release: test"
     if: build.branch =~ /^promote\/release-.*/
