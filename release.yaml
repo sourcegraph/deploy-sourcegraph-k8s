@@ -177,7 +177,6 @@ internal:
           branch="internal/release-{{version}}"
 
           # Post a comment on the PR.
-          git checkout -
           cat << EOF | gh pr comment "$branch" --body-file -
           - :green_circle: Internal release is ready for promotion!
           - :warning: Do not close/merge that pull request or delete the associated branch if you intend to promote it.
