@@ -43,3 +43,11 @@ The contents of this repository are open-source licensed. However, it makes refe
 For product and [pricing](https://about.sourcegraph.com/pricing/) information, visit
 [about.sourcegraph.com](https://about.sourcegraph.com) or [contact
 us](https://about.sourcegraph.com/contact/sales) for more information.
+
+---
+
+### Contributing 
+
+#### Releasing 
+
+Please see the [documentation](https://go/releases).
