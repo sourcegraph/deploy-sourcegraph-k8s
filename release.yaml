@@ -257,9 +257,7 @@ promoteToPublic:
           set -eu
 
           # Branches
-          git tag wip_{{version}}
           internal_branch="internal/release-{{version}}"
-          git push origin ${branch} --tags
           promote_branch="promote/release-{{version}}"
           release_branch="release-{{version}}"
 
