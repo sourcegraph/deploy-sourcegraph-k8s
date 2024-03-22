@@ -230,6 +230,7 @@ promoteToPublic:
       - name: "git:commit"
         cmd: |
           set -eu
+          branch="promote/release-{{version}}"
           find . -name "*.yaml" | xargs git add
           find . -name "*.yml" | xargs git add
 
