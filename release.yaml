@@ -264,11 +264,11 @@ promoteToPublic:
           # Create the final branch holding the tagged commit
           git checkout "${promote_branch}"
           git switch -c "${release_branch}"
-          git tag QA-{{version}}
+          git tag {{version}}
           git push origin ${release_branch} --tags
 
           # Web URL to the tag
-          tag_url="https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/QA-{{version}}"
+          tag_url="https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/{{version}}"
 
           # Annotate PRs 
           cat << EOF | gh pr comment "$internal_branch" --body-file -
@@ -285,5 +285,5 @@ promoteToPublic:
 
           # Annotate build
           cat << EOF | buildkite-agent annotate --style info
-          Promoted release is **publicly available** through a git tag at [\`QA-{{version}}\`](https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/QA-{{version}}).
+          Promoted release is **publicly available** through a git tag at [\`{{version}}\`](https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/{{version}}).
           EOF
