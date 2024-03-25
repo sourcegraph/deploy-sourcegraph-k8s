@@ -69,7 +69,7 @@ internal:
               --fill \
               --draft \
               --title "(internal) release_patch: build {{version}}" \
-              --body "Test plan: automated release PR, CI will perform additional checks" 
+              --body "Test plan: automated release PR, CI will perform additional checks"
             echo "🚢 Please check the associated CI build to ensure the process completed".
       minor:
         - name: "sg ops (base)"
@@ -84,7 +84,7 @@ internal:
               base/
         - name: "sg ops (executors)"
           cmd: |
-            set -eu 
+            set -eu
             sg ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
@@ -116,7 +116,7 @@ internal:
               --fill \
               --draft \
               --title "(internal) release_minor: build {{version}}" \
-              --body "Test plan: automated release PR, CI will perform additional checks" 
+              --body "Test plan: automated release PR, CI will perform additional checks"
             echo "🚢 Please check the associated CI build to ensure the process completed".
       major:
         - name: "sg ops (base)"
@@ -144,7 +144,6 @@ internal:
             set -eu
             branch="internal/release-{{version}}"
             echo "Creating branch $branch"
-            release_branch="wip_{{version}}"
             git checkout -b "$branch"
         - name: "git:commit"
           cmd: |
@@ -166,7 +165,7 @@ internal:
               --fill \
               --draft \
               --title "(internal) release_major: build {{version}}" \
-              --body "Test plan: automated release PR, CI will perform additional checks" 
+              --body "Test plan: automated release PR, CI will perform additional checks"
             echo "🚢 Please check the associated CI build to ensure the process completed".
   finalize:
     steps:
@@ -198,8 +197,8 @@ promoteToPublic:
       - name: "git"
         cmd: |
           set -eu
-          echo "Checking out origin/wip-release-{{version}}"
           branch="internal/release-{{version}}"
+          echo "Checking out origin/${branch}"
           git fetch origin "${branch}"
           git switch "${branch}"
       - name: "sg ops"
@@ -270,7 +269,7 @@ promoteToPublic:
           # Web URL to the tag
           tag_url="https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/{{version}}"
 
-          # Annotate PRs 
+          # Annotate PRs
           cat << EOF | gh pr comment "$internal_branch" --body-file -
           - :green_circle: Release has been promoted, see tag: $tag_url.
           - :no_entry: Do not under any circumstance delete the branch holding the tagged commit (i.e. \`$release_branch\`).
