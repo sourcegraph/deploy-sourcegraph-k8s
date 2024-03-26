@@ -182,7 +182,7 @@ internal:
           EOF
           # Post an annotation.
           cat << EOF | buildkite-agent annotate --style info
-          Internal release is ready for promotion under the branch [\`$branch\`](https://github.com/sourcegraph/deploy-sourcegraph-docker/tree/$branch).
+          Internal release is ready for promotion under the branch [\`$branch\`](https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/$branch).
           EOF
 
 test:
