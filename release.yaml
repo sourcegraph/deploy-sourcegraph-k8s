@@ -206,7 +206,7 @@ promoteToPublic:
           set -eu
           sg ops update-images \
             --kind k8s \
-            --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-public \
+            --registry index.docker.io/sourcegraph \
             --docker-username=$DOCKER_USERNAME \
             --docker-password=$DOCKER_PASSWORD \
             --pin-tag {{inputs.server.tag}} \
@@ -216,7 +216,7 @@ promoteToPublic:
           set -eu
           sg ops update-images \
             --kind k8s \
-            --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-public \
+            --registry index.docker.io/sourcegraph \
             --docker-username=$DOCKER_USERNAME \
             --docker-password=$DOCKER_PASSWORD \
             --pin-tag {{inputs.server.tag}} \
