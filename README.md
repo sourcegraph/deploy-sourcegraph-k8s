@@ -9,22 +9,22 @@ Deploying Sourcegraph into a Kubernetes cluster is for organizations that need h
 available code search and code intelligence. This repository contains documentation for creating,
 updating, and maintaining a Sourcegraph cluster using Kustomize.
 
-- [Installing](https://docs.sourcegraph.com/admin/deploy/kubernetes)
-- [Configuring](https://docs.sourcegraph.com/admin/deploy/kubernetes/configure)
-- [Updating](https://docs.sourcegraph.com/admin/updates/kubernetes)
-- [Scaling](https://docs.sourcegraph.com/admin/deploy/scale)- general advice on scaling services
-- [Resource estimator: instance size](https://docs.sourcegraph.com/admin/deploy/instance-size) - specific resource values for your instance based on your instance size
-- [Troubleshooting](https://docs.sourcegraph.com/admin/install/kubernetes/troubleshoot)
-- [Enterprise Getting Started Guide](https://docs.sourcegraph.com/admin/enterprise_getting_started_guide) and [Admin guide](https://docs.sourcegraph.com/admin) - useful guides for Sourcegraph admins
-  - [Metrics](https://docs.sourcegraph.com/admin/observability/metrics) - guidance of metrics that can be used for monitoring Sourcegraph
+- [Installing](https://sourcegraph.com/docs/admin/deploy/kubernetes)
+- [Configuring](https://sourcegraph.com/docs/admin/deploy/kubernetes/configure)
+- [Updating](https://sourcegraph.com/docs/admin/updates/kubernetes)
+- [Scaling](https://sourcegraph.com/docs/admin/deploy/scale)- general advice on scaling services
+- [Resource estimator: instance size](https://sourcegraph.com/docs/admin/deploy/instance-size) - specific resource values for your instance based on your instance size
+- [Troubleshooting](https://sourcegraph.com/docs/admin/install/kubernetes/troubleshoot)
+- [Enterprise Getting Started Guide](https://sourcegraph.com/docs/admin/enterprise_getting_started_guide) and [Admin guide](https://sourcegraph.com/docs/admin) - useful guides for Sourcegraph admins
+  - [Metrics](https://sourcegraph.com/docs/admin/observability/metrics) - guidance of metrics that can be used for monitoring Sourcegraph
 
 ## Deploy
 
-Please refer to the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latest instructions.
+Please refer to the [Sourcegraph Kustomize docs](https://sourcegraph.com/docs/admin/deploy/kubernetes/kustomize) for the latest instructions.
 
 ## Upgrade
 
-When upgrading Sourcegraph, please check the [upgrade docs for Kubernetes](https://docs.sourcegraph.com/admin/updates/kubernetes) to confirm if manual migrations is necessary.
+When upgrading Sourcegraph, please check the [upgrade docs for Kubernetes](https://sourcegraph.com/docs/admin/updates/kubernetes) to confirm if manual migrations is necessary.
 
 ## Feedback
 
