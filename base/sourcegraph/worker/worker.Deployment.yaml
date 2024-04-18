@@ -52,7 +52,7 @@ spec:
             - configMapRef:
                 name: embeddings-backend
                 optional: true
-          image: index.docker.io/sourcegraph/worker:216430_2023-05-02_5.0-3cc9006de32c@sha256:d3d9e1d684a1a4a337810dc0a9caa95bd9caa17120527be227ca3b5cae622b59
+          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/worker:5.3.11625@sha256:4c41691bc7dcfb79f49d2c30f0e769191b70574557b924b585250e7430724910
           terminationMessagePolicy: FallbackToLogsOnError
           livenessProbe:
             httpGet:
