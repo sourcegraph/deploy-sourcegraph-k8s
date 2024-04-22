@@ -8,7 +8,7 @@ alerting: # Alertmanager configuration
     - static_configs:
         - targets: ["127.0.0.1:9093"]
       path_prefix: /alertmanager
-  # add more alertmanagers here
+      # add more alertmanagers here
 rule_files: # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
   - "/sg_config_prometheus/*_rules.yml"
   - "/sg_prometheus_add_ons/*_rules.yml"
@@ -43,11 +43,7 @@ scrape_configs: # Configure targets to scrape
       - source_labels: [container_label_io_kubernetes_pod_namespace]
         regex: kube-system
         action: drop
-      - source_labels:
-          [
-            container_label_io_kubernetes_container_name,
-            container_label_io_kubernetes_pod_name,
-          ]
+      - source_labels: [container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name]
         regex: (.+)
         action: replace
         target_label: name
