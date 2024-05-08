@@ -348,4 +348,3 @@ promoteToPublic:
             echo "Build created, see:"
             echo $body | jq .web_url
           fi
-
