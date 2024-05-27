@@ -35,9 +35,24 @@ spec:
             - containerPort: 6379
               name: redis
           readinessProbe:
-            initialDelaySeconds: 5
-            tcpSocket:
-              port: redis
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            command:
+              - /bin/sh
+              - -c
+              - |
+                #!/bin/bash
+                PASS_CHECK=$(grep -h "requirepass" /etc/redis/redis.conf | cut -d ' ' -f 2)
+                if [ ! -z "$PASS_CHECK" ]; then
+                  export REDISCLI_AUTH="$PASS_CHECK"
+                fi
+                response=$(
+                  redis-cli ping
+                )
+                if [ "$response" != "PONG" ]; then
+                  echo "$response"
+                  exit 1
+                fi
           resources:
             limits:
               cpu: "1"
