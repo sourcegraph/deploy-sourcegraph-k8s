@@ -6,6 +6,8 @@ github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/sourcegraph/jy v1.0.0 h1:urVeDOAk3Ingo/ORlujFaS41tQeRYU/GCRJ1fDFk7/E=
+github.com/sourcegraph/jy v1.0.0/go.mod h1:TeZdLljtr/HTnau//4V/5FdTVfeji3BsvukWrenKrh8=
 github.com/sourcegraph/sourcegraph/dev/ci/images v0.0.0-20231229114136-300ec6158254 h1:BOx0PvEP+RzEjtIUVQkpdwr3iDSUNl2fU7nmSQDIXP0=
 github.com/sourcegraph/sourcegraph/dev/ci/images v0.0.0-20231229114136-300ec6158254/go.mod h1:HpOGaRM0iHPNrEQvpB4/3E9dAUjutyhgjg9vrOOeXPY=
 github.com/sourcegraph/sourcegraph/dev/ci/images v0.0.0-20240222005846-e3158c0c2717 h1:xzO3kAjylr2urK0w5Yu95n98jSwpTQ4w/rvf8QA5pwY=
@@ -16,5 +18,7 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v2 v2.4.0 h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=
+gopkg.in/yaml.v2 v2.4.0/go.mod h1:RDklbk79AGWmwhnvt/jBztapEOGDOx6ZbXqjP6csGnQ=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
