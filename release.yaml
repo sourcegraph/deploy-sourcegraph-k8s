@@ -32,7 +32,7 @@ internal:
         - name: "sg ops (base)"
           cmd: |
             set -eu
-            sg ops update-images \
+            sg --disable-analytics ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -42,7 +42,7 @@ internal:
         - name: "sg ops (executors)"
           cmd: |
             set -eu
-            sg ops update-images \
+            sg --disable-analytics ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -81,7 +81,7 @@ internal:
         - name: "sg ops (base)"
           cmd: |
             set -eu
-            sg ops update-images \
+            sg --disable-analytics ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -91,7 +91,7 @@ internal:
         - name: "sg ops (executors)"
           cmd: |
             set -eu
-            sg ops update-images \
+            sg --disable-analytics ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -128,7 +128,7 @@ internal:
         - name: "sg ops (base)"
           cmd: |
             set -eu
-            sg ops update-images \
+            sg --disable-analytics ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -138,7 +138,7 @@ internal:
         - name: "sg ops (executors)"
           cmd: |
             set -eu
-            sg ops update-images \
+            sg --disable-analytics ops update-images \
               --kind k8s \
               --registry us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal \
               --docker-username=$DOCKER_USERNAME \
@@ -175,7 +175,7 @@ internal:
             echo "🚢 Please check the associated CI build to ensure the process completed".
   finalize:
     steps:
-      - name: 'Register on release registry'
+      - name: "Register on release registry"
         cmd: |
           echo "Registering internal deploy-sourcegraph-k8s {{version}} release on release registry"
           COMMIT_SHA=$(git rev-parse HEAD)
@@ -231,7 +231,7 @@ promoteToPublic:
       - name: "sg ops"
         cmd: |
           set -eu
-          sg ops update-images \
+          sg --disable-analytics ops update-images \
             --kind k8s \
             --registry index.docker.io/sourcegraph \
             --docker-username=$DOCKER_USERNAME \
@@ -241,7 +241,7 @@ promoteToPublic:
       - name: "sg ops (executors)"
         cmd: |
           set -eu
-          sg ops update-images \
+          sg --disable-analytics ops update-images \
             --kind k8s \
             --registry index.docker.io/sourcegraph \
             --docker-username=$DOCKER_USERNAME \
@@ -332,7 +332,7 @@ promoteToPublic:
           cat << EOF | buildkite-agent annotate --style info
           Promoted release is **publicly available** through a git tag at [\`{{version}}\`](https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/{{version}}).
           EOF
-      - name: 'Promote on release registry'
+      - name: "Promote on release registry"
         cmd: |
           echo "Promoting deploy-sourcegraph-k8s {{version}} release on release registry"
           body=$(wget --content-on-error -O- --header="Content-Type: application/json" --header="Authorization: ${RELEASE_REGISTRY_TOKEN}" --post-data '' "https://releaseregistry.sourcegraph.com/v1/releases/k8s/{{version}}/promote")
