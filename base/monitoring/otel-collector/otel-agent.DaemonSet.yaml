@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: otel-agent
-          image: index.docker.io/sourcegraph/opentelemetry-collector:5.5.1220@sha256:c8f2330787f0cefcb098add6e92dc225d990a23786e9ccb9f412651de49a817f
+          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/opentelemetry-collector:5.5.3738@sha256:d2ed87b06e146dc9ab943fecacd03dc0a8653082be0f77e255d23a96f0eb0b43
           command:
             - "/bin/otelcol-sourcegraph"
             - "--config=/etc/otel-agent/config.yaml"

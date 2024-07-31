@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: embeddings
-          image: index.docker.io/sourcegraph/embeddings:5.5.1220@sha256:76aae298b7de7885f8ac9a10a20a0d4c7e1bf8cdbcf3e71543504547c771f527
+          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/embeddings:5.5.3738@sha256:fe067228614253e5719f6decec482b33c4c8b5e0c0f1d4af26a5f5e6a39af965
           env:
             - name: POD_NAME
               valueFrom:
