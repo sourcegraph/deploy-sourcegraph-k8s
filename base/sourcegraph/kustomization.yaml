@@ -4,7 +4,6 @@ resources:
   - blobstore
   - codeinsights-db
   - codeintel-db
-  - embeddings
   - frontend
   - gitserver
   - indexed-search
