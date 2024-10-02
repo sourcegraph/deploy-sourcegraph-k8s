@@ -17,7 +17,7 @@ resources:
   - buildConfig.yaml # -- Update the CONFIG Key values in buildConfig.yaml when instructed
   # [REQUIRED: RESOURCES] Resources for the default Sourcegraph instance
   - ../../base/sourcegraph # -- Resources for Sourcegraph
-  - ../../base/monitoring # -- Resources for Sourcegraph Monitoring Stack
+  # - ../../base/monitoring # -- Resources for Sourcegraph Monitoring Stack
   # ---------------- Add additional resources below this line if needed ---------------- #
   # -
 ##########################################################################################
