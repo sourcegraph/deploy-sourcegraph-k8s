@@ -25,7 +25,7 @@ resources:
 #
 # NOTE: Include the 'namespace' component to create namespace with the same name if needed
 ##########################################################################################
-namespace: default
+namespace: sourcegraph
 ##########################################################################################
 # [COMPONENTS] Uncomment the lines for the components you'd like to include
 #
@@ -41,7 +41,7 @@ components:
   #---------------------------------------------------------------------------------------
   # Namespace Creation
   #---------------------------------------------------------------------------------------
-  # - ../../components/resources/namespace # -- Create namespace based on NAMESPACE input above
+  - ../../components/resources/namespace # -- Create namespace based on NAMESPACE input above
   #
   #---------------------------------------------------------------------------------------
   # Monitoring Stack

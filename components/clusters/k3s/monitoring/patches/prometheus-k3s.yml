@@ -179,5 +179,5 @@ scrape_configs:
         regex: sourcegraph-0 # ACTION: replace 'sourcegraph-0' with your node name
         action: keep
       - source_labels: [namespace]
-        regex: default # ACTION: replace 'default' with your namespace
+        regex: sourcegraph # ACTION: replace 'default' with your namespace
         action: keep
