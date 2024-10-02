@@ -16,14 +16,14 @@ metadata:
   name: sourcegraph-kustomize-build-config
 data:
   # example:
-  EXAMPLE_CONFIG_KEY: example
+  # EXAMPLE_CONFIG_KEY: example
   #-------- Update config options below ---------#
   # AWS_MANAGED_CERT_ARN: __placeholder__
   # GKE_MANAGED_CERT_NAME: __placeholder__
   # HOST_DOMAIN: __placeholder__
   # NEW_REDIS_CACHE_ENDPOINT: __placeholder__
   # NEW_REDIS_STORE_ENDPOINT: __placeholder__
-  # PRIVATE_REGISTRY: us-central1-docker.pkg.dev/sourcegraph-ci/cloud-ephemeral/
+  PRIVATE_REGISTRY: us-central1-docker.pkg.dev/sourcegraph-ci/cloud-ephemeral
   # PRIVATE_REGISTRY_SECRET_KEY: __placeholder__
   # SSD_NODE_PATH: __placeholder__
   # STORAGECLASS_NAME: __placeholder__
