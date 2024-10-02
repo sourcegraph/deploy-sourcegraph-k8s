@@ -179,7 +179,7 @@ components:
   - ../../components/utils/endpoints # REQUIRED - DO NOT REMOVE
   #
   # - ../../components/privileged # -- Run Sourcegraph with privileged and root access
-  # - ../../components/monitoring/privileged # -- Run monitoring stack with privileged and root access
+  - ../../components/monitoring/privileged # -- Run monitoring stack with privileged and root access
   #
   # Recommended for clusters with RBAC enabled.
   # - ../../components/enable/service-discovery # -- Enable service-discovery for frontend
