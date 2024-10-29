@@ -16,3 +16,5 @@ secretGenerator:
     behavior: create
     literals:
       - password=our-shared-secret
+    options:
+      disableNameSuffixHash: true
