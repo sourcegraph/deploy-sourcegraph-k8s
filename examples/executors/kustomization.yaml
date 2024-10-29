@@ -8,6 +8,7 @@ resources:
 components:
   # Native Kubernetes Executors
   - ../../components/executors/k8s
+  - ../../components/resources/namespace
 patches:
   - path: patches/executor.ConfigMap.yaml
 secretGenerator:
