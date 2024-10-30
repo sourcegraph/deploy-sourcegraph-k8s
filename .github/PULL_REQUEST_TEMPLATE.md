@@ -12,7 +12,6 @@
   unless it is specific to this deployment type. If uneeded, add link or explanation of why it is not needed here.
 -->
 
-- [ ] Update [CHANGELOG.md](https://github.com/sourcegraph/sourcegraph/blob/main/CHANGELOG.md)
 - [ ] Update [K8s Upgrade notes](https://github.com/sourcegraph/sourcegraph/blob/main/doc/admin/updates/kubernetes.md)
 - [ ] Kustomiz-specific changes
 - [ ] Update sister repository: [deploy-sourcegraph-helm](https://github.com/sourcegraph/deploy-sourcegraph-helm)
