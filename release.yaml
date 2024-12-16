@@ -332,6 +332,64 @@ promoteToPublic:
           cat << EOF | buildkite-agent annotate --style info
           Promoted release is **publicly available** through a git tag at [\`{{version}}\`](https://github.com/sourcegraph/deploy-sourcegraph-k8s/tree/{{version}}).
           EOF
+
+      - name: "update main with latest version"
+        cmd: |
+          set -eu
+          branch="promote/release-{{version}}-update-main"
+          echo "Checking out origin/main"
+          git fetch origin main
+          git switch main
+          echo "Creating branch origin/${branch}"
+          git switch -c "${branch}"
+
+      - name: "sg ops"
+        cmd: |
+          set -eu
+          sg ops update-images \
+            --kind k8s \
+            --registry index.docker.io/sourcegraph \
+            --docker-username=$DOCKER_USERNAME \
+            --docker-password=$DOCKER_PASSWORD \
+            --pin-tag {{inputs.server.tag}} \
+            base/
+
+      - name: "sg ops (executors)"
+        cmd: |
+          set -eu
+          sg ops update-images \
+            --kind k8s \
+            --registry index.docker.io/sourcegraph \
+            --docker-username=$DOCKER_USERNAME \
+            --docker-password=$DOCKER_PASSWORD \
+            --pin-tag {{inputs.server.tag}} \
+            components/executors/
+
+      - name: "git:commit"
+        cmd: |
+          set -eu
+          branch="promote/release-{{version}}-update-main"
+          find . -name "*.yaml" | xargs git add
+          find . -name "*.yml" | xargs git add
+
+          # Careful with the quoting for the config, using double quotes will lead
+          # to the shell dropping out all quotes from the json, leading to failed
+          # parsing.
+          git commit -am 'update-main: {{version}}' -m 'update main with latest release'
+          git push origin "${branch}"
+          
+      - name: "github:pr"
+        cmd: |
+          set -eu
+          internal_branch="promote/release-{{version}}-update-main"
+          gh pr create \
+            --fill \
+            --draft \
+            --base "$internal_branch" \
+            --title "Update main: build {{version}}" \
+            --body "Test plan: automated release PR, CI will perform additional checks"
+          echo "🚢 Please check the associated CI build to ensure the process completed".
+
       - name: 'Promote on release registry'
         cmd: |
           echo "Promoting deploy-sourcegraph-k8s {{version}} release on release registry"
