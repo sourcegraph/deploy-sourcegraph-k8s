@@ -31,7 +31,12 @@ spec:
       containers:
         - name: jaeger
           image: index.docker.io/sourcegraph/jaeger-all-in-one:5.10.3940@sha256:d830a8c3e8c2be841de04118664f01710fa75d22f4302351309cb39932eee936
-          args: ["--memory.max-traces=20000", "--sampling.strategies-file=/etc/jaeger/sampling_strategies.json", "--collector.otlp.enabled"]
+          args:
+            [
+              "--memory.max-traces=20000",
+              "--sampling.strategies-file=/etc/jaeger/sampling_strategies.json",
+              "--collector.otlp.enabled",
+            ]
           ports:
             - containerPort: 5775
               protocol: UDP

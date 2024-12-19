@@ -27,7 +27,12 @@ spec:
       initContainers:
         - name: correct-data-dir-permissions
           image: index.docker.io/sourcegraph/alpine-3.14:5.10.3940@sha256:e9008c3e20b445abb8788bb513479418ef55476e2c01228b6c094776919bcbe4
-          command: ["sh", "-c", "if [ -d /var/lib/postgresql/data/pgdata ]; then chmod 750 /var/lib/postgresql/data/pgdata; fi"]
+          command:
+            [
+              "sh",
+              "-c",
+              "if [ -d /var/lib/postgresql/data/pgdata ]; then chmod 750 /var/lib/postgresql/data/pgdata; fi",
+            ]
           volumeMounts:
             - mountPath: /var/lib/postgresql/data/
               name: disk

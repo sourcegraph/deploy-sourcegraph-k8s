@@ -65,11 +65,11 @@ spec:
           securityContext:
             privileged: true
           command:
-            - 'dockerd'
-            - '--tls=false'
-            - '--mtu=1200'
-            - '--registry-mirror=http://private-docker-registry:5000'
-            - '--host=tcp://0.0.0.0:2375'
+            - "dockerd"
+            - "--tls=false"
+            - "--mtu=1200"
+            - "--registry-mirror=http://private-docker-registry:5000"
+            - "--host=tcp://0.0.0.0:2375"
           livenessProbe:
             tcpSocket:
               port: 2375
