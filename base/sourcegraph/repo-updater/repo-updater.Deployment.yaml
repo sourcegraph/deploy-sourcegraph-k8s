@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: repo-updater
-          image: index.docker.io/sourcegraph/repo-updater:5.11.4013@sha256:aeece36e8693cbb3772c7649b6ae820971ccd70d0cb6f14125d879fd3464fa5b
+          image: index.docker.io/sourcegraph/repo-updater:5.11.5234@sha256:7fc468637e1b221f2b2bc05858fe1590d6922a348333bb1777fc5e6e5ab1c4bd
           env:
             # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable
             - name: OTEL_AGENT_HOST
