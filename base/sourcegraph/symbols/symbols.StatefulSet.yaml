@@ -43,7 +43,7 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
-          image: index.docker.io/sourcegraph/symbols:5.11.4013@sha256:2747e155ca2200c6fd153217133574d03dfd5e810c75c00fd988bb64263d4183
+          image: index.docker.io/sourcegraph/symbols:5.11.6271@sha256:4525332f73c8b7936428f7ab9c238715e9ff8ce391bf31fb4344f988939cbafa
           livenessProbe:
             httpGet:
               path: /healthz
