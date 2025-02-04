@@ -7,7 +7,7 @@ patches:
         value: 0
     target:
       group: apps
-      kind: .*
+      kind: Deployment|StatefulSet
       name: .*
       version: v1
   - patch: |-
