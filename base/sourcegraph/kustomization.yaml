@@ -13,5 +13,6 @@ resources:
   - repo-updater
   - searcher
   - symbols
+  - syntactic-code-intel
   - syntect-server
   - worker

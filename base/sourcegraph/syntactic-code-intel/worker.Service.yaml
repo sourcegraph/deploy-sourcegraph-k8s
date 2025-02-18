@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/port: "6060"
+    sourcegraph.prometheus/scrape: "true"
+  labels:
+    app: syntactic-code-intel
+    app.kubernetes.io/component: syntactic-code-intel
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+  name: syntactic-code-intel
+spec:
+  ports:
+    - name: http
+      port: 3188
+      targetPort: http
+    - name: debug
+      port: 6060
+      targetPort: debug
+  selector:
+    app: syntactic-code-intel
+  type: ClusterIP
