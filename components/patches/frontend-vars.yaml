@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: sourcegraph-frontend-env
 data:
-  DEPLOY: kustomize
+  DEPLOY_TYPE: kustomize
   # Add env vars for frontend service below
