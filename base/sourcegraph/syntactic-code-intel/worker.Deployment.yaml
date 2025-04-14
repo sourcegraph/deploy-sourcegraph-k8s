@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    description: High level syntax analysis
+  labels:
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+    app.kubernetes.io/component: syntactic-code-intel
+  name: syntactic-code-intel
+spec:
+  minReadySeconds: 10
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: syntactic-code-intel
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        deploy: sourcegraph
+        app: syntactic-code-intel
+    spec:
+      containers:
+        - name: syntactic-code-intel
+          env:
+            - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
+              value: blobstore
+            - name: PRECISE_CODE_INTEL_UPLOAD_AWS_ENDPOINT
+              value: http://blobstore:9000
+            - name: SYNTACTIC_CODE_INTEL_WORKER_ADDR
+              value: ":3188"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          image: index.docker.io/sourcegraph/syntactic-code-intel-worker:6.0.0@sha256:50bdeb38b196f0fc21404969016bf8263f78144292e905867e93480f66c8251c
+          terminationMessagePath: FallbackToLogsOnError
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: debug
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: debug
+              scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 5
+          ports:
+            - containerPort: 3188
+              name: http
+            - containerPort: 6060
+              name: debug
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4G
+            requests:
+              cpu: 500m
+              memory: 2G
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 101
+            runAsUser: 100
+      securityContext:
+        fsGroup: 101
+        runAsUser: 100
+        fsGroupChangePolicy: OnRootMismatch
