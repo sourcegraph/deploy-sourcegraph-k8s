@@ -42,11 +42,6 @@ replacements:
           - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
         select:
           kind: Deployment
-          name: repo-updater
-      - fieldPaths:
-          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
-        select:
-          kind: Deployment
           name: worker
   - source:
       fieldPath: data.NEW_REDIS_STORE_ENDPOINT
@@ -89,11 +84,6 @@ replacements:
           - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
         select:
           kind: Deployment
-          name: repo-updater
-      - fieldPaths:
-          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
-        select:
-          kind: Deployment
           name: worker
 patches:
   - patch: |-
@@ -110,5 +100,5 @@ patches:
     target:
       group: apps
       kind: StatefulSet|Deployment
-      name: repo-updater|gitserver|searcher|symbols|worker
+      name: gitserver|searcher|symbols|worker
       version: v1
