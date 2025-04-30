@@ -10,7 +10,6 @@ resources:
   - pgsql
   - precise-code-intel
   - redis
-  - repo-updater
   - searcher
   - symbols
   - syntactic-code-intel
