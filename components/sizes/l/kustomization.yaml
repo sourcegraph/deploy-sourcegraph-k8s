@@ -2,19 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 components:
   - ../../resources/lower-requests
-# To support searcher and symbols as both statefulset and deployment
+# To support searcher as both statefulset and deployment
 patches:
   - path: patches/searcher.yaml
     target:
       group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      version: v1
-  - path: patches/symbols.yaml
-    target:
-      group: apps
-      kind: StatefulSet|Deployment
-      name: symbols
       version: v1
   - path: patches/pgsql.yaml
     target:
@@ -111,13 +105,13 @@ patches:
       apiVersion: apps/v1
       kind: StatefulSet
       metadata:
-        name: symbols
+        name: searcher
       spec:
         replicas: 1
         template:
           spec:
             containers:
-              - name: symbols
+              - name: searcher
                 resources:
                   limits:
                     cpu: "4"

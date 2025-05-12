@@ -21,7 +21,7 @@ patches:
     target:
       group: apps
       kind: StatefulSet|Deployment
-      name: sourcegraph-frontend|gitserver|indexed-search|precise-code-intel-worker|searcher|symbols|worker
+      name: sourcegraph-frontend|gitserver|indexed-search|precise-code-intel-worker|searcher|worker
       version: v1
   - patch: |-
       - op: add

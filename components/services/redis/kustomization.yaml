@@ -26,18 +26,8 @@ replacements:
       - fieldPaths:
           - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
         select:
-          kind: StatefulSet
-          name: symbols
-      - fieldPaths:
-          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
-        select:
           kind: Deployment
           name: searcher
-      - fieldPaths:
-          - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
-        select:
-          kind: Deployment
-          name: symbols
       - fieldPaths:
           - spec.template.spec.containers.0.env.[name=REDIS_CACHE_ENDPOINT].value
         select:
@@ -68,18 +58,8 @@ replacements:
       - fieldPaths:
           - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
         select:
-          kind: StatefulSet
-          name: symbols
-      - fieldPaths:
-          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
-        select:
           kind: Deployment
           name: searcher
-      - fieldPaths:
-          - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
-        select:
-          kind: Deployment
-          name: symbols
       - fieldPaths:
           - spec.template.spec.containers.0.env.[name=REDIS_STORE_ENDPOINT].value
         select:
@@ -100,5 +80,5 @@ patches:
     target:
       group: apps
       kind: StatefulSet|Deployment
-      name: gitserver|searcher|symbols|worker
+      name: gitserver|searcher|worker
       version: v1

@@ -1,18 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
-# To support searcher and symbols as both statefulset and deployment
+# To support searcher as both statefulset and deployment
 patches:
   - path: patches/searcher/searcher.yaml
     target:
       group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      version: v1
-  - path: patches/symbols/symbols.yaml
-    target:
-      group: apps
-      kind: StatefulSet|Deployment
-      name: symbols
       version: v1
   - path: patches/databases/securityContext.yaml
     target:

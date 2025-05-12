@@ -348,26 +348,6 @@ patches:
 #                   memory: 500M
 # - patch: |-
 #     apiVersion: apps/v1
-#     kind: StatefulSet
-#     metadata:
-#       name: symbols
-#     spec:
-#       replicas: 1
-#       template:
-#         spec:
-#           containers:
-#             - name: symbols
-#               resources:
-#                 limits:
-#                   cpu: "2"
-#                   ephemeral-storage: "12G"
-#                   memory: 2G
-#                 requests:
-#                   cpu: 500m
-#                   ephemeral-storage: "10G"
-#                   memory: 500M
-# - patch: |-
-#     apiVersion: apps/v1
 #     kind: Deployment
 #     metadata:
 #       name: searcher
@@ -385,26 +365,6 @@ patches:
 #                 requests:
 #                   cpu: 500m
 #                   ephemeral-storage: "25G"
-#                   memory: 500M
-# - patch: |-
-#     apiVersion: apps/v1
-#     kind: Deployment
-#     metadata:
-#       name: symbols
-#     spec:
-#       replicas: 1
-#       template:
-#         spec:
-#           containers:
-#             - name: symbols
-#               resources:
-#                 limits:
-#                   cpu: "2"
-#                   ephemeral-storage: "12G"
-#                   memory: 2G
-#                 requests:
-#                   cpu: 500m
-#                   ephemeral-storage: "10G"
 #                   memory: 500M
 # - patch: |-
 #     apiVersion: apps/v1

@@ -5,7 +5,7 @@ patches:
     target:
       group: apps
       kind: StatefulSet
-      name: searcher|symbols|indexed-search|grafana|gitserver
+      name: searcher|indexed-search|grafana|gitserver
       version: v1
   - path: patches/replace-storageclass-name-pvc.yaml
     target:
