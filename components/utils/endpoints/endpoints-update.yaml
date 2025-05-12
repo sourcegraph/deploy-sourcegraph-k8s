@@ -22,19 +22,6 @@
       fieldPaths:
         - data.SEARCHER_URL
 - source:
-    group: apps
-    name: symbols
-    fieldPath: spec.replicas
-  reject:
-    - kind: Service
-    - kind: Deployment
-  targets:
-    - select:
-        kind: ConfigMap
-        name: sourcegraph-frontend-env
-      fieldPaths:
-        - data.SYMBOLS_URL
-- source:
     kind: StatefulSet
     name: indexed-search
     fieldPath: spec.replicas

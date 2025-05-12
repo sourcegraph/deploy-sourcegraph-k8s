@@ -5,7 +5,6 @@ components:
   - ../../monitoring/cadvisor
   - ../../monitoring/rbacs
   - ../../services/searcher/deployment
-  - ../../services/symbols/deployment
   - ../../services/pgsql
   - ../../services/codeinsights-db
   - ../../services/codeintel-db
@@ -13,18 +12,12 @@ components:
   - ../../storage-class/sourcegraph
   - ../../enable/service-discovery
 patches:
-  # To support searcher and symbols as both statefulset and deployment
+  # To support searcher as both statefulset and deployment
   - path: patches/searcher/searcher.patchesJson6902.yaml
     target:
       group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      version: v1
-  - path: patches/symbols/symbols.patchesJson6902.yaml
-    target:
-      group: apps
-      kind: StatefulSet|Deployment
-      name: symbols
       version: v1
   - path: patches/remove/securityContext-container-0.yaml
     target:

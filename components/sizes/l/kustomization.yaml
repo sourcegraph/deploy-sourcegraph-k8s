@@ -2,19 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 components:
   - ../../resources/lower-requests
-# To support searcher and symbols as both statefulset and deployment
+# To support searcher as both statefulset and deployment
 patches:
   - path: patches/searcher.yaml
     target:
       group: apps
       kind: StatefulSet|Deployment
       name: searcher
-      version: v1
-  - path: patches/symbols.yaml
-    target:
-      group: apps
-      kind: StatefulSet|Deployment
-      name: symbols
       version: v1
   - path: patches/pgsql.yaml
     target:
@@ -107,28 +101,6 @@ patches:
                     cpu: "6"
                     memory: 6G
                     ephemeral-storage: 8Gi
-  - patch: |-
-      apiVersion: apps/v1
-      kind: StatefulSet
-      metadata:
-        name: symbols
-      spec:
-        replicas: 1
-        template:
-          spec:
-            containers:
-              - name: symbols
-                resources:
-                  limits:
-                    cpu: "4"
-                    memory: 4G
-                env:
-                  # Enables Rockskip
-                  - name: USE_ROCKSKIP
-                    value: "true"
-                  # Uses Rockskip for all repositories over 1GB
-                  - name: ROCKSKIP_MIN_REPO_SIZE_MB
-                    value: "1000"
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment

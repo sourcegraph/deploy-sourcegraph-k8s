@@ -16,8 +16,6 @@ replicas:
   #   count: 1
   # - name: searcher
   #   count: 1
-  # - name: symbols
-  #   count: 1
   # - name: sourcegraph-frontend
   #   count: 2
   # - name: precise-code-intel-worker

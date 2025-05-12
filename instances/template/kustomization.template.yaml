@@ -260,16 +260,6 @@ components:
 #       name: searcher
 #       kind: StatefulSet|Deployment
 #
-#   - patch: |-
-#       - op: replace
-#         path: /spec/template/spec/containers/0/env/0
-#         value:
-#           name: SYMBOLS_CACHE_SIZE_MB
-#           value: "50000"
-#     target:
-#       name: symbols
-#       kind: StatefulSet|Deployment
-#
 #   #---------------------------------------------------------------------------------------
 #   # Adjust Storage Sizes
 #   #---------------------------------------------------------------------------------------
@@ -287,7 +277,7 @@ components:
 #         value: 200Gi
 #     target:
 #       kind: StatefulSet
-#       name: gitserver|indexed-search|searcher|symbols
+#       name: gitserver|indexed-search|searcher
 #
 #
 ##########################################################################################

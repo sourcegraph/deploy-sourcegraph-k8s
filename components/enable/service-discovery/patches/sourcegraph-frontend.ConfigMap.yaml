@@ -5,5 +5,4 @@ metadata:
 data:
   SRC_GIT_SERVERS: k8s+rpc://gitserver:3178?kind=sts
   SEARCHER_URL: k8s+http://searcher:3181?kind=sts
-  SYMBOLS_URL: k8s+http://symbols:3184?kind=sts
   INDEXED_SEARCH_SERVERS: k8s+rpc://indexed-search:6070?kind=sts

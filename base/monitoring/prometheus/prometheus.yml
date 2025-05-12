@@ -55,9 +55,6 @@ scrape_configs: # Configure targets to scrape
   - job_name: "sourcegraph-statefulsets"
     dns_sd_configs:
       - names:
-          - "symbols.default.svc.cluster.local"
-          - "symbols.ns-sourcegraph.svc.cluster.local"
-          - "symbols.$SG_NAMESPACE.svc.cluster.local"
           - "searcher.default.svc.cluster.local"
           - "searcher.ns-sourcegraph.svc.cluster.local"
           - "searcher.$SG_NAMESPACE.svc.cluster.local"
