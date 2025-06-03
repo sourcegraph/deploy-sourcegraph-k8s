@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/syntactic-code-intel-worker:6.4.1203@sha256:d5e3844d042058de104bbc01fe47cb89f3885fa99748de340e08bd643ef13c0a
+          image: index.docker.io/sourcegraph/syntactic-code-intel-worker:6.4.1203@sha256:4e1a0511d4bf1d57f0e97128d8b620c1e0d80a6c72f166b6c1c589eacc160383
           terminationMessagePath: FallbackToLogsOnError
           livenessProbe:
             httpGet:

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/grafana:6.4.1203@sha256:4bd24e94b18c7d11ea38d6bb4a3617ee9e959914a083517f407069083bed9e57
+          image: index.docker.io/sourcegraph/grafana:6.4.1203@sha256:9339140cee16f28960603e8d762bc43d5c02c9d5b4aeb09953dafa9afb41c66b
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
             - containerPort: 3370
