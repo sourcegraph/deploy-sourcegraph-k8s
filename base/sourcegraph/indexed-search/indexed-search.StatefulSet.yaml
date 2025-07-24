@@ -33,7 +33,7 @@ spec:
               value: http://$(OTEL_AGENT_HOST):4317
             - name: OPENTELEMETRY_DISABLED
               value: "false"
-          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/indexed-searcher:6.6.0@sha256:35d43e7d5e12f978182f0b45220ea86c4d413bbcd468c69d8887a43018d32ae0
+          image: index.docker.io/sourcegraph/indexed-searcher:6.6.0@sha256:7f1dd5bf7399b8252e856fbd435a3177a22fc45e8f8d8fe0d0b559b535c29f20
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
             - containerPort: 6070
@@ -72,7 +72,7 @@ spec:
               value: http://$(OTEL_AGENT_HOST):4317
             - name: OPENTELEMETRY_DISABLED
               value: "false"
-          image: us-central1-docker.pkg.dev/sourcegraph-ci/rfc795-internal/search-indexer:6.6.0@sha256:9d12656cd6cb22c8c15ab941429d5e37371535b46bcd151a42db13e12267dfb8
+          image: index.docker.io/sourcegraph/search-indexer:6.6.0@sha256:02359b8b48b974f4d239621fda4a6318723224ed2d2ec44e739885b0d82acec1
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
             - containerPort: 6072
