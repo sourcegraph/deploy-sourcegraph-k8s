@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: otel-collector
-          image: us-docker.pkg.dev/sourcegraph-images/internal/opentelemetry-collector:6.7.2518@sha256:a6ee64af2eb8e586dbb60cbca215db70436fd270841b76bb210abd0ae62cb5d7
+          image: index.docker.io/sourcegraph/opentelemetry-collector:6.7.2518@sha256:a6ee64af2eb8e586dbb60cbca215db70436fd270841b76bb210abd0ae62cb5d7
           command:
             - "/bin/otelcol-sourcegraph"
             # To use a custom configuration, edit otel-collector.ConfigMap.yaml
