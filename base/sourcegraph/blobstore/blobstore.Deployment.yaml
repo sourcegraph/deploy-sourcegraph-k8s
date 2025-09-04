@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: blobstore
-          image: us-docker.pkg.dev/sourcegraph-images/internal/blobstore:6.7.2720@sha256:ba49559308dc5af4cf08d74878c9b1d4c8fec353565da0b48f75cb8cbd665a6d
+          image: index.docker.io/sourcegraph/blobstore:6.7.2720@sha256:ba49559308dc5af4cf08d74878c9b1d4c8fec353565da0b48f75cb8cbd665a6d
           livenessProbe:
             httpGet:
               path: /
