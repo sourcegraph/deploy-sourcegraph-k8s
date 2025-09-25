@@ -28,11 +28,11 @@ When upgrading Sourcegraph, please check the [upgrade docs for Kubernetes](https
 
 ## Feedback
 
-We've made our deployment configurations open source to better serve our customers' needs. If there is anything we can do to make deploying Sourcegraph easier just [open an issue (in sourcegraph/sourcegraph)](https://github.com/sourcegraph/sourcegraph/issues/new?assignees=&labels=deploy-sourcegraph-k8s&template=deploy-sourcegraph.md&title=%5Bdeploy-sourcegraph-k8s%5D) or a pull request and we will respond as soon as possible!
+We've made our deployment configurations open source to better serve our customers' needs. If there is anything we can do to make deploying Sourcegraph easier just [open an issue](https://github.com/sourcegraph/deploy-sourcegraph-k8s/issues/new) or a pull request and we will respond as soon as possible!
 
 ## Questions & Issues
 
-[Open an issue (in sourcegraph/sourcegraph)](https://github.com/sourcegraph/sourcegraph/issues/new?assignees=&labels=deploy-sourcegraph-k8s&template=deploy-sourcegraph.md&title=%5Bdeploy-sourcegraph%5D).
+[Open an issue](https://github.com/sourcegraph/deploy-sourcegraph-k8s/issues/new).
 
 For urgent issues, please contact us at support@sourcegraph.com --we are happy to help!
 
