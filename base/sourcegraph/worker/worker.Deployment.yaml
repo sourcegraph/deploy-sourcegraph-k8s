@@ -48,7 +48,7 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
-          image: us-docker.pkg.dev/sourcegraph-images/internal/worker:6.8.2313@sha256:bae148d12fe04dcc240832ce0384cd213a71e56149f7a09fe9f08efe852ef666
+          image: index.docker.io/sourcegraph/worker:6.8.2313@sha256:bae148d12fe04dcc240832ce0384cd213a71e56149f7a09fe9f08efe852ef666
           terminationMessagePolicy: FallbackToLogsOnError
           livenessProbe:
             httpGet:
