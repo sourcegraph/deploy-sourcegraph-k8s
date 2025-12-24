@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: us-docker.pkg.dev/sourcegraph-images/internal/prometheus:6.11.2752@sha256:41b4cabff778afe4be6370c4a3dc97c7af1a7683009bd6867f37f0b6e5d9eb58
+          image: index.docker.io/sourcegraph/prometheus:6.11.2752@sha256:41b4cabff778afe4be6370c4a3dc97c7af1a7683009bd6867f37f0b6e5d9eb58
           terminationMessagePolicy: FallbackToLogsOnError
           env:
             - name: SG_NAMESPACE
