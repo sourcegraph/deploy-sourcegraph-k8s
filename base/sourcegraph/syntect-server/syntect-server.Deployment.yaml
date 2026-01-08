@@ -32,7 +32,7 @@ spec:
             allowPrivilegeEscalation: false
             runAsGroup: 101
             runAsUser: 100
-          image: us-docker.pkg.dev/sourcegraph-images/internal/syntax-highlighter:6.11.5428@sha256:82f754729c36413b70f3250fec780146b50438b2467f783a6405409ffc485911
+          image: index.docker.io/sourcegraph/syntax-highlighter:6.11.5428@sha256:82f754729c36413b70f3250fec780146b50438b2467f783a6405409ffc485911
           terminationMessagePolicy: FallbackToLogsOnError
           livenessProbe:
             httpGet:
