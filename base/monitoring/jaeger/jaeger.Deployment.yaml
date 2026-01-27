@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: jaeger
-          image: us-docker.pkg.dev/sourcegraph-images/internal/jaeger-all-in-one:6.12.2541@sha256:98eb4e705e1095c94329d3d9e2bbd47cfb1d40645ec48b9a86d3a7a80144634a
+          image: index.docker.io/sourcegraph/jaeger-all-in-one:6.12.2541@sha256:98eb4e705e1095c94329d3d9e2bbd47cfb1d40645ec48b9a86d3a7a80144634a
           args: ["--memory.max-traces=20000", "--sampling.strategies-file=/etc/jaeger/sampling_strategies.json", "--collector.otlp.enabled"]
           ports:
             - containerPort: 5775
