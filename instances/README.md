@@ -1,5 +1,8 @@
 # Instances
 
+> **⚠️ Deprecation Notice**
+> This Kustomize-based deployment method is planned for deprecation. We recommend using [Helm](https://sourcegraph.com/docs/admin/deploy/kubernetes) for Kubernetes deployments.
+
 See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latested instructions.
 
 ## Create an overlay for your instances

@@ -1,5 +1,8 @@
 # Deploy Sourcegraph on Kubernetes with Kustomize
 
+> **⚠️ Deprecation Notice**
+> This Kustomize-based deployment method is planned for deprecation. We recommend using [Helm](https://sourcegraph.com/docs/admin/deploy/kubernetes) for Kubernetes deployments.
+
 [![sourcegraph: search](https://img.shields.io/badge/sourcegraph-search-brightgreen.svg)](https://sourcegraph.com/github.com/sourcegraph/deploy-sourcegraph-k8s) [![master build status](https://badge.buildkite.com/018ed23ed79d7297e7dd109b745597c58d875323fb06e81786.svg?branch=main)](https://buildkite.com/sourcegraph/deploy-sourcegraph-k8s)
 
 > **Note**
