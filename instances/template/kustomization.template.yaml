@@ -1,4 +1,9 @@
 ##########################################################################################
+# ⚠️  DEPRECATION NOTICE
+# This Kustomize-based deployment method is planned for deprecation.
+# We recommend using Helm for Kubernetes deployments.
+# See: https://sourcegraph.com/docs/admin/deploy/kubernetes
+##########################################################################################
 # DEPLOY INSTRUCTIONS
 #
 # Build Manifests: kubectl kustomize instances/$CURRENT_DIR -o cluster.yaml
