@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: executor
-          image: index.docker.io/sourcegraph/executor:6.2.1106@sha256:1363cce32f2002594cad461380b223670e17de1f4466edee956a3404c7bbd172
+          image: index.docker.io/sourcegraph/executor:7.0.0@sha256:d1b73f6d76d4b1e2738c96d85798787a95a4dc589704b3bc74435f1224d79cfc
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -60,7 +60,7 @@ spec:
             - mountPath: /scratch
               name: executor-scratch
         - name: dind
-          image: index.docker.io/sourcegraph/dind:6.2.1106@sha256:c64b5efff14ccd82cd6957283b116ef195d374ec911ea7fe56787b93143810fd
+          image: index.docker.io/sourcegraph/dind:7.0.0@sha256:10f1cbeee76718114e1126349b6cffa7e995057dd35b889db4a4b690c3c8c47c
           imagePullPolicy: Always
           securityContext:
             privileged: true
