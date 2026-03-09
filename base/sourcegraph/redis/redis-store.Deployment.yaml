@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: redis-store
-          image: us-docker.pkg.dev/sourcegraph-images/internal/redis-store:7.0.2178@sha256:9ded0daa662483e03ed68f27fc84c0e1c43b8d82dd621309353af54f8a8258ea
+          image: index.docker.io/sourcegraph/redis-store:7.0.2178@sha256:9ded0daa662483e03ed68f27fc84c0e1c43b8d82dd621309353af54f8a8258ea
           terminationMessagePolicy: FallbackToLogsOnError
           livenessProbe:
             initialDelaySeconds: 30
@@ -69,7 +69,7 @@ spec:
             - mountPath: /redis-data
               name: redis-data
         - name: redis-exporter
-          image: us-docker.pkg.dev/sourcegraph-images/internal/redis_exporter:7.0.2178@sha256:609e59bb3f51f1fc44b42ae6f725f2feec92fbad22be3a3440a10ae09e7cf92f
+          image: index.docker.io/sourcegraph/redis_exporter:7.0.2178@sha256:609e59bb3f51f1fc44b42ae6f725f2feec92fbad22be3a3440a10ae09e7cf92f
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
             - containerPort: 9121
