@@ -35,7 +35,7 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
-          image: us-docker.pkg.dev/sourcegraph-images/internal/gitserver:7.0.2852@sha256:b0440550bc143f70a76d98a2c96fc348ba3a134bfa4857b17786643763a79f4f
+          image: index.docker.io/sourcegraph/gitserver:7.0.2852@sha256:b0440550bc143f70a76d98a2c96fc348ba3a134bfa4857b17786643763a79f4f
           terminationMessagePolicy: FallbackToLogsOnError
           # Temporary: when migrating from repo names to repo IDs on disk,
           # gitserver can take a little while to start up. To avoid killing the
