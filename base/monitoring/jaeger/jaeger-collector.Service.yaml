@@ -10,18 +10,14 @@ metadata:
     app.kubernetes.io/name: jaeger
 spec:
   ports:
-  - name: jaeger-collector-tchannel
-    port: 14267
+  - name: http-otlp
+    port: 4318
     protocol: TCP
-    targetPort: 14267
-  - name: jaeger-collector-http
-    port: 4321
+    targetPort: http-otlp
+  - name: grpc-otlp
+    port: 4317
     protocol: TCP
-    targetPort: 4321
-  - name: jaeger-collector-grpc
-    port: 4320
-    protocol: TCP
-    targetPort: 4320
+    targetPort: grpc-otlp
   selector:
     app.kubernetes.io/name: jaeger
     app.kubernetes.io/component: all-in-one
