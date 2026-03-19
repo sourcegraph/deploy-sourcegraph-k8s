@@ -31,26 +31,26 @@ spec:
       containers:
         - name: jaeger
           image: index.docker.io/sourcegraph/jaeger-all-in-one:6.2.1106@sha256:c1ee8d613be75032066a9da24f54ebae19eacb63e42338e920abd6383ce168a6
-          args: ["--memory.max-traces=20000", "--sampling.strategies-file=/etc/jaeger/sampling_strategies.json", "--collector.otlp.enabled"]
+          args: ["--config=/etc/jaeger/jaeger-config.yaml"]
           ports:
-            - containerPort: 5775
-              protocol: UDP
-            - containerPort: 6831
-              protocol: UDP
-            - containerPort: 6832
-              protocol: UDP
             - containerPort: 5778
               protocol: TCP
             - containerPort: 16686
+              name: http
               protocol: TCP
-            - containerPort: 4320
+            - containerPort: 4317
+              name: grpc-otlp
               protocol: TCP
-            - containerPort: 4321
+            - containerPort: 4318
+              name: http-otlp
+              protocol: TCP
+            - containerPort: 13133
+              name: health
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: "/"
-              port: 14269
+              path: "/status"
+              port: 13133
             initialDelaySeconds: 5
           resources:
             limits:
