@@ -1,5 +1,10 @@
 # Executors (Docker-in-Docker)
 
+> ⚠️ **Beta:** Docker-in-Docker Kubernetes executors are not recommended for production use.
+> This method requires privileged access to a container runtime daemon. For production workloads,
+> deploy via [Terraform](https://docs.sourcegraph.com/self-hosted/executors/deploy-executors-terraform)
+> or [binary](https://docs.sourcegraph.com/self-hosted/executors/deploy-executors-binary).
+
 Executors are Sourcegraph’s solution for running untrusted code in a secure and controllable way. For more information on dind executors and how they are used see the Executors [dind documentation](https://docs.sourcegraph.com/admin/executors/deploy_executors_dind)
 
 ## Deploying

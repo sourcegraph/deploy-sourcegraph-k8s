@@ -1,5 +1,10 @@
 # Executors (Native Kubernetes)
 
+> ⚠️ **Beta:** Native Kubernetes executors are not recommended for production use. This deployment
+> mode has known durability and reliability limitations. For production workloads, deploy using
+> [Terraform](https://docs.sourcegraph.com/self-hosted/executors/deploy-executors-terraform) or the
+> [Linux binary](https://docs.sourcegraph.com/self-hosted/executors/deploy-executors-binary).
+
 Executors are Sourcegraph’s solution for running untrusted code in a secure and controllable way. For more information on native kubernetes executors and how they are used see the [Executors documentation](https://docs.sourcegraph.com/admin/executors/deploy_executors_kubernetes)
 
 ## Deploying
