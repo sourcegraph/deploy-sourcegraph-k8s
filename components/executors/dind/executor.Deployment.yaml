@@ -52,7 +52,7 @@ spec:
                 secretKeyRef:
                   name: executor-secret
                   key: password
-          # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
+          # Refer to https://sourcegraph.com/docs/self-hosted/executors/deploy-executors-binary#step-2-setup-environment-variables on how to populate these variables
           envFrom:
             - configMapRef:
                 name: executor-config
@@ -101,7 +101,7 @@ spec:
         - name: executor-scratch
           emptyDir:
             # Ensure we don't cause disk pressure on nodes. This value can be adjusted based on the size of the batch change or code intel requirements.
-            # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors#resource-recommendations for more information
+            # Refer to https://sourcegraph.com/docs/self-hosted/executors/deploy-executors#resource-recommendations for more information
             sizeLimit: 20Gi
         - name: docker-config
           configMap:
