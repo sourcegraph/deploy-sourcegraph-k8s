@@ -41,19 +41,36 @@ spec:
           # gitserver can take a little while to start up. To avoid killing the
           # pod because of a failed liveness probe, we give it 2 minutes to start up.
           startupProbe:
-            tcpSocket:
-              port: rpc
+            httpGet:
+              path: /ready
+              port: http-debug
+              scheme: HTTP
             failureThreshold: 120
             periodSeconds: 1
           livenessProbe:
             initialDelaySeconds: 5
-            tcpSocket:
-              port: rpc
+            httpGet:
+              path: /healthz
+              port: http-debug
+              scheme: HTTP
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http-debug
+              scheme: HTTP
+            periodSeconds: 5
             timeoutSeconds: 5
           ports:
             - containerPort: 3178
               protocol: TCP
               name: rpc
+            - containerPort: 3179
+              protocol: TCP
+              name: http-clone
+            - containerPort: 6060
+              protocol: TCP
+              name: http-debug
           resources:
             limits:
               cpu: "4"
