@@ -50,14 +50,14 @@ spec:
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
             - containerPort: 3181
-              name: http
+              name: grpc
             - containerPort: 6060
-              name: debug
+              name: http-debug
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /healthz
-              port: http
+              path: /ready
+              port: http-debug
               scheme: HTTP
             periodSeconds: 5
             timeoutSeconds: 5
