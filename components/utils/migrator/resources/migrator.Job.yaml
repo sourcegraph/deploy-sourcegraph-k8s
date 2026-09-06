@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: migrator
-          image: index.docker.io/sourcegraph/migrator:5.1.6@sha256:76facd38029ee611e5bee723736e42eedb633b2c31d4494711c55f59906a5f93
+          image: us-docker.pkg.dev/sourcegraph-images/internal/migrator:7.6.0@sha256:1fa423de247754bb69a1adbac3f7374b520ecb006ed9962a969b1b61d6557765
           args: ["up"]
           envFrom:
             - configMapRef:
