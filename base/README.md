@@ -24,12 +24,13 @@ See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/k
 
 The base configures the bundled blobstore for shared Sourcegraph uploads. The
 `sourcegraph-upload` ConfigMap is consumed by exactly `sourcegraph-frontend`,
-`worker`, `precise-code-intel-worker`, `gitserver`, and `searcher`.
+`worker`, `precise-code-intel-worker`, `syntactic-code-intel`, `gitserver`, and
+`searcher`.
 
 To use external S3 or GCS storage, patch that ConfigMap in your overlay with
 the applicable `SOURCEGRAPH_UPLOAD_*` settings. Put static credentials in a
 Secret rather than the ConfigMap, and add that Secret with `envFrom` to each
-of the five workloads. For example:
+of the six workloads. For example:
 
 ```yaml
 patches:
@@ -48,7 +49,7 @@ patches:
         value: us-east-1
   - target:
       kind: Deployment
-      name: sourcegraph-frontend|worker|precise-code-intel-worker
+      name: sourcegraph-frontend|worker|precise-code-intel-worker|syntactic-code-intel
     patch: &uploadCredentials |-
       - op: add
         path: /spec/template/spec/containers/0/envFrom/-
