@@ -22,8 +22,11 @@ See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/k
 
 ## Shared object storage
 
-The base configures the bundled blobstore for shared Sourcegraph uploads. The
-`sourcegraph-upload` ConfigMap is consumed by exactly `sourcegraph-frontend`,
+Sourcegraph requires access to an object storage backend. [Learn more](https://sourcegraph.com/docs/self-hosted/external-services/object-storage#sourcegraph-bucket).
+
+While we highly recommend using S3 or GCS for any production workloads, to get you
+started quickly the base configures a bundled blobstore.
+The `sourcegraph-upload` ConfigMap is consumed by `sourcegraph-frontend`,
 `worker`, `precise-code-intel-worker`, `syntactic-code-intel`, `gitserver`, and
 `searcher`.
 
