@@ -30,6 +30,9 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: searcher
+          envFrom:
+            - configMapRef:
+                name: sourcegraph-upload
           env:
             - name: SEARCHER_CACHE_SIZE_MB
               value: "25000"

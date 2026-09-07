@@ -19,3 +19,58 @@ If using cluster roles and cluster rolebinding RBAC is not feasible, you may cho
 ## Deploy Sourcegraph
 
 See the [Sourcegraph Kustomize docs](https://docs.sourcegraph.com/admin/deploy/kubernetes/kustomize) for the latested instructions.
+
+## Shared object storage
+
+Sourcegraph requires access to an object storage backend. [Learn more](https://sourcegraph.com/docs/self-hosted/external-services/object-storage#sourcegraph-bucket).
+
+While we highly recommend using S3 or GCS for any production workloads, to get you
+started quickly the base configures a bundled blobstore.
+The `sourcegraph-upload` ConfigMap is consumed by `sourcegraph-frontend`,
+`worker`, `precise-code-intel-worker`, `syntactic-code-intel`, `gitserver`, and
+`searcher`.
+
+To use external S3 or GCS storage, patch that ConfigMap in your overlay with
+the applicable `SOURCEGRAPH_UPLOAD_*` settings. Put static credentials in a
+Secret rather than the ConfigMap, and add that Secret with `envFrom` to each
+of the six workloads. For example:
+
+```yaml
+patches:
+  - target:
+      kind: ConfigMap
+      name: sourcegraph-upload
+    patch: |-
+      - op: replace
+        path: /data/SOURCEGRAPH_UPLOAD_BACKEND
+        value: S3
+      - op: add
+        path: /data/SOURCEGRAPH_UPLOAD_BUCKET
+        value: my-sourcegraph-uploads
+      - op: add
+        path: /data/SOURCEGRAPH_UPLOAD_AWS_REGION
+        value: us-east-1
+  - target:
+      kind: Deployment
+      name: sourcegraph-frontend|worker|precise-code-intel-worker|syntactic-code-intel
+    patch: &uploadCredentials |-
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom/-
+        value:
+          secretRef:
+            name: sourcegraph-upload-credentials
+  - target:
+      kind: StatefulSet
+      name: gitserver|searcher
+    patch: *uploadCredentials
+```
+
+Create `sourcegraph-upload-credentials` with keys such as
+`SOURCEGRAPH_UPLOAD_AWS_ACCESS_KEY_ID` and
+`SOURCEGRAPH_UPLOAD_AWS_SECRET_ACCESS_KEY`. Alternatively, configure the pod
+service accounts for your cloud provider's workload identity and set
+`SOURCEGRAPH_UPLOAD_AWS_USE_EC2_ROLE_CREDENTIALS: "true"` for S3. For GCS,
+set `SOURCEGRAPH_UPLOAD_GCP_PROJECT_ID`; workload identity uses the pod service
+account, while a key can be supplied with
+`SOURCEGRAPH_UPLOAD_GOOGLE_APPLICATION_CREDENTIALS_FILE_CONTENT` in the
+credentials Secret.

@@ -28,6 +28,9 @@ spec:
     spec:
       containers:
         - name: syntactic-code-intel
+          envFrom:
+            - configMapRef:
+                name: sourcegraph-upload
           env:
             - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
               value: blobstore
