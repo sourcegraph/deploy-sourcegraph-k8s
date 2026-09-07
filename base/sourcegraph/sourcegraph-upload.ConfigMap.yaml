@@ -6,5 +6,5 @@ metadata:
     deploy: sourcegraph
     sourcegraph-resource-requires: no-cluster-admin
 data:
-  SOURCEGRAPH_UPLOAD_BACKEND: Blobstore
+  SOURCEGRAPH_UPLOAD_BACKEND: blobstore
   SOURCEGRAPH_UPLOAD_AWS_ENDPOINT: http://blobstore:9000
