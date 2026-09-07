@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sourcegraph-upload
+  labels:
+    deploy: sourcegraph
+    sourcegraph-resource-requires: no-cluster-admin
+data:
+  SOURCEGRAPH_UPLOAD_BACKEND: Blobstore
+  SOURCEGRAPH_UPLOAD_AWS_ENDPOINT: http://blobstore:9000

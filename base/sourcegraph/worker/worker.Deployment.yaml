@@ -32,6 +32,9 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: worker
+          envFrom:
+            - configMapRef:
+                name: sourcegraph-upload
           env:
             - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
               value: blobstore
