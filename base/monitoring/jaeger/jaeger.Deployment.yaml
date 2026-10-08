@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: jaeger
-          image: index.docker.io/sourcegraph/jaeger-all-in-one:6.2.1106@sha256:c1ee8d613be75032066a9da24f54ebae19eacb63e42338e920abd6383ce168a6
+          image: index.docker.io/sourcegraph/jaeger-all-in-one:7.2.1943@sha256:833af5d14b2b393d965d073a19c66e97f8e94a5a64476992f8325a223e0606ec
           args: ["--config=/etc/jaeger/jaeger-config.yaml"]
           ports:
             - containerPort: 5778
