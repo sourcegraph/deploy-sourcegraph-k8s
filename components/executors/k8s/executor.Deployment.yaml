@@ -29,7 +29,7 @@ spec:
       serviceAccountName: executor
       containers:
         - name: executor
-          image: us-docker.pkg.dev/sourcegraph-images/internal/executor-kubernetes:8.1.0@sha256:4e6c94e0f1e89e945be569f6d8839941b1a032649a6c190b964efe62d0e10d60
+          image: index.docker.io/sourcegraph/executor-kubernetes:8.1.0@sha256:4e6c94e0f1e89e945be569f6d8839941b1a032649a6c190b964efe62d0e10d60
           imagePullPolicy: Always
           livenessProbe:
             exec:
