@@ -1,6 +1,6 @@
 module sourcegraph/deploy-sourcegraph-k8s
 
-go 1.21.5
+go 1.26.4
 
 require (
 	github.com/pkg/errors v0.9.1
