@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: node-exporter
-          image: index.docker.io/sourcegraph/node-exporter:8.1.2687@sha256:acddf959e6545a8b1952aa4272a3c4e2bea8090038c59c9aa9bb03e68419afeb
+          image: index.docker.io/sourcegraph/node-exporter:8.2.0@sha256:6cb3985a76465d2935e476ee6c460ea64d743a789b2a91e12ac68175e3f8eb25
           imagePullPolicy: IfNotPresent
           resources:
             limits:
