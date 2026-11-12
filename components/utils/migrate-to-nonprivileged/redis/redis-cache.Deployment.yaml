@@ -7,7 +7,7 @@ spec:
     spec:
       initContainers:
         - name: transfer-file-ownership
-          image: index.docker.io/sourcegraph/alpine-3.14:insiders
+          image: index.docker.io/sourcegraph/postgresql-16
           command: ["sh", "-c", "chown -R 999:1000 /redis-data"]
           volumeMounts:
             - mountPath: /redis-data
