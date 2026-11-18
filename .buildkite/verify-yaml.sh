@@ -1,10 +1,20 @@
 #!/bin/bash
 
-set -ex
+set -exo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-gcloud container clusters get-credentials cloud --zone us-central1-f --project sourcegraph-dev
+# Validate the rendered manifests against the Kubernetes schemas offline. This
+# used to be a server-side dry run against the old dotcom cluster, which is
+# being removed.
+KUBECONFORM_VERSION=0.6.7
+KUBERNETES_VERSION=1.33.0
 
-kubectl kustomize ./base/. | kubectl apply --dry-run --validate --context=gke_sourcegraph-dev_us-central1-f_cloud -f -
+bin="$(mktemp -d)"
+trap 'rm -rf "$bin"' EXIT
+curl -sSfL "https://github.com/yannh/kubeconform/releases/download/v${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" |
+  tar -xz -C "$bin" kubeconform
+
+kubectl kustomize ./base/. |
+  "$bin/kubeconform" -strict -summary -kubernetes-version "$KUBERNETES_VERSION"
 
 .buildkite/verify-label.sh
