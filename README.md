@@ -14,7 +14,7 @@ updating, and maintaining a Sourcegraph cluster using Kustomize.
 
 - [Installing](https://sourcegraph.com/docs/admin/deploy/kubernetes)
 - [Configuring](https://sourcegraph.com/docs/admin/deploy/kubernetes/configure)
-- [Updating](https://sourcegraph.com/docs/admin/updates/kubernetes)
+- [Updating](https://sourcegraph.com/docs/self-hosted/deploy/kubernetes/upgrade)
 - [Scaling](https://sourcegraph.com/docs/admin/deploy/scale)- general advice on scaling services
 - [Resource estimator: instance size](https://sourcegraph.com/docs/admin/deploy/instance-size) - specific resource values for your instance based on your instance size
 - [Troubleshooting](https://sourcegraph.com/docs/admin/install/kubernetes/troubleshoot)
@@ -27,7 +27,7 @@ Please refer to the [Sourcegraph Kustomize docs](https://sourcegraph.com/docs/ad
 
 ## Upgrade
 
-When upgrading Sourcegraph, please check the [upgrade docs for Kubernetes](https://sourcegraph.com/docs/admin/updates/kubernetes) to confirm if manual migrations is necessary.
+When upgrading Sourcegraph, follow the [Kustomize upgrade guide](https://sourcegraph.com/docs/self-hosted/deploy/kubernetes/upgrade) and check the [release notes](https://sourcegraph.com/changelog/self-hosted/kubernetes) for every version your upgrade passes through and ends on.
 
 ## Feedback
 
