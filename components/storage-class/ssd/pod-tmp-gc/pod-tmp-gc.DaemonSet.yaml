@@ -19,8 +19,6 @@ spec:
         - $(NODE_NAME)
         - /pod-tmp
         env:
-        - name: DEPLOY_TYPE
-          value: kustomize
         - name: NODE_NAME
           valueFrom:
             fieldRef:

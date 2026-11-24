@@ -25,9 +25,6 @@ spec:
     spec:
       containers:
         - name: redis-store
-          env:
-            - name: DEPLOY_TYPE
-              value: kustomize
           image: index.docker.io/sourcegraph/redis-store:8.1.2687@sha256:b733fceadfa1863671ab11704e354573241217c4aa604aba64533c7bae101127
           terminationMessagePolicy: FallbackToLogsOnError
           livenessProbe:
@@ -72,9 +69,6 @@ spec:
             - mountPath: /redis-data
               name: redis-data
         - name: redis-exporter
-          env:
-            - name: DEPLOY_TYPE
-              value: kustomize
           image: index.docker.io/sourcegraph/redis_exporter:8.1.2687@sha256:898666a0c7fc28b6b90f1f01893cb35668a97dbcc4f18056ca5f8d2ac89b2292
           terminationMessagePolicy: FallbackToLogsOnError
           ports:

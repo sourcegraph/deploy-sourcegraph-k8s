@@ -26,9 +26,6 @@ spec:
     spec:
       initContainers:
         - name: correct-data-dir-permissions
-          env:
-            - name: DEPLOY_TYPE
-              value: kustomize
           image: index.docker.io/sourcegraph/postgresql-16-codeinsights:8.1.2687@sha256:b7e2df5a6a63e323987eeaca23fe9f05278d4c97f96f1994b89dac3c60dedcd3
           command: ["sh", "-c", "if [ -d /var/lib/postgresql/data/pgdata ]; then chmod 750 /var/lib/postgresql/data/pgdata; fi"]
           volumeMounts:
@@ -50,8 +47,6 @@ spec:
         - name: codeinsights
           image: index.docker.io/sourcegraph/postgresql-16-codeinsights:8.1.2687@sha256:b7e2df5a6a63e323987eeaca23fe9f05278d4c97f96f1994b89dac3c60dedcd3
           env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: POSTGRES_DB
               value: postgres
             - name: POSTGRES_PASSWORD # Accessible by Sourcegraph applications on the network only, so password auth is not used.
@@ -83,8 +78,6 @@ spec:
             - mountPath: /conf
               name: codeinsights-conf
         - env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: DATA_SOURCE_NAME
               value: postgres://postgres:@localhost:5432/?sslmode=disable
             - name: PG_EXPORTER_EXTEND_QUERY_PATH

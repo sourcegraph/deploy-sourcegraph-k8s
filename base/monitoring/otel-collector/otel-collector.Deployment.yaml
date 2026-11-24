@@ -26,9 +26,6 @@ spec:
     spec:
       containers:
         - name: otel-collector
-          env:
-            - name: DEPLOY_TYPE
-              value: kustomize
           image: index.docker.io/sourcegraph/opentelemetry-collector:8.1.2687@sha256:beb7d1bb58a7fda06952975f1f7c9351bffded72de358db50e810e3c13260d40
           command:
             - "/bin/otelcol-sourcegraph"

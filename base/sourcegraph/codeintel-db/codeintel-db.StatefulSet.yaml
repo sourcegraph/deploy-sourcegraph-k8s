@@ -27,9 +27,6 @@ spec:
     spec:
       initContainers:
         - name: correct-data-dir-permissions
-          env:
-            - name: DEPLOY_TYPE
-              value: kustomize
           image: index.docker.io/sourcegraph/postgresql-16:8.1.2687@sha256:cc810cd21f1df7776aa270f49bdd50a4ec3375623ffae1f0238c20dec054bf03
           command: ["sh", "-c", "if [ -d /data/pgdata-12 ]; then chmod 750 /data/pgdata-12; fi"]
           volumeMounts:
@@ -48,9 +45,6 @@ spec:
               memory: "50Mi"
       containers:
         - name: pgsql
-          env:
-            - name: DEPLOY_TYPE
-              value: kustomize
           image: index.docker.io/sourcegraph/postgresql-16:8.1.2687@sha256:cc810cd21f1df7776aa270f49bdd50a4ec3375623ffae1f0238c20dec054bf03
           terminationMessagePolicy: FallbackToLogsOnError
           readinessProbe:
@@ -89,8 +83,6 @@ spec:
             - mountPath: /conf
               name: pgsql-conf
         - env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: DATA_SOURCE_NAME
               value: postgres://sg:@localhost:5432/?sslmode=disable
             - name: PG_EXPORTER_EXTEND_QUERY_PATH

@@ -23,8 +23,6 @@ spec:
           name: private-docker-registry
           imagePullPolicy: IfNotPresent
           env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: REGISTRY_PROXY_REMOTEURL
               value: http://registry-1.docker.io
           ports:
