@@ -9,5 +9,3 @@ metadata:
     app.kubernetes.io/component: executor
 data:
   EXECUTOR_USE_FIRECRACKER: "false"
-  EXECUTOR_KUBERNETES_PERSISTENCE_VOLUME_NAME: "sg-executor-pvc"
-  EXECUTOR_KUBERNETES_POD_AFFINITY: '[{"labelSelector": {"matchExpressions": [{"key": "app", "operator": "In", "values": ["executor"]}]}, "topologyKey": "kubernetes.io/hostname"}]'

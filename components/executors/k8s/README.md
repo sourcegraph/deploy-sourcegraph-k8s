@@ -15,8 +15,7 @@ It is expected that all components contained in this directory and any subdirect
 The following components will deploy:
 
 - [Executor ConfigMap](./executor.ConfigMap.yaml) the configurations for the executors.
-- [Executor Deployment](./executor.Deployment.yaml) An executor replica with a Docker sidecar to run isolated batch changes and auto-indexing jobs.
-- [Executor Persistent Volume Claim](./executor.PersistentVolumeClaim.yaml) A headless service for executor metrics access. Executors are not externally accessible.
+- [Executor Deployment](./executor.Deployment.yaml) The executor, which runs each batch change and auto-indexing job in its own Kubernetes Job pod. Each job pod has its own workspace volume and can run on any node. To run more jobs at once, raise `EXECUTOR_MAXIMUM_NUM_JOBS` or scale the Deployment's replicas.
 - [Executor Service](./executor.Service.yaml) A headless service for executor metrics access. Executors are not externally accessible.
 - [RBAC] The required rules for executors to interact with the Kubernetes API.
   - [Executor Role](./rbac/executor.Role.yaml) Contains the required rules.
