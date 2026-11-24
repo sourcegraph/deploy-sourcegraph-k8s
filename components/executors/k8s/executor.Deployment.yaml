@@ -48,6 +48,8 @@ spec:
             periodSeconds: 5
           terminationMessagePolicy: FallbackToLogsOnError
           env:
+            - name: DEPLOY_TYPE
+              value: kustomize
             - name: EXECUTOR_FRONTEND_PASSWORD
               valueFrom:
                 secretKeyRef:

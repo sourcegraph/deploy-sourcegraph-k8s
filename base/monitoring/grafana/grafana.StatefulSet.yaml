@@ -26,6 +26,9 @@ spec:
     spec:
       containers:
         - name: grafana
+          env:
+            - name: DEPLOY_TYPE
+              value: kustomize
           image: index.docker.io/sourcegraph/grafana:8.1.2687@sha256:c24d2f1647dc59e499cface18fba62aff1bc0de152ea95036c8d876d35f5da74
           terminationMessagePolicy: FallbackToLogsOnError
           ports:

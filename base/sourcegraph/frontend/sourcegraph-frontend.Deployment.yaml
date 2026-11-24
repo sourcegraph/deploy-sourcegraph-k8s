@@ -29,6 +29,9 @@ spec:
     spec:
       initContainers:
         - name: migrator
+          env:
+            - name: DEPLOY_TYPE
+              value: kustomize
           image: index.docker.io/sourcegraph/migrator:8.1.2687@sha256:c5bf0f81f3b07f7769f694525bef0a2d547a554f99113115a33b0925a16ef5ea
           args: ["up"]
           resources:
@@ -58,6 +61,8 @@ spec:
                 name: sourcegraph-upload
           # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable
           env:
+            - name: DEPLOY_TYPE
+              value: kustomize
             - name: OTEL_AGENT_HOST
               valueFrom:
                 fieldRef:

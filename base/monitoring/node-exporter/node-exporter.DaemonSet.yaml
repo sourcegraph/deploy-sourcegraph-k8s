@@ -44,6 +44,8 @@ spec:
             - --collector.netclass.ignored-devices=^(veth.*)$
             - --collector.netdev.device-exclude=^(veth.*)$
           env:
+            - name: DEPLOY_TYPE
+              value: kustomize
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true

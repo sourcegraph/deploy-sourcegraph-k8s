@@ -47,6 +47,8 @@ spec:
             periodSeconds: 5
           terminationMessagePolicy: FallbackToLogsOnError
           env:
+            - name: DEPLOY_TYPE
+              value: kustomize
             - name: EXECUTOR_FRONTEND_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -83,6 +85,8 @@ spec:
             periodSeconds: 5
             failureThreshold: 5
           env:
+            - name: DEPLOY_TYPE
+              value: kustomize
             - name: POD_NAME
               valueFrom:
                 fieldRef:
