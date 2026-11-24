@@ -28,6 +28,9 @@ spec:
     spec:
       containers:
         - name: syntect-server
+          env:
+            - name: DEPLOY_TYPE
+              value: kustomize
           securityContext:
             allowPrivilegeEscalation: false
             runAsGroup: 101

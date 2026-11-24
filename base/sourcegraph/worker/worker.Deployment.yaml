@@ -36,6 +36,8 @@ spec:
             - configMapRef:
                 name: sourcegraph-upload
           env:
+            - name: DEPLOY_TYPE
+              value: kustomize
             - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
               value: blobstore
             - name: PRECISE_CODE_INTEL_UPLOAD_AWS_ENDPOINT
