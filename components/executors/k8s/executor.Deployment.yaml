@@ -55,6 +55,8 @@ spec:
                   key: password
             - name: DEPLOY_TYPE
               value: kustomize
+            - name: EXECUTOR_DEPLOY_TYPE
+              value: kustomize-k8s
           # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
           envFrom:
             - configMapRef:
