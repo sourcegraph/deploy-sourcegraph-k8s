@@ -59,10 +59,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: executor-config
-          volumeMounts:
-            - mountPath: /data
-              name: sg-executor-volume
-      volumes:
-        - name: sg-executor-volume
-          persistentVolumeClaim:
-            claimName: sg-executor-pvc
