@@ -32,8 +32,6 @@ spec:
             - configMapRef:
                 name: sourcegraph-upload
           env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: PRECISE_CODE_INTEL_UPLOAD_BACKEND
               value: blobstore
             - name: PRECISE_CODE_INTEL_UPLOAD_AWS_ENDPOINT
@@ -42,6 +40,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: DEPLOY_TYPE
+              value: kustomize
           image: index.docker.io/sourcegraph/syntactic-code-intel-worker:8.1.2687@sha256:702609626636fd06c204a8a7e18941eb13df096784cea732d1c036069866cc40
           terminationMessagePath: FallbackToLogsOnError
           livenessProbe:

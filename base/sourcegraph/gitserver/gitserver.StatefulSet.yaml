@@ -31,8 +31,6 @@ spec:
             - configMapRef:
                 name: sourcegraph-upload
           env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             # OTEL_AGENT_HOST must be defined before OTEL_EXPORTER_OTLP_ENDPOINT to substitute the node IP on which the DaemonSet pod instance runs in the latter variable
             - name: OTEL_AGENT_HOST
               valueFrom:
@@ -40,6 +38,8 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
+            - name: DEPLOY_TYPE
+              value: kustomize
           image: index.docker.io/sourcegraph/gitserver:8.1.2687@sha256:03c984acc6e69ed015ecf01402cf22f7b8b90582a0791a48adf695df8b97bd39
           terminationMessagePolicy: FallbackToLogsOnError
           # Temporary: when migrating from repo names to repo IDs on disk,

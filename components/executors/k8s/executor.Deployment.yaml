@@ -48,13 +48,13 @@ spec:
             periodSeconds: 5
           terminationMessagePolicy: FallbackToLogsOnError
           env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: EXECUTOR_FRONTEND_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: executor-secret
                   key: password
+            - name: DEPLOY_TYPE
+              value: kustomize
           # Refer to https://docs.sourcegraph.com/admin/executors/deploy_executors_binary#step-2-setup-environment-variables on how to populate these variables
           envFrom:
             - configMapRef:
