@@ -34,8 +34,6 @@ spec:
             - configMapRef:
                 name: sourcegraph-upload
           env:
-            - name: DEPLOY_TYPE
-              value: kustomize
             - name: SEARCHER_CACHE_SIZE_MB
               value: "25000"
             - name: POD_NAME
@@ -51,6 +49,8 @@ spec:
                   fieldPath: status.hostIP
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://$(OTEL_AGENT_HOST):4317
+            - name: DEPLOY_TYPE
+              value: kustomize
           image: index.docker.io/sourcegraph/searcher:8.1.2687@sha256:acfbc9c127ebdbd4053ac835bcf90093f9d8bf4834a6275a549384db4eacd66f
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
